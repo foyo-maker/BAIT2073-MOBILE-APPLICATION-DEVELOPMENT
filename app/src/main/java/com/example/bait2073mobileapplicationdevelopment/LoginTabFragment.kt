@@ -36,7 +36,8 @@ class LoginTabFragment : Fragment() {
 
         return rootView
     }
-//testing
+
+    //testing
     private fun validateLoginFields() {
         val email = loginEmailEditText.text.toString().trim()
         val password = loginPasswordEditText.text.toString()
@@ -61,7 +62,10 @@ class LoginTabFragment : Fragment() {
 //AA
         // Check if password is at least 6 characters long
         if (password.length < 6) {
-            setErrorForEditText(loginPasswordEditText, "Password should be at least 6 characters long.")
+            setErrorForEditText(
+                loginPasswordEditText,
+                "Password should be at least 6 characters long."
+            )
             return
         }
 
@@ -114,4 +118,5 @@ class LoginTabFragment : Fragment() {
         view?.let {
             Snackbar.make(it, message, Snackbar.LENGTH_LONG).show()
         }
- 
+    }
+}
