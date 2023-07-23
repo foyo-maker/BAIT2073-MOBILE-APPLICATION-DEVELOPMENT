@@ -58,7 +58,7 @@ class LoginTabFragment : Fragment() {
             setErrorForEditText(loginPasswordEditText, "Please enter your password.")
             return
         }
-
+//AA
         // Check if password is at least 6 characters long
         if (password.length < 6) {
             setErrorForEditText(loginPasswordEditText, "Password should be at least 6 characters long.")
@@ -114,5 +114,4 @@ class LoginTabFragment : Fragment() {
         view?.let {
             Snackbar.make(it, message, Snackbar.LENGTH_LONG).show()
         }
-    }
-}
+ 
