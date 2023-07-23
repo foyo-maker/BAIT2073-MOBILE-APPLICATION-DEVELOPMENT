@@ -36,7 +36,7 @@ class LoginTabFragment : Fragment() {
 
         return rootView
     }
-
+//testing
     private fun validateLoginFields() {
         val email = loginEmailEditText.text.toString().trim()
         val password = loginPasswordEditText.text.toString()
