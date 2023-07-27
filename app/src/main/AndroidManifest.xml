@@ -13,18 +13,32 @@
         android:theme="@style/Theme.BAIT2073MOBILEAPPLICATIONDEVELOPMENT"
 
         tools:targetApi="31">
-<!--        hahahaha-->
+        <!--        hahahaha-->
+
+        <!-- Add RequestGenderActivity declaration -->
+        <activity
+            android:name=".profile.RequestGenderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".fragment.MainFragment"
+            android:exported="true" />
+
+        <activity
+            android:name=".profile.RequestBmiActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

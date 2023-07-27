@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">BAIT2073 MOBILE APPLICATION DEVELOPMENT</string>
+    <string name="genderTitle">What\'s your gender?\n</string>
+    <string name="subGenderTitle">Let Us Know You Better!</string>
+    <string name="next">Next\n</string>
+    <string name="female">Female\n</string>
+    <string name="male">Male\n</string>
+    <string name="weightHeightTitle">How Tall And Weight Are You?</string>
+    <string name="subHeightWeightTitle">To Personalized Your Workout!</string>
+
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.example.bait2073mobileapplicationdevelopment
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager2.widget.ViewPager2
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
+
+
+
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
