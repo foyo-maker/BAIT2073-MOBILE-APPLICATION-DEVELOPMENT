@@ -13,5 +13,6 @@
     <color name="error">#ffcc0000</color>
     <color name="secondary">#517FEE</color>
     <color name="pink">#FF2B50</color>
+    <color name="buttonEvent">#0c94ec</color>
 
 </resources>
