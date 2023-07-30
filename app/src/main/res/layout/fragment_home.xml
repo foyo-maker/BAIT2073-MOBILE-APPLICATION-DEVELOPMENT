@@ -1,16 +1,372 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     tools:context="com.example.bait2073mobileapplicationdevelopment.fragment.HomeFragment">
-    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintHeight_max="900dp"
+
+        >
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:background="@color/lavender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+
+         />
+
     <TextView
+        android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home Fragment"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="69dp"
+        android:text="Total"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/calorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="100dp"
+        android:text="0.0"
+        android:textColor="@color/white"
         android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/lavender"/>
-</RelativeLayout>
+
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="110dp"
+        android:text="Kcal"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+
+
+        app:layout_constraintStart_toEndOf="@+id/calorie"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timeCal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:text="00:00"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/kcal"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="110dp"
+        android:text="Time"
+        android:textColor="@color/white"
+
+        android:textSize="20sp"
+
+        app:layout_constraintStart_toEndOf="@+id/timeCal"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/welcomeView"
+        android:layout_width="match_parent"
+
+
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Welcome To Healthy Life+"
+                android:textSize="23sp" />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/personalizedRecommend"
+        android:layout_width="match_parent"
+
+
+        android:layout_height="160dp"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="29dp"
+        app:cardElevation="12dp"
+        android:layout_marginTop="40dp"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/welcomeView">
+
+        <ImageView
+            android:id="@+id/girlView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_workout_men" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+            <ImageView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+
+
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/ic_home_about" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+
+
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Personalized Workout"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/myTrainCardView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:cardCornerRadius="29dp"
+            app:cardElevation="12dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="24dp"
+
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="34dp"
+            app:layout_constraintTop_toBottomOf="@+id/personalizedRecommend">
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_girl_trainning" />
+
+            <RelativeLayout
+                android:layout_width="366dp"
+                android:layout_height="match_parent"
+
+
+                >
+
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+
+
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ic_home_about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="My Own Training"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Others"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/black"
+
+            android:textSize="20sp"
+
+            app:layout_constraintStart_toStartOf="@+id/myTrainCardView"
+            app:layout_constraintTop_toBottomOf="@+id/myTrainCardView" />
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/eventCardView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:cardCornerRadius="29dp"
+            app:cardElevation="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="34dp"
+            app:layout_constraintTop_toBottomOf="@+id/more">
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_girl_personalized" />
+
+            <RelativeLayout
+                android:layout_width="366dp"
+                android:layout_height="match_parent"
+
+
+                >
+
+
+                <ImageView
+                    android:id="@+id/eventImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+
+
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ic_home_about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Event Vaccination"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/diseaseCardView"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:cardCornerRadius="29dp"
+            app:cardElevation="12dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="24dp"
+
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="34dp"
+            app:layout_constraintTop_toBottomOf="@+id/eventCardView">
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_workout_men_before_18" />
+
+            <RelativeLayout
+                android:layout_width="366dp"
+                android:layout_height="match_parent"
+
+
+                >
+
+
+                <ImageView
+                    android:id="@+id/diseaseImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+
+
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/ic_home_about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Disease Prevention "
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

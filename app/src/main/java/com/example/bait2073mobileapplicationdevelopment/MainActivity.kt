@@ -1,47 +1,57 @@
 package com.example.bait2073mobileapplicationdevelopment
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.util.Pair
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
-
-
-
-import com.google.android.material.tabs.TabLayout
+import com.example.bait2073mobileapplicationdevelopment.auth.LoginActivity
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager2: ViewPager2
-    private lateinit var adapter: ViewPagerAdapter
+
+    private val SPLASH_SCREEN = 3000L // Change SPLASH_SCREEN type to Long
+    private lateinit var image: ImageView
+    private lateinit var logo: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tabLayout = findViewById(R.id.tab_layout)
-        viewPager2 = findViewById(R.id.view_pager)
+        // Initialize your views using findViewById
+        image = findViewById(R.id.logo_image)
+        logo = findViewById(R.id.logo_text)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Login"))
-        tabLayout.addTab(tabLayout.newTab().setText("Signup"))
+        val topAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.top_animation)
+        val bottomAnim: Animation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation)
 
-        adapter = ViewPagerAdapter(this)
-        viewPager2.adapter = adapter
+        // Set animations to views
+        image.startAnimation(topAnim)
+        logo.startAnimation(bottomAnim)
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager2.currentItem = tab.position
+        // Delay the transition to the next screen
+        Handler().postDelayed({
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+
+            val pairs = arrayOf<Pair<View, String>>(
+                Pair(image, "logo_image"),
+                Pair(logo, "logo_text")
+            )
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                val options = android.app.ActivityOptions.makeSceneTransitionAnimation(
+                    this@MainActivity,
+                    *pairs
+                )
+                startActivity(intent, options.toBundle())
+            } else {
+                startActivity(intent)
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
-
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                tabLayout.selectTab(tabLayout.getTabAt(position))
-            }
-        })
+            finish()
+        }, SPLASH_SCREEN)
     }
 }
-
-

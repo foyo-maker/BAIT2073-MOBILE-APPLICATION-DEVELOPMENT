@@ -18,7 +18,7 @@
         android:title="Subscriptions"
         android:icon="@drawable/nav_about" />
     <item
-        android:id="@+id/library"
+        android:id="@+id/report"
         android:title="Report"
         android:icon="@drawable/baseline_bar_chart_24"/>
 

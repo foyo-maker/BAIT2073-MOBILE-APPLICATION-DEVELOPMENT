@@ -10,6 +10,10 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.google.android.material.navigation.NavigationView
 import android.widget.Toast
 import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 
 
 import androidx.core.content.ContextCompat
@@ -36,9 +40,14 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolbar.setTitleTextColor(Color.WHITE)
-        toolbar.title = "Healthy Life+"
+
+        val boldTitle = SpannableString("Healthy Life+")
+        boldTitle.setSpan(StyleSpan(Typeface.BOLD), 0, boldTitle.length, 0)
+        toolbar.title = boldTitle
+
         setSupportActionBar(toolbar)
 
+//        setToolbarTitle("Healthy Life+", isBold = true)
 
         val toggle = androidx.appcompat.app.ActionBarDrawerToggle(
             this, binding.drawerLayout, toolbar,
@@ -59,7 +68,7 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.home -> replaceFragment(HomeFragment())
                 R.id.shorts -> replaceFragment(AboutFragment())
                 R.id.subscriptions -> replaceFragment(SettingsFragment())
-                R.id.library -> replaceFragment(HomeFragment())
+                R.id.report -> replaceFragment(ReportFragment())
             }
             true
         }
@@ -93,8 +102,12 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
             }
-            R.id.nav_settings -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, SettingsFragment()).commit()
+            R.id.nav_profile -> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, ProfileFragment()).commit()
+
+            }
+            R.id.nav_change_password-> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, ChangePasswordFragment()).commit()
 
             }
             R.id.nav_about -> {
