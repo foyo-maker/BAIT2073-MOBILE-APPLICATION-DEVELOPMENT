@@ -14,6 +14,7 @@
     <color name="secondary">#517FEE</color>
     <color name="pink">#FF2B50</color>
     <color name="buttonEvent">#0c94ec</color>
+    <color name="ligth_text">#b4b4b4</color>
     <color name="border_color">#FF000000</color>
     <color name="logintext">#373737</color>
 </resources>

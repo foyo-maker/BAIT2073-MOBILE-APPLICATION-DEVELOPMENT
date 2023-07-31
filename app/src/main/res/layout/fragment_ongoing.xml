@@ -1,10 +1,9 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="fragment"
-            type="com.example.bait2073mobileapplicationdevelopment.fragment.EventFragment" />
+            type="com.example.bait2073mobileapplicationdevelopment.fragment.OngoingFragment" />
     </data>
 
     <ScrollView
@@ -12,7 +11,7 @@
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/eventFrame"
+            android:id="@+id/frame_ongoing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
@@ -37,7 +36,7 @@
                         android:background="?android:attr/windowBackground"
                         android:fontFamily="@font/poppins_light"
                         android:padding="5dp"
-                        android:text="Discover Events"
+                        android:text="Ongoing Events"
                         android:textColor="@color/ligth_text"
                         android:textSize="15sp"
                         android:textStyle="bold" />
