@@ -1,6 +1,7 @@
 package com.example.bait2073mobileapplicationdevelopment.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,10 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.Data.EventDataClass
+import com.example.bait2073mobileapplicationdevelopment.Event.EventDetailsActivity
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.adapter.AdapterEventClass
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentEventBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.RecycleviewEventBinding
+import com.example.bait2073mobileapplicationdevelopment.profile.RequestBmiActivity
+import com.example.bait2073mobileapplicationdevelopment.profile.RequestGenderActivity
 
 
 class EventFragment : Fragment() {
@@ -38,15 +42,31 @@ class EventFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event, container, false)
         bindingRecycle = DataBindingUtil.inflate(inflater, R.layout.recycleview_event, container, false)
 
-        print("message")
+//        bindingRecycle.CardView.setOnClickListener{
+//            Toast.makeText(requireContext(), "CardView Clicked!", Toast.LENGTH_SHORT).show()
+////            findNavController().navigate(R.id.)
+//
+////            childFragmentManager.beginTransaction().replace(R.id.eventFrame, EventDetailsFragment()).commit()
+//        }
+
+
+
+//        bindingRecycle.CardView.setOnClickListener {
+//            Toast.makeText(requireContext(), "CardView Clicked!", Toast.LENGTH_SHORT).show()
+//            val intent = Intent(requireContext(), EventDetailsActivity::class.java)
+//            startActivity(intent)
+//        }
+
+
+
         val context: Context =  requireContext()
         val message = "Your toast message here"
         val duration = Toast.LENGTH_SHORT
-        Toast.makeText(context, message, duration).show()
+//        Toast.makeText(context, message, duration).show()
         imageList = arrayOf(
-            R.drawable.event_run,
+            R.drawable.event_run3,
             R.drawable.event_vaccine,
-            R.drawable.event_marathon
+            R.drawable.event_run2
         )
 
         titleList = arrayOf(
@@ -82,6 +102,11 @@ class EventFragment : Fragment() {
 
     }
 
-
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = childFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_layout, fragment)
+        fragmentTransaction.commit()
+    }
 
 }
