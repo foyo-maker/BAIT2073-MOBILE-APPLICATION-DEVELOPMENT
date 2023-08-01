@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+
     >
 
     <data>
@@ -7,9 +9,13 @@
             type="com.example.bait2073mobileapplicationdevelopment.fragment.EventFragment" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:isScrollContainer="false"
         android:layout_width="match_parent"
+        android:clipToPadding="false"
         android:layout_height="match_parent">
+
+
 
         <FrameLayout
             android:id="@+id/eventFrame"
@@ -33,7 +39,7 @@
                         android:id="@+id/titleTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="45dp"
                         android:background="?android:attr/windowBackground"
                         android:fontFamily="@font/poppins_light"
                         android:padding="5dp"
@@ -60,5 +66,5 @@
                 </LinearLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </FrameLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

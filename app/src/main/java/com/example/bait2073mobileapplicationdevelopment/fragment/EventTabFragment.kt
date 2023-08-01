@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.example.bait2073mobileapplicationdevelopment.Data.EventDataClass
@@ -32,6 +33,9 @@ class EventTabFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_tab, container, false)
         tabLayout = binding.tabLayout
         viewPager = binding.viewpager
+
+
+
 
         return binding.root
     }

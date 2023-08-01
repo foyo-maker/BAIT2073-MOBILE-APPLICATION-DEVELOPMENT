@@ -14,4 +14,8 @@
 
         <item name="android:background">@drawable/edittext_bkg</item>
     </style>
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">20dp</item>
+        <!-- Add other attributes you want to customize here -->
+    </style>
 </resources>

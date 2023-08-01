@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bait2073mobileapplicationdevelopment.Data.EventDataClass
 import com.example.bait2073mobileapplicationdevelopment.Event.EventDetailsActivity
@@ -32,11 +36,31 @@ class AdapterEventClass (private val dataList:ArrayList<EventDataClass>) : Recyc
         holder.rvTitle.text = currentItem.dataTitle
         holder.rvDetail.text = currentItem.dataDetail
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, EventDetailsActivity::class.java)
-            // Pass any necessary data to the EventDetailsActivity using Intent extras
-            // For example: intent.putExtra("event_id", item.eventId)
-            holder.itemView.context.startActivity(intent)
+//            val intent = Intent(holder.itemView.context, EventDetailsActivity::class.java)
+//            // Pass any necessary data to the EventDetailsActivity using Intent extras
+//            // For example: intent.putExtra("event_id", item.eventId)
+//            holder.itemView.context.startActivity(intent)
+
+            val fragment = EventDetailsActivity() // Replace YourFragment() with the actual fragment class you want to navigate to
+
+            // Get the FragmentManager from the activity
+            val fragmentManager = (holder.itemView.context as AppCompatActivity).supportFragmentManager
+
+            // Start a fragment transaction
+            val transaction = fragmentManager.beginTransaction()
+
+            // Replace the fragment_container with the new fragment
+//            transaction.replace(R.id.fragment_layout, fragment)
+
+            // Add the transaction to the back stack (optional)
+            transaction.addToBackStack(null)
+
+            // Commit the transaction
+            transaction.commit()
         }
+
+
+
 
 
     }
