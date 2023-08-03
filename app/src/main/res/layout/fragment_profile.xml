@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintHeight_max="900dp"
+
 
         >
     <View
@@ -45,7 +45,8 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
 
-
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
 
 
         app:layout_constraintHorizontal_bias="1.0"
@@ -86,8 +87,8 @@
 
                 <Button
                     android:id="@+id/uploadButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="140dp"
+                    android:layout_height="65dp"
                     android:text="Upload Image"
                     android:layout_marginRight="30dp"
 
@@ -100,7 +101,7 @@
 
 
                 android:id="@+id/uploadImage"
-                android:src="@drawable/baseline_person_24" />
+                android:src="@drawable/img_person" />
 
 
 
@@ -309,7 +310,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
                 android:text="Save"
                 android:id="@+id/saveButton"
                 android:textSize="18sp"

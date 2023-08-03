@@ -588,7 +588,7 @@
             android:layout_width="match_parent"
 
 
-            android:layout_height="400dp"
+            android:layout_height="410dp"
 
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -596,6 +596,8 @@
             app:cardElevation="12dp"
             android:layout_marginTop="40dp"
 
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weightCardView">
 
 
@@ -700,10 +702,12 @@
                     android:id="@+id/overallObesityImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
+
                     android:layout_marginTop="200dp"
 
 
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/img_overall_obesity" />
 
 

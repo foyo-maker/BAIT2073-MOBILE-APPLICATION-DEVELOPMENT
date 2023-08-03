@@ -13,6 +13,7 @@
         android:angle="198"/>
 
     <corners
+
         android:bottomRightRadius="108dp"
         android:bottomLeftRadius="108dp"/>
 
