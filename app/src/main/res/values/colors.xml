@@ -17,4 +17,5 @@
     <color name="ligth_text">#b4b4b4</color>
     <color name="border_color">#FF000000</color>
     <color name="logintext">#373737</color>
+    <color name="symptomCard">#DCCACA</color>
 </resources>
