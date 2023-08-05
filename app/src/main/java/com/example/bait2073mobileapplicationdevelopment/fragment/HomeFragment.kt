@@ -1,5 +1,4 @@
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -31,10 +30,6 @@ class HomeFragment : Fragment() {
 
         val showDialog: ImageView = view.findViewById(R.id.icon_add)
 
-<<<<<<< HEAD
-
-}
-=======
         // Create the Dialog here
         dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.custom_dialog_notification)
@@ -74,4 +69,3 @@ class HomeFragment : Fragment() {
         }
     }
 }
->>>>>>> 3ffab02a57a02a800fc53cbf95b65504336d9674
