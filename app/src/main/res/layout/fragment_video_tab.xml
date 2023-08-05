@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.bait2073mobileapplicationdevelopment.fragment.WorkoutVideoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
+
+
+            <WebView
+                android:layout_marginTop="25dp"
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/gif_exercise_squat"
+
+
+                tools:ignore="WebViewLayout" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                android:padding="20dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="Squat With Standing Position"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/time_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="7dp"
+
+                    android:layout_marginEnd="0dp"
+
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="start"
+                    android:text="Stand up with your feet shoulder-width apart.
+Bend your knees, press your hips back and stop the movement once the hip joint is slightly lower than the knees.
+Press your heels into the floor to return to the initial position.
+Repeat until set is complete."
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/titleSubFont"
+
+
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

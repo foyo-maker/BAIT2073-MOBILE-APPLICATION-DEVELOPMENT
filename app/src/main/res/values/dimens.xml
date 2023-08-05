@@ -7,5 +7,9 @@
     <dimen name="titleFont">32sp</dimen>
     <dimen name="btn_padding">14dp</dimen>
     <dimen name="titleSubFont">16sp</dimen>
+<<<<<<< HEAD
     <dimen name="text_margin">16dp</dimen>
+=======
+    <dimen name="_16sdp">16dp</dimen>
+>>>>>>> 3ffab02a57a02a800fc53cbf95b65504336d9674
 </resources>
