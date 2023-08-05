@@ -18,10 +18,7 @@
 
 
         <!-- Add RequestGenderActivity declaration -->
-        <activity
-            android:name=".Event.EventDetailsActivity"
-            android:exported="true"
-            />
+
         <activity
             android:name=".fragment.WorkoutFragment"
 

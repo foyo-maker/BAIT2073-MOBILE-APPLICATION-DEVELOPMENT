@@ -36,7 +36,7 @@ class AdapterEventClass(private val dataList:ArrayList<EventDataClass>,private v
 //            // For example: intent.putExtra("event_id", item.eventId)
 //            holder.itemView.context.startActivity(intent)
 
-            fragment.findNavController().navigate(R.id.action_eventTabFragment_to_eventDetailsFragment)
+//            fragment.findNavController().navigate(R.id.action_eventTabFragment_to_eventDetailsFragment)
 
 
         }

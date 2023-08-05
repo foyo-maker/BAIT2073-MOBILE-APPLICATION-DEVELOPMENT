@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.ViewPagerAdapter
 import com.example.bait2073mobileapplicationdevelopment.databinding.AcitivityWorkoutDetailsBinding
-import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityEventDetailsBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityRequestGenderBinding
 import com.example.bait2073mobileapplicationdevelopment.profile.RequestBmiActivity
 import com.google.android.material.tabs.TabLayout
