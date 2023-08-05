@@ -4,8 +4,8 @@
     <dimen name="profile_margin_left">37dp</dimen>
 
 
-
     <dimen name="titleFont">32sp</dimen>
     <dimen name="btn_padding">14dp</dimen>
     <dimen name="titleSubFont">16sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
