@@ -7,17 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.Data.EventDataClass
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.adapter.AdapterEventClass
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentEventBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.RecycleviewEventBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentOngoingBinding
 
@@ -68,7 +64,7 @@ class OngoingFragment : Fragment() {
         dataList = arrayListOf<EventDataClass>()
         getData()
         // Use the regular layout for the RecyclerView item
-        val adapter = AdapterEventClass(dataList)
+        val adapter = AdapterEventClass(dataList,this)
         recycleView.adapter = adapter
 
         return binding.root
