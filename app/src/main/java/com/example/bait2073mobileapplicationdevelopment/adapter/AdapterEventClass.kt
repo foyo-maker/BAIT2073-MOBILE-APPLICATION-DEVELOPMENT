@@ -1,19 +1,18 @@
 package com.example.bait2073mobileapplicationdevelopment.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bait2073mobileapplicationdevelopment.Data.EventDataClass
-import com.example.bait2073mobileapplicationdevelopment.Event.EventDetailsActivity
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.RecycleviewEventBinding
-import com.example.bait2073mobileapplicationdevelopment.profile.RequestBmiActivity
 
-class AdapterEventClass (private val dataList:ArrayList<EventDataClass>) : RecyclerView.Adapter<AdapterEventClass.ViewHolderClass>(){
+class AdapterEventClass(private val dataList:ArrayList<EventDataClass>,private val fragment: Fragment) : RecyclerView.Adapter<AdapterEventClass.ViewHolderClass>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -31,12 +30,19 @@ class AdapterEventClass (private val dataList:ArrayList<EventDataClass>) : Recyc
         holder.rvImage.setImageResource(currentItem.dataImage)
         holder.rvTitle.text = currentItem.dataTitle
         holder.rvDetail.text = currentItem.dataDetail
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, EventDetailsActivity::class.java)
-            // Pass any necessary data to the EventDetailsActivity using Intent extras
-            // For example: intent.putExtra("event_id", item.eventId)
-            holder.itemView.context.startActivity(intent)
+        holder.itemView.setOnClickListener {view : View ->
+//            val intent = Intent(holder.itemView.context, EventDetailsActivity::class.java)
+//            // Pass any necessary data to the EventDetailsActivity using Intent extras
+//            // For example: intent.putExtra("event_id", item.eventId)
+//            holder.itemView.context.startActivity(intent)
+
+//            fragment.findNavController().navigate(R.id.action_eventTabFragment_to_eventDetailsFragment)
+
+
         }
+
+
+
 
 
     }

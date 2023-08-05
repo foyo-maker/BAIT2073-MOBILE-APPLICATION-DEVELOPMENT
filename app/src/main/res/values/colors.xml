@@ -17,5 +17,17 @@
     <color name="ligth_text">#b4b4b4</color>
     <color name="border_color">#FF000000</color>
     <color name="logintext">#373737</color>
+<<<<<<< HEAD
     <color name="symptomCard">#DCCACA</color>
+=======
+    <color name="transparent">#00000000</color>
+    <color name="deleteButton">#FF5656</color>
+    <color name="editButton">#6D97B6</color>
+    <color name="okButton">#35AF77</color>
+    <color name="dialog_color_1">#FDD736</color>
+    <color name="dialog_color_2">#385796</color>
+
+
+
+>>>>>>> 3dccfed0833d069de6bd2a9e812bc2dc4716b89a
 </resources>

@@ -2,6 +2,8 @@
 <resources>
 
 
+
+
     <style name="CustomNumberPickerTheme">
         <item name="colorControlNormal">@android:color/transparent</item>
         <item name="android:windowContentTransitions">true</item>
@@ -13,5 +15,23 @@
         <item name="boxStrokeWidth">0dp</item>
 
         <item name="android:background">@drawable/edittext_bkg</item>
+    </style>
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">20dp</item>
+        <!-- Add other attributes you want to customize here -->
+    </style>
+    <style name="Circular">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+    <style name="DialogCustomTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 </resources>

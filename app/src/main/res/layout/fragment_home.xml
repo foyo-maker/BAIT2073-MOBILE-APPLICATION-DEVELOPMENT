@@ -102,11 +102,11 @@
         android:layout_width="match_parent"
 
 
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:layout_marginStart="24dp"
 
         android:layout_marginEnd="24dp"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="15dp"
         app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
 
@@ -122,13 +122,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
+
                 android:layout_centerInParent="true"
+                android:layout_marginTop="26dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Welcome To Healthy Life+"
-                android:textSize="23sp" />
+                android:text="Set Time Reminder"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/image_goal" />
+
+            <ImageView
+                android:id="@+id/image_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:layout_marginTop="9dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="-50px"
+                android:src="@drawable/img_goals" />
+            <ImageView
+                android:id="@+id/icon_add"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="-85px"
+                android:src="@drawable/icon_add" />
         </RelativeLayout>
 
 
@@ -209,7 +231,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_girl_trainning" />
+                android:src="@drawable/img_girl_personalized" />
 
             <RelativeLayout
                 android:layout_width="366dp"
@@ -279,7 +301,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_girl_personalized" />
+                android:src="@drawable/img_workout_men_before_18" />
 
             <RelativeLayout
                 android:layout_width="366dp"
@@ -327,13 +349,14 @@
 
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventCardView">
 
             <ImageView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_workout_men_before_18" />
+                android:src="@drawable/img_girl_trainning" />
 
             <RelativeLayout
                 android:layout_width="366dp"

@@ -1,5 +1,7 @@
 package com.example.bait2073mobileapplicationdevelopment.fragment
 
+import HomeFragment
+import android.app.Dialog
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +13,18 @@ import com.google.android.material.navigation.NavigationView
 import android.widget.Toast
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.view.ViewGroup
 
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityMainBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentMainBinding
+import com.example.bait2073mobileapplicationdevelopment.dialog.RatingDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -67,7 +72,7 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when (item.itemId) {
                 R.id.home -> replaceFragment(HomeFragment())
                 R.id.shorts -> replaceFragment(AboutFragment())
-                R.id.subscriptions -> replaceFragment(SettingsFragment())
+                R.id.subscriptions ->  replaceFragment(EventTabFragment())
                 R.id.report -> replaceFragment(ReportFragment())
             }
             true
@@ -115,8 +120,28 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_logout -> {
+
+                val ratingDialog = RatingDialog(this)
+                ratingDialog.setContentView(R.layout.custom_dialog_rating)
+                ratingDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                ratingDialog.setCancelable(false) // Optional
+                ratingDialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+
+                ratingDialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
+                ratingDialog.show()
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
             }
+            R.id.nav_myDashboard -> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, DashboardFragment()).commit()
+
+            }
+            R.id.nav_customer -> {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, CustomerListFragment()).commit()
+
+            }
+
+
+
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true

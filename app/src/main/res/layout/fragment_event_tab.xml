@@ -12,46 +12,174 @@
             type="com.example.bait2073mobileapplicationdevelopment.fragment.EventTabFragment" />
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_constraintHeight_max="900dp">
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="409dp"
-        android:layout_marginTop="60dp"
 
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/lavender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+
+
+            tools:ignore="MissingConstraints" />
+
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="95dp"
+        android:text="Events"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Explore"
-            tools:layout_editor_absoluteX="7dp"
-            tools:layout_editor_absoluteY="-9dp" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ongoing" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    </com.google.android.material.tabs.TabLayout>
+
+
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/welcomeView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="110dp"-->
+
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            app:cardCornerRadius="22dp"-->
+<!--            app:cardElevation="12dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/view"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="1.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/view"-->
+<!--            app:layout_constraintVertical_bias="0.0">-->
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/Card_View_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="24dp"
+app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:strokeColor="@color/white"
+        app:cardBackgroundColor="@color/white"
+        app:strokeWidth="1dp"
+        tools:ignore="MissingConstraints">
+
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tab_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="27dp"-->
+<!--            app:tabGravity="fill"-->
+<!--            app:tabIndicatorColor="?attr/colorAccent"-->
+<!--            app:tabIndicatorGravity="stretch"-->
+<!--            app:tabMaxWidth="0dp"-->
+
+<!--            app:tabMode="fixed"-->
+<!--            app:tabSelectedTextColor="@android:color/white"-->
+<!--            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"-->
+<!--            app:tabTextColor="?attr/colorPrimary">-->
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/tab_round"
+                            android:text="Explore"
+                            tools:layout_editor_absoluteX="20dp"
+                            tools:layout_editor_absoluteY="167dp" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/tab_round"
+                            android:text="Ongoing"
+                            tools:layout_editor_absoluteX="206dp"
+                            tools:layout_editor_absoluteY="157dp" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/tab_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="155dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:elevation="12dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/tab_round"-->
+<!--            android:text="Explore"-->
+<!--            tools:layout_editor_absoluteX="20dp"-->
+<!--            tools:layout_editor_absoluteY="167dp" />-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/tab_round"-->
+<!--            android:text="Ongoing"-->
+<!--            tools:layout_editor_absoluteX="206dp"-->
+<!--            tools:layout_editor_absoluteY="157dp" />-->
+
+<!--    </com.google.android.material.tabs.TabLayout>-->
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
-    </androidx.viewpager.widget.ViewPager>
+        app:layout_constraintTop_toBottomOf="@+id/view"></androidx.viewpager.widget.ViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
