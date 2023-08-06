@@ -15,7 +15,6 @@
     <string name="title_activity_event_details">EventDetailsActivity</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
-<<<<<<< HEAD
 
     <string-array name="symptom_list">
         <item>Cough</item>
@@ -24,7 +23,6 @@
         <item>Fever</item>
         <item>Stomachache</item>
     </string-array>
-=======
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -114,5 +112,4 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
->>>>>>> 3dccfed0833d069de6bd2a9e812bc2dc4716b89a
 </resources>
