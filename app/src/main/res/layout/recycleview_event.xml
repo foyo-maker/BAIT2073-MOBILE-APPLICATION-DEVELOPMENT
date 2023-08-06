@@ -31,46 +31,66 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/item_title"
+                    android:layout_width="161dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_light"
+
+                    android:text="Stay away from bad habits"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/component1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="88dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.076" />
 
-
-                <TextView
-                    android:id="@+id/item_title"
-                    android:layout_width="205dp"
-                    android:layout_height="57dp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Stay away from bad habits"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/item_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_light"
                     android:text="45 people going"
                     android:textColor="@color/ligth_text"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
                     app:layout_constraintTop_toBottomOf="@id/item_title" />
 
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="43dp"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="JAN\n25"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.085"></TextView>
 
                 <Button
                     android:id="@+id/component4"
-                    android:layout_width="83dp"
-                    android:layout_height="50dp"
+                    android:layout_width="85dp"
+                    android:layout_height="54dp"
                     android:fontFamily="@font/lato"
                     android:gravity="center"
                     android:hint="Component 4"
@@ -83,29 +103,29 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--            <TextView-->
-<!--                android:id="@+id/item_title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginEnd="20dp"-->
-<!--                android:fontFamily="@font/lato_black"-->
-<!--                android:text="Stay away from bad habits"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/item_title"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="20dp"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:layout_marginEnd="20dp"-->
+            <!--                android:fontFamily="@font/lato_black"-->
+            <!--                android:text="Stay away from bad habits"-->
+            <!--                android:textSize="16sp"-->
+            <!--                android:textStyle="bold" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/item_details"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Unhealthy of the largest and most famous marathons in the world, attracting. ..."-->
-<!--                android:fontFamily="@font/poppins_medium"-->
-<!--                android:textColor="#b4b4b4"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginEnd="20dp"-->
-<!--                android:layout_marginBottom="10dp" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/item_details"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Unhealthy of the largest and most famous marathons in the world, attracting. ..."-->
+            <!--                android:fontFamily="@font/poppins_medium"-->
+            <!--                android:textColor="#b4b4b4"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginStart="20dp"-->
+            <!--                android:layout_marginEnd="20dp"-->
+            <!--                android:layout_marginBottom="10dp" />-->
 
 
         </LinearLayout>

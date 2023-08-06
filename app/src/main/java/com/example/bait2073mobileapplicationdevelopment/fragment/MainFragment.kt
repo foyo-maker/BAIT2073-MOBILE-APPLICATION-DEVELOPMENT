@@ -131,14 +131,14 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ratingDialog.show()
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_myDashboard -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, DashboardFragment()).commit()
-
-            }
-            R.id.nav_customer -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, CustomerListFragment()).commit()
-
-            }
+//            R.id.nav_myDashboard -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, DashboardFragment()).commit()
+//
+//            }
+//            R.id.nav_customer -> {
+//                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, CustomerListFragment()).commit()
+//
+//            }
 
 
 

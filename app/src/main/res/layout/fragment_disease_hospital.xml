@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/hospitalScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/hospitallinear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="25dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/imageView11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/fake_map" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#CDE8A7"
+                                    android:orientation="horizontal">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/textView17"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_bold"
+                                            android:text="1. "
+                                            android:textSize="20sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="10dp"
+                                            android:orientation="vertical"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                            <androidx.constraintlayout.widget.ConstraintLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <TextView
+                                                    android:id="@+id/textView18"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Hospital Lorem Ipsummm"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                                <TextView
+                                                    android:id="@+id/textView19"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="8dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Contact : 012-3456789"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                        </LinearLayout>
+
+                                        <Button
+                                            android:id="@+id/button5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginBottom="1dp"
+                                            android:text="How to go?"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cardView1">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#CDE8A7"
+                                    android:orientation="horizontal">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/textView27"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_bold"
+                                            android:text="1. "
+                                            android:textSize="20sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout24"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="10dp"
+                                            android:orientation="vertical"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                            <androidx.constraintlayout.widget.ConstraintLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <TextView
+                                                    android:id="@+id/textView28"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Hospital Lorem Ipsummm"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                                <TextView
+                                                    android:id="@+id/textView29"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="8dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Contact : 012-3456789"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+                                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                        </LinearLayout>
+
+                                        <Button
+                                            android:id="@+id/button25"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginBottom="1dp"
+                                            android:text="How to go?"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cardView2">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#CDE8A7"
+                                    android:orientation="horizontal">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/textView37"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_bold"
+                                            android:text="1. "
+                                            android:textSize="20sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout34"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="10dp"
+                                            android:orientation="vertical"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                            <androidx.constraintlayout.widget.ConstraintLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <TextView
+                                                    android:id="@+id/textView38"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Hospital Lorem Ipsummm"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                                <TextView
+                                                    android:id="@+id/textView39"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="8dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Contact : 012-3456789"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+                                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                        </LinearLayout>
+
+                                        <Button
+                                            android:id="@+id/button35"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginBottom="1dp"
+                                            android:text="How to go?"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cardView3">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#CDE8A7"
+                                    android:orientation="horizontal">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/textView47"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_bold"
+                                            android:text="1. "
+                                            android:textSize="20sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout44"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="10dp"
+                                            android:orientation="vertical"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                            <androidx.constraintlayout.widget.ConstraintLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <TextView
+                                                    android:id="@+id/textView48"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Hospital Lorem Ipsummm"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                                <TextView
+                                                    android:id="@+id/textView49"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="8dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Contact : 012-3456789"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/textView48" />
+
+                                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                        </LinearLayout>
+
+                                        <Button
+                                            android:id="@+id/button45"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="10dp"
+                                            android:text="How to go?"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cardView4">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#CDE8A7"
+                                    android:orientation="horizontal">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/textView57"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/poppins_bold"
+                                            android:text="1. "
+                                            android:textSize="20sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                        <LinearLayout
+                                            android:id="@+id/linearLayout54"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="10dp"
+                                            android:orientation="vertical"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                            <androidx.constraintlayout.widget.ConstraintLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
+
+                                                <TextView
+                                                    android:id="@+id/textView58"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="10dp"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Hospital Lorem Ipsummm"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                                <TextView
+                                                    android:id="@+id/textView59"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="15dp"
+                                                    android:layout_marginTop="8dp"
+                                                    android:fontFamily="@font/amaranth"
+                                                    android:text="Contact : 012-3456789"
+                                                    android:textSize="17sp"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+                                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                        </LinearLayout>
+
+                                        <Button
+                                            android:id="@+id/button55"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="10dp"
+                                            android:text="How to go?"
+                                            android:textSize="17sp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+            <View
+                android:id="@+id/extraWhiteSpaceView4"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="30dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hospitallinear" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+
+
