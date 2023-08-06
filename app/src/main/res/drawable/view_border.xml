@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background with black border -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" /> <!-- Transparent background -->
+            <stroke
+                android:color="#000000"
+                android:width="1px" /> <!-- 1px black border -->
+            <padding
+                android:left="2px"
+                android:right="2px"
+                android:top="2px"
+                android:bottom="2px" />
+        </shape>
+    </item>
+</layer-list>

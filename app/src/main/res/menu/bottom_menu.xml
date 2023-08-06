@@ -9,14 +9,14 @@
 
     <item
         android:id="@+id/shorts"
-        android:title="Shorts"
-        android:icon="@drawable/nav_settings"
+        android:title="Disease"
+        android:icon="@drawable/baseline_disease_24"
         />
 
     <item
         android:id="@+id/subscriptions"
-        android:title="Subscriptions"
-        android:icon="@drawable/nav_about" />
+        android:title="Events"
+        android:icon="@drawable/baseline_event_note_24" />
     <item
         android:id="@+id/report"
         android:title="Report"

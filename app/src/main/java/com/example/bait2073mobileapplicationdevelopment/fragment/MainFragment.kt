@@ -71,7 +71,7 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> replaceFragment(HomeFragment())
-                R.id.shorts -> replaceFragment(AboutFragment())
+                R.id.shorts -> replaceFragment(DiseasePreventionFragment())
                 R.id.subscriptions ->  replaceFragment(EventTabFragment())
                 R.id.report -> replaceFragment(ReportFragment())
             }
@@ -116,7 +116,7 @@ class MainFragment : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_about -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, AboutFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, DiseaseDetailFragment()).commit()
 
             }
             R.id.nav_logout -> {

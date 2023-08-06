@@ -35,6 +35,9 @@ class EventFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event, container, false)
         bindingRecycle = DataBindingUtil.inflate(inflater, R.layout.recycleview_event, container, false)
 
+
+
+
 //        bindingRecycle.CardView.setOnClickListener{
 //            Toast.makeText(requireContext(), "CardView Clicked!", Toast.LENGTH_SHORT).show()
 ////            findNavController().navigate(R.id.)
@@ -80,7 +83,7 @@ class EventFragment : Fragment() {
         dataList = arrayListOf<EventDataClass>()
         getData()
         // Use the regular layout for the RecyclerView item
-        val adapter = AdapterEventClass(dataList, this)
+        val adapter = AdapterEventClass(dataList,parentFragmentManager)
 
         recycleView.adapter = adapter
 

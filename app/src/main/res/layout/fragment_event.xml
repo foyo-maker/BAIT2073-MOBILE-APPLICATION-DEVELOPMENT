@@ -36,46 +36,45 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <!-- Title TextView -->
-                        <TextView
-                            android:id="@+id/titleTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?android:attr/windowBackground"
-                            android:fontFamily="@font/poppins_light"
-                            android:padding="5dp"
-                            android:text="Discover Events"
-                            android:textColor="@color/ligth_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
 
-                        <TextView
-                            android:id="@+id/viewInMap"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?android:attr/windowBackground"
-                            android:fontFamily="@font/poppins_light"
-                            android:padding="5dp"
-                            android:text="View All"
-                            android:textColor="@color/ligth_text"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.975"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@drawable/view_border"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_gravity="center">
+
+                        <SearchView
+                            android:id="@+id/searchView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#00000000"
+                            android:iconifiedByDefault="false"
+                            android:queryHint="Search Customers" />
+
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:id="@+id/viewInMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/windowBackground"
+                        android:fontFamily="@font/poppins_light"
+                        android:padding="5dp"
+                        android:text="View All"
+                        android:textColor="@color/ligth_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:gravity="right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.975"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
                     <!-- RecyclerView -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycleView"

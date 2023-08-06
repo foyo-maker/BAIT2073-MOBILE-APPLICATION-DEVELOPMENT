@@ -64,7 +64,7 @@ class OngoingFragment : Fragment() {
         dataList = arrayListOf<EventDataClass>()
         getData()
         // Use the regular layout for the RecyclerView item
-        val adapter = AdapterEventClass(dataList,this)
+        val adapter = AdapterEventClass(dataList,parentFragmentManager)
         recycleView.adapter = adapter
 
         return binding.root
