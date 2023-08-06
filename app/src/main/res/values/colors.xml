@@ -26,7 +26,10 @@
     <color name="okButton">#35AF77</color>
     <color name="dialog_color_1">#FDD736</color>
     <color name="dialog_color_2">#385796</color>
-
+    <color name="blue">#5074ec</color>
+    <color name="card_yellow">#ffc42c</color>
+    <color name="card_green">#40bc5c</color>
+    <color name="card_light_blue">#43b8e2</color>
 
 
 >>>>>>> 3dccfed0833d069de6bd2a9e812bc2dc4716b89a
