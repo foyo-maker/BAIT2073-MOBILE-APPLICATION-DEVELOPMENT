@@ -336,7 +336,7 @@
         android:background="@drawable/gradient"
         android:clickable="true"
         android:src="@drawable/addplanbtn"
-        app:backgroundTint="@color/gradient"
+        app:backgroundTint="@drawable/gradient"
         app:elevation="60dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="345dp"

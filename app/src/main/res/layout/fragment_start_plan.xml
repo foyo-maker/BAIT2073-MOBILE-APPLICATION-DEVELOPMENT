@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.StartPlan">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,NotSibling,UnknownId"
+            tools:layout_editor_absoluteX="-64dp">
+
+            <ProgressBar
+                android:id="@+id/plan1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="#3099F4"
+                app:layout_constraintLeft_toRightOf="@+id/plan2" />
+
+            <ProgressBar
+                android:id="@+id/plan2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="#D5D5D5"
+                app:layout_constraintLeft_toRightOf="@+id/plan3" />
+
+            <ProgressBar
+                android:id="@+id/plan3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="#D5D5D5" />
+
+            <ProgressBar
+                android:id="@+id/plan4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="#D5D5D5">
+
+            </ProgressBar>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/speakerImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#80D8FF"
+            android:src="@android:drawable/ic_lock_silent_mode_off"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:shapeAppearanceOverlay="@style/roundimageview"/>
+
+        <ImageView
+            android:id="@+id/btnGoPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:rotationY="176"
+            android:src="@drawable/baseline_navigate_next_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/videoImg"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+
+            android:background="#80D8FF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/planvideocam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/speakerImg"
+            app:shapeAppearanceOverlay="@style/roundimageview" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/helpImg"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:background="#80D8FF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plan_question_mark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/videoImg"
+            app:shapeAppearanceOverlay="@style/roundimageview" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="299dp"
+
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="13dp"
+            android:src="@drawable/gif_exercise_squat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="180dp"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/gifImageView">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:text="READY TO GO"
+                android:textAlignment="center"
+                android:textColor="#21154A"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+            <TextView
+                android:id="@+id/exeNametxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Squat"
+                android:textAlignment="center"
+                android:textColor="#939393"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/flTimer"
+            android:layout_width="123dp"
+            android:layout_height="93dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <ProgressBar
+                android:id="@+id/pbTimer"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:background="@drawable/gray_progressbar_background"
+                android:indeterminate="false"
+                android:max="10"
+                android:progress="10"
+                android:progressDrawable="@drawable/blue_progressbar_background"
+                android:rotation="-90"></ProgressBar>
+
+            <TextView
+                android:id="@+id/tvTimeLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/btnGoNext"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/baseline_navigate_next_24"
+            app:layout_constraintBottom_toBottomOf="@+id/flTimer"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
