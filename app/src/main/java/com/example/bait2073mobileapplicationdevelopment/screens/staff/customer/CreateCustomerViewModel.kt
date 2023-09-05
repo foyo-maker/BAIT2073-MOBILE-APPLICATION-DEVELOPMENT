@@ -1,5 +1,6 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.staff.customer
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bait2073mobileapplicationdevelopment.entities.User
@@ -93,14 +94,19 @@ class CreateCustomerViewModel  : ViewModel() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.getUser(user_id!!)
         call.enqueue(object : Callback<UserResponse?> {
+
             override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
+                Log.e("haha", "wandan")
                 loadUserData.postValue(null)
             }
 
             override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
                 if (response.isSuccessful) {
+                    val resposne = response.body()
+                    Log.i("haha", "$resposne")
                     loadUserData.postValue(response.body())
                 } else {
+                    Log.i("haha", "ggla")
                     loadUserData.postValue(null)
                 }
             }

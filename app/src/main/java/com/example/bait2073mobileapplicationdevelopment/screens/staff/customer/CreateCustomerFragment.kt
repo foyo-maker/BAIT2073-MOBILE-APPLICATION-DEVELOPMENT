@@ -3,6 +3,7 @@ package com.example.bait2073mobileapplicationdevelopment.screens.staff.customer
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,8 @@ class CreateCustomerFragment : Fragment() {
         if(customer_id != null) {
             loadUserData(customer_id)
         }
+        Log.e("customerid", "$customer_id")
+
 
         binding.createButton.setOnClickListener{
             createUser(customer_id)
@@ -58,16 +61,13 @@ class CreateCustomerFragment : Fragment() {
     private fun loadUserData(user_id: Int?) {
         viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer <UserResponse?>{
             if(it != null) {
+
                 binding.eTextUserName.setText(it.data?.name)
                 binding.eTextEmail.setText(it.data?.email)
                 binding.createButton.setText("Update")
 
-
-
-                //havent create
-               // binding.eTextWeight.setText()
-
-                //binding.eTextHeight.setText(it.data?.)
+               binding.eTextWeight.setText(it.data?.weight.toString())
+                binding.eTextHeight.setText(it.data?.height.toString())
 
             }
         })
@@ -75,7 +75,7 @@ class CreateCustomerFragment : Fragment() {
     }
 
     private fun createUser(user_id: Int?){
-        val user = User(null, binding.eTextUserName.text.toString(), binding.eTextEmail.text.toString(),"","","",0,"",)
+        val user = User(null, binding.eTextUserName.text.toString(), binding.eTextEmail.text.toString(),"","","","",0.0,0.0)
 
         if(user_id == null)
             viewModel.createUser(user)

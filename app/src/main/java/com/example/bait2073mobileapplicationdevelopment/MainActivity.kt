@@ -113,8 +113,9 @@ class MainActivity : BaseActivity() {
                                 gender = user.gender,
                                 image = user.image ?: "",
                                 phone = user.phone ?: "",
-                                role = user.role,
-                                birthdate = user.birthdate
+                                birthdate = user.birthdate,
+                                weight = user.weight,
+                                height = user.height
                             )
                         )
                     }

@@ -39,10 +39,6 @@ data class User(
     @SerializedName("phone")
     val phone: String?,
 
-    @ColumnInfo(name = "role")
-    @Expose
-    @SerializedName("role")
-    val role: Int,
 
     @ColumnInfo(name = "birthdate")
     @Expose
@@ -50,6 +46,15 @@ data class User(
     val birthdate: String?,
 
 
+    @ColumnInfo(name = "weight")
+    @Expose
+    @SerializedName("weight")
+    val weight: Double?,
+
+    @ColumnInfo(name = "height")
+    @Expose
+    @SerializedName("height")
+    val height: Double?,
 )
 
 data class UserList(val data: List<User>)
