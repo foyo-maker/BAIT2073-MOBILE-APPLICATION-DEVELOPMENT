@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_staff"
+    app:startDestination="@id/reportDashboardFragment"
+    >
+
+    <fragment
+        android:id="@+id/reportDashboardFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ReportDashboardFragment"
+        android:label="fragment_report_dashboard">
+        <action
+            android:id="@+id/action_reportDashboardFragment_to_customerListFragment"
+            app:destination="@id/customerListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.staff.customer.CustomerListFragment"
+        android:label="fragment_customer_list"
+        tools:layout="@layout/fragment_customer_list" >
+        <action
+            android:id="@+id/action_customerListFragment_to_userForm"
+            app:destination="@id/createCustomerFragement"
+            app:popUpTo="@+id/customerListFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/createCustomerFragement"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.staff.customer.CreateCustomerFragment"
+        android:label="fragment_customer_form"
+        tools:layout="@layout/fragment_customer_form" >
+        <argument
+            android:name="customer_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_userFormFragment_to_customerListFragment"
+            app:destination="@id/customerListFragment" />
+    </fragment>
+
+
+</navigation>

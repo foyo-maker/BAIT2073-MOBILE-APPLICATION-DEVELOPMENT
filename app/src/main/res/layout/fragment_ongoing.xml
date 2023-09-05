@@ -3,7 +3,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.example.bait2073mobileapplicationdevelopment.fragment.OngoingFragment" />
+            type="com.example.bait2073mobileapplicationdevelopment.screens.fragment.OngoingFragment" />
     </data>
 
     <ScrollView

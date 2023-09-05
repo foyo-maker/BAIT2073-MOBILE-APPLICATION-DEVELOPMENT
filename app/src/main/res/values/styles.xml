@@ -39,4 +39,14 @@
         <item name="cornerSize">15dp</item>
         <item name="color">@color/white</item>
     </style>
+    <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="OptionMenuTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
+
 </resources>

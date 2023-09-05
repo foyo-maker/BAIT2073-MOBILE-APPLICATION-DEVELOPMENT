@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.models.History
+import com.example.bait2073mobileapplicationdevelopment.entities.History
 import com.example.bait2073mobileapplicationdevelopment.utilities.CalendarUtils
 
 

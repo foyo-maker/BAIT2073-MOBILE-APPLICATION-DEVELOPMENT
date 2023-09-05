@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.fragment.WorkoutVideoFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.WorkoutVideoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -3,25 +3,38 @@ package com.example.bait2073mobileapplicationdevelopment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.util.Pair
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import com.example.bait2073mobileapplicationdevelopment.auth.LoginActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.bait2073mobileapplicationdevelopment.screens.auth.LoginActivity
+import com.example.bait2073mobileapplicationdevelopment.database.HealthyLifeDatabase
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetDataService
+import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
+import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    private val SPLASH_SCREEN = 3000L // Change SPLASH_SCREEN type to Long
+    private val SPLASH_SCREEN = 30000L // Change SPLASH_SCREEN type to Long
     private lateinit var image: ImageView
     private lateinit var logo: TextView
-
+    lateinit var viewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(UserViewModel::class.java)
 
+        readStorageTask()
         // Initialize your views using findViewById
         image = findViewById(R.id.logo_image)
         logo = findViewById(R.id.logo_text)
@@ -54,4 +67,77 @@ class MainActivity : AppCompatActivity() {
             finish()
         }, SPLASH_SCREEN)
     }
+
+    fun getUsers() {
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val call = service.getUserList()
+        call.enqueue(object : Callback<List<User>> {
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                // Handle API call failure
+                Log.e("API Error", t.message ?: "Unknown error")
+            }
+
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    // Response contains a list of User objects
+                    val userList = response.body()
+                    Log.e("gg", "Response not successful, code: ${userList}")
+                    if (userList != null && userList.isNotEmpty()) {
+                        // Insert the user data into the Room Database
+                        insertDataIntoRoomDb(userList)
+                    } else {
+                        // Handle the case where the response is empty
+                        Log.e("API Response", "Response body is empty")
+                    }
+                } else {
+                    // Handle the case where the API response is not successful
+                    Log.e("API Response", "Response not successful, code: ${response.code()}")
+                }
+            }
+        })
+    }
+
+    fun insertDataIntoRoomDb(users: List<User>) {
+
+        launch {
+            this.let {
+
+                try {
+                    for (user in users) {
+                        Log.d("InsertDataIntoRoomDb", "Inserting user with ID: ${user.id}")
+                      viewModel.insertUser(
+                            User(
+                                id = user.id,
+                                name = user.name,
+                                email = user.email,
+                                gender = user.gender,
+                                image = user.image ?: "",
+                                phone = user.phone ?: "",
+                                role = user.role,
+                                birthdate = user.birthdate
+                            )
+                        )
+                    }
+                }catch (e: Exception) {
+                        Log.e("InsertDataIntoRoomDb", "Error inserting data into Room Database: ${e.message}", e)
+                    }
+            }
+        }
+
+    }
+
+    fun clearDataBase() {
+        launch {
+            this.let {
+                HealthyLifeDatabase.getDatabase(this@MainActivity).userDao().clearDb()
+            }
+        }
+    }
+
+    private fun readStorageTask() {
+
+//        clearDataBase()
+        getUsers()
+    }
+
 }

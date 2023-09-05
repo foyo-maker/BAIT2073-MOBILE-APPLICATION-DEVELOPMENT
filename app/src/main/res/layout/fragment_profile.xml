@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.fragment.ProfileFragment">
+    android:background="@color/white"
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,18 +24,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         />
-        <TextView
-            android:id="@+id/total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="58dp"
-            android:layout_marginTop="63dp"
-            android:text="My Profile"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
 
         android:layout_width="match_parent"
@@ -212,7 +202,7 @@
                     android:id="@+id/eTextWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textWebEmailAddress" />
+                    android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -248,7 +238,7 @@
                     android:id="@+id/eTextHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textWebEmailAddress" />
+                    android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -277,7 +267,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-
+                    android:id="@+id/radioGroupGender"
 
                     >
 
@@ -306,6 +296,22 @@
 
                 </RadioGroup>
 
+
+
+
+            <TextView
+                android:id="@+id/genderError"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#FF0000"
+                android:textSize="14dp"
+                android:layout_marginStart="4dp"
+
+                android:textAlignment="textStart"
+                android:visibility="gone"
+
+                />
 
 
             <Button

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/dashboardFragment">
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="HomeFragment"
+        android:label="Home" >
+        <action
+            android:id="@+id/action_homeFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.WorkoutFragment"
+        android:label="Personalized Recommendation WorkOut"
+        tools:layout="@layout/fragment_display_workout" >
+        <action
+            android:id="@+id/action_workoutFragment_to_startPlan"
+            app:destination="@id/startPlan" />
+    </fragment>
+    <fragment
+        android:id="@+id/startPlan"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.StartPlan"
+        android:label="Start Plan"
+        tools:layout="@layout/fragment_start_plan" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventFragment"
+        android:label="Events" >
+        <action
+            android:id="@+id/action_eventFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventListFragment"
+        android:label="EventListFragment" />
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventDetailsFragment"
+        android:label="EventDetailsFragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ChangePasswordFragment"
+        android:label="Change Password" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ReportFragment"
+        android:label="My Report"
+        tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DashboardFragment"
+        android:label="My Dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/diseaseCausesFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DiseaseCausesFragment"
+        android:label="Diseases" />
+    <fragment
+        android:id="@+id/diseasePreventionFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DiseasePreventionFragment"
+        android:label="Diseases" />
+
+
+</navigation>

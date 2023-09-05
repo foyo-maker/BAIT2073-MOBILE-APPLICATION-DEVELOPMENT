@@ -8,7 +8,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.example.bait2073mobileapplicationdevelopment.fragment.EventFragment" />
+            type="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView

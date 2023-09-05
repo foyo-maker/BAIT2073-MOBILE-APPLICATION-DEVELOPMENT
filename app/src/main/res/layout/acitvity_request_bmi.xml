@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:textAlignment="center"
-        tools:context="com.example.bait2073mobileapplicationdevelopment.profile.RequestGenderActivity">
+        tools:context="com.example.bait2073mobileapplicationdevelopment.screens.profile.RequestGenderActivity">
 
 
         <ImageView

@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/homeFragment"
         android:title="Home"
         android:icon="@drawable/nav_home"/>
 
     <item
-        android:id="@+id/shorts"
+        android:id="@+id/diseasePreventionFragment"
         android:title="Disease"
         android:icon="@drawable/baseline_disease_24"
         />
 
     <item
-        android:id="@+id/subscriptions"
+        android:id="@+id/eventFragment"
         android:title="Events"
         android:icon="@drawable/baseline_event_note_24" />
     <item
-        android:id="@+id/report"
+        android:id="@+id/reportFragment"
         android:title="Report"
         android:icon="@drawable/baseline_bar_chart_24"/>
 

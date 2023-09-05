@@ -3,9 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
-        android:allowBackup="true"
+
+        android:allowBackup="false"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -20,35 +24,37 @@
         <!-- Add RequestGenderActivity declaration -->
 
         <activity
-            android:name=".fragment.WorkoutFragment"
+            android:name=".screens.fragment.WorkoutFragment"
 
             />
 
         <activity
-            android:name=".workout.WorkoutDetailsActivity"
+            android:name=".screens.workout.WorkoutDetailsActivity"
             android:exported="true"
             />
         <activity
-            android:name=".calendar.MonthlyViewActivity"
+            android:name=".utilities.calendar.MonthlyViewActivity"
             android:exported="true"
             />
         <activity
 
-            android:name=".auth.LoginActivity"
+            android:name=".screens.auth.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".auth.SignUpActivity"
+            android:name=".screens.auth.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".profile.RequestGenderActivity"
+            android:name=".screens.profile.RequestGenderActivity"
             android:exported="true" />
         <activity
-            android:name=".fragment.MainFragment"
+            android:name=".screens.fragment.MainFragment"
+            android:exported="true" />
+        <activity
+            android:name=".screens.fragment.StaffMainFragment"
             android:exported="true" />
 
-
         <activity
-            android:name=".profile.RequestBmiActivity"
+            android:name=".screens.profile.RequestBmiActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

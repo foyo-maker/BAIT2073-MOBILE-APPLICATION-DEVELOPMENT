@@ -6,12 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bait2073mobileapplicationdevelopment.Data.EventDataClass
+import com.example.bait2073mobileapplicationdevelopment.data.EventDataClass
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.fragment.EventDetailsFragment
-import com.example.bait2073mobileapplicationdevelopment.fragment.WorkoutFragment
 
 class AdapterEventClass(
     private val dataList: ArrayList<EventDataClass>,
@@ -33,10 +31,8 @@ class AdapterEventClass(
         holder.rvTitle.text = currentItem.dataTitle
         holder.rvDetail.text = currentItem.dataDetail
         holder.itemView.setOnClickListener { view: View ->
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_layout, EventDetailsFragment())
-            fragmentTransaction.addToBackStack(null) // Add to back stack if you want to navigate back
-            fragmentTransaction.commit()
+            view.findNavController()
+                .navigate(R.id.action_eventFragment_to_eventDetailsFragment)
         }
     }
 

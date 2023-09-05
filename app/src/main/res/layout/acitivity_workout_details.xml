@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mainbkg"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.workout.WorkoutDetailsActivity">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.workout.WorkoutDetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="400dp"

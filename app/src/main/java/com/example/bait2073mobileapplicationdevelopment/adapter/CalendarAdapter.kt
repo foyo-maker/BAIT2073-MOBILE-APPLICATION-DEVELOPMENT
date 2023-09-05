@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.calendar.CalendarViewHolder
+import com.example.bait2073mobileapplicationdevelopment.utilities.calendar.CalendarViewHolder
 import com.example.bait2073mobileapplicationdevelopment.utilities.CalendarUtils
 import java.time.LocalDate
 

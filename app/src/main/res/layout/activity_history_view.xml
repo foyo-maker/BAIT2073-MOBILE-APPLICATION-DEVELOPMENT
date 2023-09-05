@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-        tools:context="com.example.bait2073mobileapplicationdevelopment.calendar.MonthlyViewActivity">
+        tools:context="com.example.bait2073mobileapplicationdevelopment.utilities.calendar.MonthlyViewActivity">
 
         <LinearLayout
             android:layout_width="wrap_content"

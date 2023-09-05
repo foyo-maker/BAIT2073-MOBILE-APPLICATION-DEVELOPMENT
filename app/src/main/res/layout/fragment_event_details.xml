@@ -13,7 +13,7 @@
 
         <variable
             name="fragment"
-            type="com.example.bait2073mobileapplicationdevelopment.fragment.EventDetailsFragment" />
+            type="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventDetailsFragment" />
 
     </data>
 
