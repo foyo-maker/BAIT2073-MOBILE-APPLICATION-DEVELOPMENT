@@ -1,6 +1,9 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.staff.customer
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -8,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.SearchView
@@ -33,6 +37,8 @@ class CustomerListFragment: Fragment(), CustomerAdapter.CustomerClickListener, P
     lateinit var recyclerViewAdapter: CustomerAdapter
     lateinit var viewModel: CustomerViewModel
     private lateinit var binding: FragmentCustomerListBinding
+    lateinit var selectedCustomer : User
+    private lateinit var dialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,14 +46,18 @@ class CustomerListFragment: Fragment(), CustomerAdapter.CustomerClickListener, P
     ): View? {
 
         binding = FragmentCustomerListBinding.inflate(inflater, container, false)
-
-        initRecyclerView()
         initViewModel()
+        initRecyclerView()
+
+        observeUserDeletion()
         searchUser()
 
         binding.addUserBtn.setOnClickListener {
-//            startActivity(Intent(this@MainActivity, CreateNewUserActivity::class.java))
+
+            val action = CustomerListFragmentDirections.actionCustomerListFragmentToCreateCustomerFragement(0)
+            this.findNavController().navigate(action)
         }
+
 
         return binding.root
     }
@@ -68,10 +78,6 @@ class CustomerListFragment: Fragment(), CustomerAdapter.CustomerClickListener, P
 
             }
         })
-    }
-    private fun initUi() {
-
-
     }
     private fun initRecyclerView() {
         binding.recycleView.setHasFixedSize(true)
@@ -111,16 +117,77 @@ class CustomerListFragment: Fragment(), CustomerAdapter.CustomerClickListener, P
 
     override fun onItemClicked(user: User) {
 
-        val action = CustomerListFragmentDirections.actionCustomerListFragmentToUserForm(user.id?:0)
+        val action = CustomerListFragmentDirections.actionCustomerListFragmentToCreateCustomerFragement(user.id?:0)
         this.findNavController().navigate(action)
 
     }
 
     override fun onLongItemClicked(user: User, cardView: CardView) {
-        TODO("Not yet implemented")
+        selectedCustomer = user
+        popUpDisplay(cardView)
     }
 
-    override fun onMenuItemClick(p0: MenuItem?): Boolean {
-        TODO("Not yet implemented")
+    private fun popUpDisplay(cardView: CardView) {
+
+        val popup = PopupMenu(requireContext(),cardView)
+        popup.setOnMenuItemClickListener(this)
+        popup.inflate(R.menu.pop_up_menu)
+        popup.show()
+
     }
+
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        if(item?.itemId == R.id.delete_note){
+
+            viewModel.deleteUser(selectedCustomer)
+        }
+        return false
+    }
+
+    private fun observeUserDeletion() {
+        viewModel.getDeleteUserObservable().observe(viewLifecycleOwner, Observer<User?> { deletedUser ->
+            if (deletedUser == null) {
+                Toast.makeText(requireContext(), "Cannot Delete User", Toast.LENGTH_SHORT).show()
+            } else {
+                showSuccessDialog()
+                viewModel.getUsers()
+
+                // You can perform any other actions needed after successful deletion here
+            }
+        })
+    }
+
+
+
+    private fun showSuccessDialog(){
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.custom_dialog_success)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false) // Optional
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
+
+        val okay: Button = dialog.findViewById(R.id.btn_okay)
+        val cancel: Button = dialog.findViewById(R.id.btn_cancel)
+
+        okay.setOnClickListener {
+
+            dialog.dismiss()
+            CreateCustomerFragmentDirections.actionCreateCustomerFragementToCustomerListFragment()
+        }
+
+        cancel.setOnClickListener {
+            Toast.makeText(requireContext(), "Cancel", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+        dialog.show() // Showing the dialog here
+
+
+    }
+
+
 }

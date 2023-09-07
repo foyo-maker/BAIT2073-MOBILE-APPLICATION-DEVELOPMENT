@@ -13,56 +13,63 @@ import retrofit2.Response
 
 class CreateCustomerViewModel  : ViewModel() {
 
-    lateinit var createNewUserLiveData: MutableLiveData<UserResponse?>
-    lateinit var loadUserData: MutableLiveData<UserResponse?>
-    lateinit var deleteUserLiveData: MutableLiveData<UserResponse?>
+    lateinit var createNewUserLiveData: MutableLiveData<User?>
+    lateinit var loadUserData: MutableLiveData<User?>
+
 
 
     init {
         createNewUserLiveData = MutableLiveData()
         loadUserData = MutableLiveData()
-        deleteUserLiveData = MutableLiveData()
+
     }
 
-    fun getCreateNewUserObservable(): MutableLiveData<UserResponse?> {
+    fun getCreateNewUserObservable(): MutableLiveData<User?> {
         return createNewUserLiveData
     }
 
-    fun getDeleteUserObservable(): MutableLiveData<UserResponse?> {
-        return deleteUserLiveData
-    }
 
-    fun getLoadUserObservable(): MutableLiveData<UserResponse?> {
+    fun getLoadUserObservable(): MutableLiveData<User?> {
         return loadUserData
     }
 
     fun createUser(user: User) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.createUser(user)
-        call.enqueue(object : Callback<UserResponse?> {
-            override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
+        call.enqueue(object : Callback<User?> {
+            override fun onFailure(call: Call<User?>, t: Throwable) {
+                Log.e("haha", "wandan")
                 createNewUserLiveData.postValue(null)
             }
 
-            override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 if (response.isSuccessful) {
+                    val resposne = response.body()
+                    Log.i("haha", "$resposne")
                     createNewUserLiveData.postValue(response.body())
                 } else {
+                    val resposne = response.body()
+                    val errorBody = response.errorBody()?.string()
+                    val responseCode = response.code()
+                    val responseMessage = response.message()
+                    Log.e("haha", "Response is not successful. Code: $responseCode, Message: $responseMessage, Error Body: $errorBody")
                     createNewUserLiveData.postValue(null)
                 }
             }
         })
     }
+
+
 
     fun updateUser(user_id: Int, user: User) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.updateUser(user_id, user)
-        call.enqueue(object : Callback<UserResponse?> {
-            override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
+        call.enqueue(object : Callback<User?> {
+            override fun onFailure(call: Call<User?>, t: Throwable) {
                 createNewUserLiveData.postValue(null)
             }
 
-            override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 if (response.isSuccessful) {
                     createNewUserLiveData.postValue(response.body())
                 } else {
@@ -72,35 +79,18 @@ class CreateCustomerViewModel  : ViewModel() {
         })
     }
 
-    fun deleteUser(user_id: Int?) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
-        val call = service.deleteUser(user_id!!)
-        call.enqueue(object : Callback<UserResponse?> {
-            override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
-                deleteUserLiveData.postValue(null)
-            }
-
-            override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
-                if (response.isSuccessful) {
-                    deleteUserLiveData.postValue(response.body())
-                } else {
-                    deleteUserLiveData.postValue(null)
-                }
-            }
-        })
-    }
 
     fun getUserData(user_id: Int?) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.getUser(user_id!!)
-        call.enqueue(object : Callback<UserResponse?> {
+        call.enqueue(object : Callback<User?> {
 
-            override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<User?>, t: Throwable) {
                 Log.e("haha", "wandan")
                 loadUserData.postValue(null)
             }
 
-            override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 if (response.isSuccessful) {
                     val resposne = response.body()
                     Log.i("haha", "$resposne")
@@ -110,6 +100,8 @@ class CreateCustomerViewModel  : ViewModel() {
                     loadUserData.postValue(null)
                 }
             }
+
+
         })
     }
 

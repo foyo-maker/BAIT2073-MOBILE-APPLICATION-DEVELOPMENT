@@ -15,10 +15,17 @@ import retrofit2.Response
 class CustomerViewModel : ViewModel() {
 
     var recyclerListData: MutableLiveData<List<User?>> = MutableLiveData()
+     var deleteUserLiveData: MutableLiveData<User?> = MutableLiveData()
 
+
+
+    fun getDeleteUserObservable(): MutableLiveData<User?> {
+        return  deleteUserLiveData
+    }
     fun getUserListObserverable(): MutableLiveData<List<User?>> {
         return recyclerListData
     }
+
 
     fun getUsers() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
@@ -44,6 +51,28 @@ class CustomerViewModel : ViewModel() {
                 } else {
                     // Handle the case where the API response is not successful
                     Log.e("API Response", "Response not successful, code: ${response.code()}")
+                }
+            }
+        })
+    }
+
+    fun deleteUser(user: User) {
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val call = service.deleteUser(user.id?:0)
+        call.enqueue(object : Callback<User?> {
+
+            override fun onFailure(call: Call<User?>, t: Throwable) {
+                Log.e("haha", "dfd")
+                deleteUserLiveData.postValue(null)
+            }
+
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
+                if(response.isSuccessful) {
+                    Log.e("haha", "wandan")
+                    deleteUserLiveData.postValue(response.body())
+                } else {
+                    Log.e("haha", "wandan")
+                    deleteUserLiveData.postValue(null)
                 }
             }
         })

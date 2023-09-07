@@ -1,15 +1,18 @@
 package com.example.bait2073mobileapplicationdevelopment.adapter
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.squareup.picasso.Picasso
 
 class CustomerAdapter (private val context : Context, val listener: CustomerClickListener): RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
 
@@ -44,6 +47,7 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
         val custEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)
 
 
+
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
@@ -54,6 +58,17 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
         holder.custEmail.text = currentCust.email
         holder.custName.text = currentCust.name
 
+
+        val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
+        if (!currentCust.image.isNullOrBlank()) {
+            Picasso.get().load(currentCust.image).fit().into(custImageView)
+
+//            Picasso.get().load(currentCust.image).centerInside().into(custImageView)
+        } else {
+            // If no image URL is available,  set a placeholder image or handle this case as needed.\
+            Log.e("noimage", "noimage")
+            Picasso.get().load(R.drawable.img_person).into(custImageView)
+        }
         //image
 //        Glide.with(ctx!!).load(arrSubCategory[position].strMealThumb).into(holder.itemView.img_dish)
 
@@ -61,6 +76,12 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
             Log.i("foyo", "foyo")
             listener.onItemClicked(userList[holder.adapterPosition])
             Log.d("foyoyyyyy", userList[holder.adapterPosition].toString())
+        }
+        holder.customer_layout.setOnLongClickListener{
+            Log.i("wacao", "wwacao")
+            listener.onLongItemClicked(userList[holder.adapterPosition],holder.customer_layout)
+            Log.i("wacao", holder.customer_layout.toString())
+            true
         }
     }
 

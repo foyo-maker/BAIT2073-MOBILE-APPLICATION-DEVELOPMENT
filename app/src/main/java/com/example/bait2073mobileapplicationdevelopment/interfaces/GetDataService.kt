@@ -22,21 +22,21 @@ interface GetDataService {
     //https://gorest.co.in/public-api/users/121
     @GET("users/{user_id}")
     @Headers("Accept:application/json","Content-Type:application/json")
-    fun getUser(@Path("user_id") user_id: Int): Call<UserResponse>
+    fun getUser(@Path("user_id") user_id: Int): Call<User>
 
 
     @POST("users")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
-    fun createUser(@Body params: User): Call<UserResponse>
+    fun createUser(@Body params: User): Call<User>
 
     @PATCH("users/{user_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
-    fun updateUser(@Path("user_id") user_id: Int, @Body params: User): Call<UserResponse>
+    fun updateUser(@Path("user_id") user_id: Int, @Body params: User): Call<User>
 
     @DELETE("users/{user_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
-    fun deleteUser(@Path("user_id") user_id: Int): Call<UserResponse>
+    fun deleteUser(@Path("user_id") user_id: Int): Call<User>
 }

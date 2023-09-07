@@ -24,22 +24,16 @@
         android:orientation="horizontal">
 
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/customer_image"
 
+
+        <ImageView
+            android:id="@+id/customer_image"
+            app:srcCompat="@drawable/img_person_real"
             android:layout_width="80dp"
             android:layout_height="80dp"
-
-
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-
-            app:shapeAppearanceOverlay="@style/Circular"
-
-            app:srcCompat="@drawable/img_person_real"
-
-            />
-
+            app:shapeAppearanceOverlay="@style/Circular" />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
