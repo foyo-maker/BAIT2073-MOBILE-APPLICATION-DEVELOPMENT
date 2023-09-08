@@ -190,9 +190,9 @@ class CreateCustomerFragment : Fragment() {
             null,
             binding.eTextUserName.text.toString(),
             binding.eTextEmail.text.toString(),
+            null,
             selectedGender,
             imageData,
-            "",
             "",
             binding.eTextWeight.text.toString().toDoubleOrNull(),
             binding.eTextHeight.text.toString().toDoubleOrNull()

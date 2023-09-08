@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.entities.UserList
-import com.example.bait2073mobileapplicationdevelopment.interfaces.GetDataService
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataService
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +27,7 @@ class CustomerViewModel : ViewModel() {
 
 
     fun getUsers() {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.getUserList()
         call.enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
@@ -57,7 +56,7 @@ class CustomerViewModel : ViewModel() {
     }
 
     fun deleteUser(user: User) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.deleteUser(user.id?:0)
         call.enqueue(object : Callback<User?> {
 

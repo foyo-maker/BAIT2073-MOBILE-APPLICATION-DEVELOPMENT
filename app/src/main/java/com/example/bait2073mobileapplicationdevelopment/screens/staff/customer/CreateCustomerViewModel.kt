@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.entities.UserResponse
-import com.example.bait2073mobileapplicationdevelopment.interfaces.GetDataService
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataService
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,7 +33,7 @@ class CreateCustomerViewModel  : ViewModel() {
     }
 
     fun createUser(user: User) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.createUser(user)
         call.enqueue(object : Callback<User?> {
             override fun onFailure(call: Call<User?>, t: Throwable) {
@@ -62,7 +61,7 @@ class CreateCustomerViewModel  : ViewModel() {
 
 
     fun updateUser(user_id: Int, user: User) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.updateUser(user_id, user)
         call.enqueue(object : Callback<User?> {
             override fun onFailure(call: Call<User?>, t: Throwable) {
@@ -81,7 +80,7 @@ class CreateCustomerViewModel  : ViewModel() {
 
 
     fun getUserData(user_id: Int?) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.getUser(user_id!!)
         call.enqueue(object : Callback<User?> {
 
