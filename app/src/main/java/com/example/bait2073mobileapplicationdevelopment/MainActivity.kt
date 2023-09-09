@@ -11,9 +11,9 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import com.example.bait2073mobileapplicationdevelopment.screens.auth.LoginActivity
+import com.example.bait2073mobileapplicationdevelopment.screens.auth.Login.LoginActivity
 import com.example.bait2073mobileapplicationdevelopment.database.HealthyLifeDatabase
-import com.example.bait2073mobileapplicationdevelopment.interfaces.GetDataService
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataService
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun getUsers() {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.getUserList()
         call.enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {

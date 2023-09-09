@@ -44,13 +44,13 @@
             />
         <activity
 
-            android:name=".screens.auth.LoginActivity"
+            android:name=".screens.auth.Login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".screens.auth.SignUpActivity"
+            android:name=".screens.auth.SignUp.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".screens.profile.RequestGenderActivity"
+            android:name=".screens.profile.Gender.RequestGenderActivity"
             android:exported="true" />
         <activity
             android:name=".screens.fragment.MainFragment"
@@ -60,7 +60,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".screens.profile.RequestBmiActivity"
+            android:name=".screens.profile.BMI.RequestBmiActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

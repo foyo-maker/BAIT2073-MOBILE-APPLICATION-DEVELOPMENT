@@ -35,7 +35,7 @@ class StaffMainFragment : AppCompatActivity(){
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.reportDashboardFragment, R.id.customerListFragment,
+                R.id.reportDashboardFragment, R.id.userListFragment,
                ),
             binding.drawerLayout
         )

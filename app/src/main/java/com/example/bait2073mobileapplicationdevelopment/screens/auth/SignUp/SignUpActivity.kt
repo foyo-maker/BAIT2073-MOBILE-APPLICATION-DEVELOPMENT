@@ -1,14 +1,20 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.auth
+package com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
-import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivitySignUpBinding
-import com.example.bait2073mobileapplicationdevelopment.screens.profile.RequestGenderActivity
+import com.example.bait2073mobileapplicationdevelopment.entities.RegisterUser
+import com.example.bait2073mobileapplicationdevelopment.screens.auth.Login.LoginActivity
+import com.example.bait2073mobileapplicationdevelopment.screens.profile.Gender.RequestGenderActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -16,7 +22,7 @@ import com.google.android.material.textfield.TextInputLayout
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-
+    private lateinit var viewModel: SignUpViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) //This Line will hide the status bar from the screen
 
@@ -24,7 +30,8 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
+        initViewModel()
+        createUserObservable()
 
 
         binding.callSignUp.setOnClickListener {
@@ -34,7 +41,10 @@ class SignUpActivity : AppCompatActivity() {
         binding.signupButton.setOnClickListener {
 
             if (validateForm()) {
-                startRequestGenderActivity()
+
+
+                createUser()
+
             }
         }
 
@@ -43,6 +53,51 @@ class SignUpActivity : AppCompatActivity() {
         validateOnChangeEmail()
         validateOnChangeConfirmPassword()
         validateOnChangeUserName()
+    }
+
+
+    private fun createUser() {
+
+        val user = RegisterUser(
+            null,
+            binding.eTextEmail.text.toString(),
+            binding.eTextUserName.text.toString(),
+            binding.eTextPassword.text.toString(),
+
+
+        )
+        viewModel.createUser(user)
+
+
+    }
+
+
+    private fun createUserObservable() {
+        viewModel.getCreateNewUserObservable().observe(this, Observer<RegisterUser?> {
+            if (it == null) {
+              Toast.makeText(this,"Cannot Create User",Toast.LENGTH_SHORT)
+            } else {
+
+                saveUserDataToSharedPreferences(this, it.id ?:0, it.name)
+                startRequestGenderActivity()
+            }
+        })
+    }
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
+        ).get(SignUpViewModel::class.java)
+
+
+    }
+
+    private fun saveUserDataToSharedPreferences(context: Context, userId: Int, userName: String) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("UserId", userId)
+        editor.putString("UserName", userName)
+        editor.apply()
     }
 
     private fun validateForm(): Boolean {

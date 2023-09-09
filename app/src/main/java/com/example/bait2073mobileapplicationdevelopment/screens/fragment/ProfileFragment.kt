@@ -1,7 +1,6 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.fragment
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,9 +15,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.ActivitySignUpBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentProfileBinding
-import com.example.bait2073mobileapplicationdevelopment.screens.profile.RequestGenderActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 

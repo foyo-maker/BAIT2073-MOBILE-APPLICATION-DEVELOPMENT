@@ -1,18 +1,12 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.workout
 
-import android.content.Intent
 import android.os.Bundle
-import android.webkit.WebChromeClient
-import android.webkit.WebView
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.ViewPagerAdapter
-import com.example.bait2073mobileapplicationdevelopment.databinding.AcitivityWorkoutDetailsBinding
-import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityRequestGenderBinding
-import com.example.bait2073mobileapplicationdevelopment.screens.profile.RequestBmiActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
