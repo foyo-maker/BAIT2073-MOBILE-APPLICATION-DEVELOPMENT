@@ -1,10 +1,7 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.staff.customer
+package com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -12,26 +9,24 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.SearchView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.bait2073mobileapplicationdevelopment.adapter.CustomerAdapter
+import com.example.bait2073mobileapplicationdevelopment.adapter.UserAdapter
 import com.example.bait2073mobileapplicationdevelopment.database.HealthyLifeDatabase
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentChangePasswordBinding
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentCustomerListBinding
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserListBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
 
-class CustomerFragment : Fragment(), CustomerAdapter.CustomerClickListener, PopupMenu.OnMenuItemClickListener {
+class UserFragment : Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenuItemClickListener {
 
 
     private lateinit var dialog: Dialog
-    private lateinit var binding: FragmentCustomerListBinding
+    private lateinit var binding:FragmentUserListBinding
     private lateinit var database:HealthyLifeDatabase
     lateinit var viewModel: UserViewModel
-    lateinit var adapter: CustomerAdapter
+    lateinit var adapter: UserAdapter
     lateinit var selectedCustomer: User
 
     override fun onCreateView(
@@ -41,7 +36,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.CustomerClickListener, Popu
         // Inflate the layout for this fragment
 
 
-        binding = FragmentCustomerListBinding.inflate(inflater, container, false)
+        binding = FragmentUserListBinding.inflate(inflater, container, false)
 
         initUi()
         viewModel = ViewModelProvider(this,
@@ -61,7 +56,7 @@ class CustomerFragment : Fragment(), CustomerAdapter.CustomerClickListener, Popu
     private fun initUi() {
         binding.recycleView.setHasFixedSize(true)
         binding.recycleView.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
-        adapter = CustomerAdapter(requireContext(), this)
+        adapter = UserAdapter(requireContext(), this)
         binding.recycleView.adapter = adapter
 
         //register for activity

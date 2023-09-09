@@ -68,15 +68,21 @@ data class LoginUser(
     @SerializedName("id")
     val id: Int?,
 
-    @ColumnInfo(name = "name")
-    @Expose
-    @SerializedName("name")
-    val name: String,
-
     @ColumnInfo(name = "email")
     @Expose
     @SerializedName("email")
     val email: String?,
+
+    @ColumnInfo(name = "password")
+    @Expose
+    @SerializedName("password")
+    val password: String,
+
+
+    @ColumnInfo(name = "name")
+    @Expose
+    @SerializedName("name")
+    val name: String,
 
     @ColumnInfo(name = "role")
     @Expose
@@ -87,6 +93,13 @@ data class LoginUser(
 
 data class RegisterUser(
 
+
+
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @Expose
+    @SerializedName("id")
+    val id: Int?,
 
     @ColumnInfo(name = "email")
     @Expose
@@ -118,6 +131,26 @@ data class UpdateGenderUser(
     @Expose
     @SerializedName("gender")
     val gender: String?,
+)
+
+data class UpdateBmiUser(
+
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @Expose
+    @SerializedName("id")
+    val id: Int?,
+
+
+    @ColumnInfo(name = "weight")
+    @Expose
+    @SerializedName("weight")
+    val weight: Double?,
+
+    @ColumnInfo(name = "height")
+    @Expose
+    @SerializedName("height")
+    val height: Double?,
 )
 data class UserList(val data: List<User>)
 

@@ -4,17 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityRequestGenderBinding
-import com.example.bait2073mobileapplicationdevelopment.entities.RegisterUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdateGenderUser
-import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp.SignUpViewModel
-import com.example.bait2073mobileapplicationdevelopment.screens.profile.RequestBmiActivity
+import com.example.bait2073mobileapplicationdevelopment.screens.profile.BMI.RequestBmiActivity
 
 class RequestGenderActivity : AppCompatActivity() {
 
@@ -58,10 +56,11 @@ class RequestGenderActivity : AppCompatActivity() {
 
             val userId = userData?.first
 
+            Log.e("userId", "$userId")
             var gender = if (binding.maleImage.isClickable) {
-                "male"
+                "Male"
             } else {
-                "female"
+                "Female"
             }
 
             val user = UpdateGenderUser(
@@ -70,6 +69,8 @@ class RequestGenderActivity : AppCompatActivity() {
 
 
             )
+
+
             viewModel.updateUser(userId ?: 0, user)
 
         }

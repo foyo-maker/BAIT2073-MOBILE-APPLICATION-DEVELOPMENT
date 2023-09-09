@@ -89,7 +89,7 @@
                 app:counterEnabled="false"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/lavender"
-                app:helperTextTextColor="#198754"
+
                 app:startIconDrawable="@drawable/baseline_lock_24"
                 app:startIconTint="@color/lavender">
 

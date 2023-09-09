@@ -1,7 +1,6 @@
 package com.example.bait2073mobileapplicationdevelopment.adapter
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.squareup.picasso.Picasso
 
-class CustomerAdapter (private val context : Context, val listener: CustomerClickListener): RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
+class UserAdapter (private val context : Context, val listener:UserClickListener): RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
 
     private var ctx: Context? = null
@@ -26,9 +25,9 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
         userList = arrData as ArrayList<User>
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         ctx = parent.context
-        return CustomerViewHolder(
+        return UserViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycleview_customer, parent, false)
         )
@@ -39,29 +38,29 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
     }
 
 
-    inner class CustomerViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    inner class UserViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        val customer_layout = itemView.findViewById<CardView>(R.id.customer_layout)
+        val user_layout = itemView.findViewById<CardView>(R.id.customer_layout)
         val id = itemView.findViewById<TextView>(R.id.tv_customerID)
-        val custName = itemView.findViewById<TextView>(R.id.tv_customerName)
-        val custEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)
+        val userName = itemView.findViewById<TextView>(R.id.tv_customerName)
+        val userEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)
 
 
 
     }
 
-    override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
 
-        val currentCust = userList[position]
-        holder.id.text = currentCust.id.toString()
-        holder.custEmail.text = currentCust.email
-        holder.custName.text = currentCust.name
+        val currentUser = userList[position]
+        holder.id.text = currentUser.id.toString()
+        holder.userEmail.text = currentUser.email
+        holder.userName.text = currentUser.name
 
 
         val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
-        if (!currentCust.image.isNullOrBlank()) {
-            Picasso.get().load(currentCust.image).fit().into(custImageView)
+        if (!currentUser.image.isNullOrBlank()) {
+            Picasso.get().load(currentUser.image).fit().into(custImageView)
 
 //            Picasso.get().load(currentCust.image).centerInside().into(custImageView)
         } else {
@@ -72,22 +71,21 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
         //image
 //        Glide.with(ctx!!).load(arrSubCategory[position].strMealThumb).into(holder.itemView.img_dish)
 
-        holder.customer_layout.setOnClickListener{
-            Log.i("foyo", "foyo")
+        holder.user_layout.setOnClickListener{
+
             listener.onItemClicked(userList[holder.adapterPosition])
-            Log.d("foyoyyyyy", userList[holder.adapterPosition].toString())
+
         }
-        holder.customer_layout.setOnLongClickListener{
-            Log.i("wacao", "wwacao")
-            listener.onLongItemClicked(userList[holder.adapterPosition],holder.customer_layout)
-            Log.i("wacao", holder.customer_layout.toString())
+        holder.user_layout.setOnLongClickListener{
+
+            listener.onLongItemClicked(userList[holder.adapterPosition],holder.user_layout)
+
             true
         }
     }
 
     fun updateList(newList : List<User>){
         fullList.clear()
-        Log.i("foyo", "$fullList")
         fullList.addAll(newList)
         userList.clear()
         userList.addAll(fullList)
@@ -110,7 +108,7 @@ class CustomerAdapter (private val context : Context, val listener: CustomerClic
         notifyDataSetChanged()
     }
 
-    interface CustomerClickListener{
+    interface UserClickListener{
         fun onItemClicked(user:User)
         fun onLongItemClicked(user:User,cardView:CardView)
     }

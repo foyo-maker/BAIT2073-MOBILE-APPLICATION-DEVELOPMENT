@@ -2,6 +2,7 @@ package com.example.bait2073mobileapplicationdevelopment.interfaces
 
 import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
 import com.example.bait2073mobileapplicationdevelopment.entities.RegisterUser
+import com.example.bait2073mobileapplicationdevelopment.entities.UpdateBmiUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdateGenderUser
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import retrofit2.Call
@@ -50,6 +51,11 @@ interface GetUserDataService {
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun updateGender(@Path("user_id") user_id: Int, @Body params: UpdateGenderUser): Call<UpdateGenderUser>
+
+    @PATCH("users/{user_id}")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun updateBmi(@Path("user_id") user_id: Int, @Body params: UpdateBmiUser): Call<UpdateBmiUser>
     @DELETE("users/{user_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")

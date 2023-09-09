@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.staff.customer
+package com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class CustomerViewModel : ViewModel() {
+class UserListViewModel : ViewModel() {
 
     var recyclerListData: MutableLiveData<List<User?>> = MutableLiveData()
      var deleteUserLiveData: MutableLiveData<User?> = MutableLiveData()

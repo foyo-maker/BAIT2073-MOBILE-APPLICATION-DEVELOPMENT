@@ -1,20 +1,19 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.profile.Gender
+package com.example.bait2073mobileapplicationdevelopment.screens.profile.BMI
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bait2073mobileapplicationdevelopment.entities.RegisterUser
+import com.example.bait2073mobileapplicationdevelopment.entities.UpdateBmiUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdateGenderUser
-import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataService
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RequestGenderViewModel  : ViewModel() {
+class RequestBmiActivityViewModel : ViewModel() {
 
-    lateinit var updateUserLiveData: MutableLiveData<UpdateGenderUser?>
+    lateinit var updateUserLiveData: MutableLiveData<UpdateBmiUser?>
 
 
 
@@ -26,20 +25,20 @@ class RequestGenderViewModel  : ViewModel() {
 
 
 
-    fun getUpdateUserObservable(): MutableLiveData<UpdateGenderUser?> {
+    fun getUpdateUserObservable(): MutableLiveData<UpdateBmiUser?> {
         return updateUserLiveData
     }
 
-    fun updateUser(user_id: Int, user: UpdateGenderUser) {
-        Log.e("upateener", "upategender")
+    fun updateUser(user_id: Int, user: UpdateBmiUser) {
+
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
-        val call = service.updateGender(user_id, user)
-        call.enqueue(object : Callback<UpdateGenderUser?> {
-            override fun onFailure(call: Call<UpdateGenderUser?>, t: Throwable) {
+        val call = service.updateBmi(user_id, user)
+        call.enqueue(object : Callback<UpdateBmiUser?> {
+            override fun onFailure(call: Call<UpdateBmiUser?>, t: Throwable) {
                 updateUserLiveData.postValue(null)
             }
 
-            override fun onResponse(call: Call<UpdateGenderUser?>, response: Response<UpdateGenderUser?>) {
+            override fun onResponse(call: Call<UpdateBmiUser?>, response: Response<UpdateBmiUser?>) {
                 if (response.isSuccessful) {
 
                     var responseBack = response.body()

@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.staff.customer
+package com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm
 
 
 import android.app.Activity
@@ -10,7 +10,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,17 +22,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentCustomerFormBinding
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserFormBinding
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserListBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 
 
-class CreateCustomerFragment : Fragment() {
+class UserFormFragment : Fragment() {
 
 
-    private lateinit var viewModel: CreateCustomerViewModel
-    private lateinit var binding: FragmentCustomerFormBinding
+    private lateinit var viewModel: UserFormViewModel
+    private lateinit var binding: FragmentUserFormBinding
     private val PICK_IMAGE_REQUEST = 1
     private val CAPTURE_IMAGE_REQUEST = 2
     private var selectedImageBitmap: Bitmap? = null
@@ -45,20 +45,20 @@ class CreateCustomerFragment : Fragment() {
 
 
         //val user_id = intent.getStringExtra("user_id")
-        binding = FragmentCustomerFormBinding.inflate(inflater, container, false)
+        binding = FragmentUserFormBinding.inflate(inflater, container, false)
 
         initViewModel()
         createUserObservable()
-        val args = CreateCustomerFragmentArgs.fromBundle(requireArguments())
-        val customer_id = args.customerId
+        val args = UserFormFragmentArgs.fromBundle(requireArguments())
+        val user_id = args.userId
 
-        if (customer_id != 0) {
-            loadUserData(customer_id)
+        if (user_id != 0) {
+            loadUserData(user_id)
         }
 
 
         binding.createButton.setOnClickListener {
-            createUser(customer_id,selectedImageBitmap)
+            createUser(user_id,selectedImageBitmap)
         }
 
 
@@ -190,9 +190,9 @@ class CreateCustomerFragment : Fragment() {
             null,
             binding.eTextUserName.text.toString(),
             binding.eTextEmail.text.toString(),
-            null,
             selectedGender,
             imageData,
+            "",
             "",
             binding.eTextWeight.text.toString().toDoubleOrNull(),
             binding.eTextHeight.text.toString().toDoubleOrNull()
@@ -216,14 +216,14 @@ class CreateCustomerFragment : Fragment() {
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-        ).get(CreateCustomerViewModel::class.java)
+        ).get(UserFormViewModel::class.java)
 
     }
 
     private fun createUserObservable() {
         viewModel.getCreateNewUserObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it == null) {
-                CreateCustomerFragmentDirections.actionCreateCustomerFragementToCustomerListFragment()
+                UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
             } else {
 
 
@@ -251,7 +251,7 @@ class CreateCustomerFragment : Fragment() {
         okay.setOnClickListener {
 
             dialog.dismiss()
-            val action = CreateCustomerFragmentDirections.actionCreateCustomerFragementToCustomerListFragment()
+            val action = UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
             findNavController().navigate(action)
 
         }

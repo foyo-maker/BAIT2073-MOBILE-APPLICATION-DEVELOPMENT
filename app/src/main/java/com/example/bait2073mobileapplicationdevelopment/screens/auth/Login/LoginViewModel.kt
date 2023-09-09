@@ -43,7 +43,11 @@ class LoginViewModel  : ViewModel()  {
                     Log.i("haha", "$resposne")
                     authenticateUserData.postValue(response.body())
                 } else {
-                    Log.i("haha", "ggla")
+                    val resposne = response.body()
+                    val errorBody = response.errorBody()?.string()
+                    val responseCode = response.code()
+                    val responseMessage = response.message()
+                    Log.e("error", "Response is not successful. Code: $responseCode, Message: $responseMessage, Error Body: $errorBody")
                     authenticateUserData.postValue(null)
                 }
             }

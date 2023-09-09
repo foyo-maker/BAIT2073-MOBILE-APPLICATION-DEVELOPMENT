@@ -1,6 +1,8 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -57,6 +59,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun createUser() {
 
         val user = RegisterUser(
+            null,
             binding.eTextEmail.text.toString(),
             binding.eTextUserName.text.toString(),
             binding.eTextPassword.text.toString(),
@@ -74,6 +77,8 @@ class SignUpActivity : AppCompatActivity() {
             if (it == null) {
               Toast.makeText(this,"Cannot Create User",Toast.LENGTH_SHORT)
             } else {
+
+                saveUserDataToSharedPreferences(this, it.id ?:0, it.name)
                 startRequestGenderActivity()
             }
         })
@@ -85,6 +90,14 @@ class SignUpActivity : AppCompatActivity() {
         ).get(SignUpViewModel::class.java)
 
 
+    }
+
+    private fun saveUserDataToSharedPreferences(context: Context, userId: Int, userName: String) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("UserId", userId)
+        editor.putString("UserName", userName)
+        editor.apply()
     }
 
     private fun validateForm(): Boolean {

@@ -16,13 +16,9 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
-import com.example.bait2073mobileapplicationdevelopment.entities.RegisterUser
-import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp.SignUpActivity
-import com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp.SignUpViewModel
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.MainFragment
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.StaffMainFragment
-import com.example.bait2073mobileapplicationdevelopment.screens.staff.customer.CustomerViewModel
 
 class LoginActivity : AppCompatActivity() {
 //    var callSignUp: Button? = null
@@ -41,15 +37,15 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
-        initViewModel()
-        getAuthenticateUserObservable()
-        val layoutPassword: TextInputLayout = binding.layoutPassword
-        val eTextPassword: TextInputEditText = binding.eTextPassword
-        val layoutEmail: TextInputLayout = binding.layoutEmail
-        val eTextEmail: TextInputEditText = binding.eTextEmail
+
         setContentView(binding.root)
 
 
+        initViewModel()
+        getAuthenticateUserObservable()
+
+        validateOnChangeEmail()
+        validateOnChangePassword()
         binding.callSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -66,44 +62,40 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, StaffMainFragment::class.java)
             startActivity(intent)
 
-//            val user = LoginUser(
-//                null,
-//                binding.eTextEmail.text.toString(),
-//                binding.eTextPassword.text.toString(),
-//                null
-//            )
+
+//            if(validateForm()) {
+//                val user = LoginUser(
+//                    null,
+//                    binding.eTextEmail.text.toString(),
+//                    binding.eTextPassword.text.toString(),
+//                    "",
+//                    null
+//                )
 //
-//            viewModel.authenticate(user)
+//                viewModel.authenticate(user)
+//            }
         }
-        eTextPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                charSequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-                // This method is called to notify that the text is about to be changed.
-            }
-
-            override fun onTextChanged(
-                charSequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                // This method is called to notify that the text has been changed.
-                val password = charSequence.toString()
 
 
-                layoutPassword.error = "Weak Password"
+    }
 
 
-            }
+    private fun validateForm() :Boolean {
+        var isValidate = true
+        val passwordText = binding.eTextPassword.text.toString()
+        val emailText = binding.eTextEmail.text.toString()
+        val layoutPassword: TextInputLayout = binding.layoutPassword
+        val layoutEmail: TextInputLayout = binding.layoutEmail
 
-            override fun afterTextChanged(editable: Editable?) {
-                // This method is called to notify that the text has been changed and processed.
-            }
-        })
+        if (passwordText == "") {
+            layoutPassword.error = "Password Is Required"
+            isValidate = false
+        }
+        if (emailText == "") {
+            layoutEmail.error = "Email Is Required"
+            isValidate = false
+        }
+        return isValidate
 
 
     }
@@ -118,8 +110,10 @@ class LoginActivity : AppCompatActivity() {
                 layoutPass.error = "Invalid Email And/Or Password"
                 Toast.makeText(this, "Cannot Create User", Toast.LENGTH_SHORT)
             } else {
-                saveUserDataToSharedPreferences(this, it.id ?:0, it.name)
+                saveUserDataToSharedPreferences(this, it.id ?: 0, it.name)
 
+                var role = it.role
+                Log.e("cutomerintent", "$role")
                 if (it.role == 0) {
                     //customer intent
                     Log.e("cutomerintent", "cutomerintent")
@@ -144,10 +138,79 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUserDataToSharedPreferences(context: Context, userId: Int, userName: String) {
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("UserId", userId)
         editor.putString("UserName", userName)
         editor.apply()
+    }
+    private fun validateOnChangeEmail() {
+
+        val layoutEmail: TextInputLayout = binding.layoutEmail
+        val eTextEmail: TextInputEditText = binding.eTextEmail
+        eTextEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                // This method is called to notify that the text is about to be changed.
+            }
+
+            override fun onTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                // This method is called to notify that the text has been changed.
+
+
+
+                    layoutEmail.error = ""
+                }
+
+
+
+            override fun afterTextChanged(editable: Editable?) {
+                // This method is called to notify that the text has been changed and processed.
+            }
+        })
+    }
+
+    private fun validateOnChangePassword() {
+
+        val layoutPassword: TextInputLayout = binding.layoutPassword
+        val eTextPassword: TextInputEditText = binding.eTextPassword
+        eTextPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                // This method is called to notify that the text is about to be changed.
+            }
+
+            override fun onTextChanged(
+                charSequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+                // This method is called to notify that the text has been changed.
+
+
+                layoutPassword.error = ""
+
+            }
+
+
+            override fun afterTextChanged(editable: Editable?) {
+                // This method is called to notify that the text has been changed and processed.
+            }
+        })
     }
 }

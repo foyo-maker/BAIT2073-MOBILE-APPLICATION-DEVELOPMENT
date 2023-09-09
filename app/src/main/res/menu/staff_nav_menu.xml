@@ -17,9 +17,9 @@
 
 
         <item
-            android:id="@+id/customerListFragment"
+            android:id="@+id/userListFragment"
             android:icon="@drawable/baseline_person_24"
-            android:title="All Customers"/>
+            android:title="All Users"/>
 
 
         <item
