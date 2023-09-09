@@ -90,8 +90,6 @@
         android:id="@+id/delete_img"
         android:layout_width="50dp"
         android:layout_height="35dp"
-
-
         android:layout_alignParentRight="true"
         android:layout_marginTop="68dp"
         android:src="@drawable/baseline_delete_forever_24"
