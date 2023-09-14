@@ -42,7 +42,7 @@ class UserFragment : Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenu
         viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(UserViewModel::class.java)
 
-        viewModel.allusers.observe(viewLifecycleOwner){list->
+        viewModel.allUsers.observe(viewLifecycleOwner){list->
             list?.let{
                 adapter.updateList(list)
             }

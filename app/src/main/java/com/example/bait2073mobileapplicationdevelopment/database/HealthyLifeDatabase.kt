@@ -4,11 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.bait2073mobileapplicationdevelopment.dao.PersonalizedWorkoutDao
+import com.example.bait2073mobileapplicationdevelopment.dao.StartWorkoutDao
 import com.example.bait2073mobileapplicationdevelopment.dao.UserDao
+import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
+import com.example.bait2073mobileapplicationdevelopment.entities.StartWorkout
 import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.example.bait2073mobileapplicationdevelopment.entities.Workout
+import com.example.bait2073mobileapplicationdevelopment.utilities.DateConverter
 
 
-@Database(entities = [User::class],version = 1,exportSchema = false)
+@Database(entities = [User::class,PersonalizedWorkout::class,StartWorkout::class],version = 1,exportSchema = false)
+@TypeConverters(DateConverter::class)
 abstract class HealthyLifeDatabase: RoomDatabase()  {
 
     companion object{
@@ -29,4 +37,7 @@ abstract class HealthyLifeDatabase: RoomDatabase()  {
     }
 
     abstract fun userDao():UserDao
+    abstract fun personalizedWorkoutDao(): PersonalizedWorkoutDao
+
+    abstract fun startWorkoutDao(): StartWorkoutDao
 }

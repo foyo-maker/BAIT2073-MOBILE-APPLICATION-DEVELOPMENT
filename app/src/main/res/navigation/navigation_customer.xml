@@ -8,20 +8,26 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="HomeFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.HomeFragment"
         android:label="Home" >
         <action
             android:id="@+id/action_homeFragment_to_workoutFragment"
-            app:destination="@id/workoutFragment" />
+            app:destination="@id/workoutFragment"
+            app:popUpTo="@id/action_homeFragment_to_workoutFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/workoutFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.WorkoutFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragment"
         android:label="Personalized Recommendation WorkOut"
         tools:layout="@layout/fragment_display_workout" >
         <action
             android:id="@+id/action_workoutFragment_to_startPlan"
             app:destination="@id/startPlan" />
+        <action
+            android:id="@+id/action_workoutFragment_to_startPersonalizedFragment"
+            app:destination="@id/startPersonalizedFragment" />
     </fragment>
     <fragment
         android:id="@+id/startPlan"
@@ -31,9 +37,17 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ProfileFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.profile.Profile.ProfileFragment"
         android:label="My Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/action_profileFragment_to_homeFragment"
+            app:popUpToInclusive="true"
+
+            />
+    </fragment>
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventFragment"
@@ -52,13 +66,27 @@
         android:label="EventDetailsFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ChangePasswordFragment"
-        android:label="Change Password" />
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.password.ChangePassword.ChangePasswordFragment"
+        android:label="Change Password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/action_changePasswordFragment_to_homeFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ReportFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.report.UserReport.UserReportFragment"
         android:label="My Report"
-        tools:layout="@layout/fragment_report" />
+        tools:layout="@layout/fragment_report" >
+        <action
+            android:id="@+id/action_reportFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/action_reportFragment_to_profileFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DashboardFragment"
@@ -78,6 +106,26 @@
         android:id="@+id/diseasePreventionFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DiseasePreventionFragment"
         android:label="Diseases" />
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/fragment_logout" >
+        <action
+            android:id="@+id/action_logoutFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startPersonalizedFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.personalized.StartPersonalizedFragment"
+        android:label="StartPersonalizedFragment" >
+        <action
+            android:id="@+id/action_startPersonalizedFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_startPersonalizedFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
 
 
 </navigation>

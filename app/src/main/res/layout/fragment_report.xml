@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ReportFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.report.UserReport.UserReportFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -375,7 +375,7 @@
 
 
                 <ImageView
-                    android:id="@+id/next"
+                    android:id="@+id/heightImageView"
 
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
@@ -499,7 +499,7 @@
 
 
                 <ImageView
-                    android:id="@+id/editWeightClick"
+                    android:id="@+id/weightImageView"
 
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
@@ -680,7 +680,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="80dp"
                     android:layout_toEndOf="@+id/bmi_text"
-                    android:text="20.1"
+
                     android:textColor="@color/gray"
                     android:textSize="21sp"/>
                 <TextView
@@ -737,10 +737,10 @@
                     android:layout_marginTop="130dp"
                     android:layout_toEndOf="@+id/bmi_consider"
                     android:text="Normal"
-                    android:textColor="@color/white"
+
                     android:textSize="21sp"
                     android:padding="7dp"
-                    android:background="@drawable/text_rounded_background"
+
 
                     />
 

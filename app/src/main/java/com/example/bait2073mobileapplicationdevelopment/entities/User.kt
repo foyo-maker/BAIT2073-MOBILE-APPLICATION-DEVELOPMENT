@@ -152,6 +152,63 @@ data class UpdateBmiUser(
     @SerializedName("height")
     val height: Double?,
 )
+
+data class UpdatePasswordUser(
+
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @Expose
+    @SerializedName("id")
+    val id: Int?,
+
+
+    @ColumnInfo(name = "currentPass")
+    @Expose
+    @SerializedName("currentPass")
+    val currentPass: String?,
+
+    @ColumnInfo(name = "newPass")
+    @Expose
+    @SerializedName("newPass")
+    val newPass: String?,
+
+
+
+)
+
+data class AutenticateEmailUser(
+
+    @PrimaryKey
+    @ColumnInfo(name = "code")
+    @Expose
+    @SerializedName("code")
+    val code: Int?,
+
+
+    @ColumnInfo(name = "email")
+    @Expose
+    @SerializedName("email")
+    val email: String?,
+
+
+
+    ) : java.io.Serializable
+data class ResetPasswordUser(
+
+
+
+    @ColumnInfo(name = "email")
+    @Expose
+    @SerializedName("email")
+    val email: String?,
+
+    @ColumnInfo(name = "password")
+    @Expose
+    @SerializedName("password")
+    val password: String?,
+
+
+    )
 data class UserList(val data: List<User>)
 
 data class UserResponse(val data: User?,val code: Int?)

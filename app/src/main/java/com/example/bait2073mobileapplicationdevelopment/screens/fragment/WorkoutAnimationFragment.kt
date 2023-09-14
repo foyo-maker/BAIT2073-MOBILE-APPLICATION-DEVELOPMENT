@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.bait2073mobileapplicationdevelopment.R
+import com.example.bait2073mobileapplicationdevelopment.entities.AutenticateEmailUser
+import com.example.bait2073mobileapplicationdevelopment.entities.Workout
 
 
 class WorkoutAnimationFragment : Fragment() {
 
-
+    private lateinit var workout: Workout
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

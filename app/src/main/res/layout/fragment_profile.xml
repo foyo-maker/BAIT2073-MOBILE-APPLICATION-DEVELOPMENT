@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/white"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.ProfileFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.profile.Profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -99,17 +99,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Name:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp"
-                android:layout_marginStart="4dp"
-                />
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_username"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -120,6 +109,7 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
                 app:counterEnabled="true"
+                android:layout_marginTop="20dp"
                 app:counterMaxLength="10"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
@@ -134,18 +124,7 @@
                     android:inputType="text|textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/email_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Email:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="0dp"
-                />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -169,18 +148,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text|textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:id="@+id/weight_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Weight:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="12dp"
-                />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_weight"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -192,7 +160,7 @@
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="18dp"
                 app:placeholderText="ex: 56kg"
                 app:startIconDrawable="@drawable/baseline_monitor_weight_24"
                 app:startIconTint="@color/lavender">
@@ -205,18 +173,7 @@
                     android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/height_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Height:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="12dp"
-                />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_height"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -228,7 +185,7 @@
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="18dp"
                 app:placeholderText="ex: 172cm"
                 app:startIconDrawable="@drawable/baseline_boy_24"
                 app:startIconTint="@color/lavender">
@@ -257,7 +214,7 @@
                     android:textColor="@color/logintext"
                     android:textSize="14dp"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="15dp"
                     android:textAlignment="textStart"
 
                     />

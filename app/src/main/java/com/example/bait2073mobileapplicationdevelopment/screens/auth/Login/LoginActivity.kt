@@ -19,6 +19,7 @@ import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
 import com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp.SignUpActivity
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.MainFragment
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.StaffMainFragment
+import com.example.bait2073mobileapplicationdevelopment.screens.password.RequestEmail.RequestEmailActivity
 
 class LoginActivity : AppCompatActivity() {
 //    var callSignUp: Button? = null
@@ -51,16 +52,22 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        binding.callForgetPassword.setOnClickListener {
+            val intent = Intent(this, RequestEmailActivity::class.java)
+            startActivity(intent)
+
+        }
+
         binding.loginButton.setOnClickListener {
 
             //customer intent
-//            val intent = Intent(this, MainFragment::class.java)
-//            startActivity(intent)
-
+            val intent = Intent(this, MainFragment::class.java)
+            startActivity(intent)
+//
 
 //            staff intent
-            val intent = Intent(this, StaffMainFragment::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, StaffMainFragment::class.java)
+//            startActivity(intent)
 
 
 //            if(validateForm()) {

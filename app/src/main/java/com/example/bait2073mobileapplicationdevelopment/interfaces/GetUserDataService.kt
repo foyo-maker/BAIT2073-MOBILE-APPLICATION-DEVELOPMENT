@@ -1,9 +1,12 @@
 package com.example.bait2073mobileapplicationdevelopment.interfaces
 
+import com.example.bait2073mobileapplicationdevelopment.entities.AutenticateEmailUser
 import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
 import com.example.bait2073mobileapplicationdevelopment.entities.RegisterUser
+import com.example.bait2073mobileapplicationdevelopment.entities.ResetPasswordUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdateBmiUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdateGenderUser
+import com.example.bait2073mobileapplicationdevelopment.entities.UpdatePasswordUser
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -56,6 +59,23 @@ interface GetUserDataService {
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun updateBmi(@Path("user_id") user_id: Int, @Body params: UpdateBmiUser): Call<UpdateBmiUser>
+
+    @PATCH("changePassword/{user_id}")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun updatePassword(@Path("user_id") user_id: Int, @Body params: UpdatePasswordUser): Call<UpdatePasswordUser>
+
+    @PATCH("resetPassword")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun resetPassword(@Body params: ResetPasswordUser): Call<ResetPasswordUser>
+
+    @POST("emailReset")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun sendEmail(@Body params: AutenticateEmailUser): Call<AutenticateEmailUser>
+
+
     @DELETE("users/{user_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")

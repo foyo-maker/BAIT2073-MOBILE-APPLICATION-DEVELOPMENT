@@ -1,7 +1,9 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.fragment
 
-import HomeFragment
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,7 @@ import android.view.Menu
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 
 
@@ -36,6 +39,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityMainBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentMainBinding
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
+import com.example.bait2073mobileapplicationdevelopment.screens.auth.Login.LoginActivity
 import com.example.bait2073mobileapplicationdevelopment.screens.dialog.RatingDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -166,6 +171,9 @@ class MainFragment : AppCompatActivity(){
         ratingDialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         ratingDialog.show()
     }
+
+
+
 
 //    private fun showBottomDialog() {
 //        val dialog = Dialog(this)

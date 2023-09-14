@@ -38,4 +38,10 @@
             android:id="@+id/action_createUserFragement_to_userListFragment"
             app:destination="@id/userListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/workoutFormFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutForm.WorkoutFormFragment"
+        android:label="fragment_workout_form"
+        tools:layout="@layout/fragment_workout_form" />
+
 </navigation>

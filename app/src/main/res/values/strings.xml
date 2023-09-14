@@ -112,4 +112,18 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="logout">Are You Sure You Want To Log Out?\n</string>
+    <string name="logouttext">You Will Redirect To Login Page\n</string>
+    <string name="logoutConfirm">Logout\n</string>
+    <string name="successEmail">We Have Sent You An Email, Check It Out</string>
+    <string name="sucess_reset">Your Password Has Been Reset, Login Now!</string>
+
+    <string-array name="bmi_status">
+        <item>Underweight</item>
+        <item>Healthy</item>
+        <item>Overweight</item>
+        <item>Obese</item>
+    </string-array>
+
+    <string name="activity_format">Current Activity: (%d / 5)</string>
 </resources>

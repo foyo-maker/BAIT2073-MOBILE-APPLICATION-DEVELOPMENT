@@ -30,7 +30,7 @@
         <!-- Add RequestGenderActivity declaration -->
 
         <activity
-            android:name=".screens.fragment.WorkoutFragment"
+            android:name=".screens.personalized.WorkoutFragment"
 
             />
 
@@ -40,6 +40,20 @@
             />
         <activity
             android:name=".utilities.calendar.MonthlyViewActivity"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".screens.password.ForgetPassword.ForgetPasswordActivity"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".screens.password.RequestEmail.RequestEmailActivity"
+            android:exported="true"
+            />
+        <activity
+            android:name=".screens.password.RequestCode.RequestCodeActivity"
             android:exported="true"
             />
         <activity

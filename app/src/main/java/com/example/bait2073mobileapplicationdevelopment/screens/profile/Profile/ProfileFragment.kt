@@ -1,11 +1,18 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.fragment
+package com.example.bait2073mobileapplicationdevelopment.screens.profile.Profile
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -14,10 +21,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentProfileBinding
+import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.profile.Gender.RequestGenderViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.Picasso
+import java.io.ByteArrayOutputStream
 
 
 class ProfileFragment : Fragment() {
@@ -25,6 +42,11 @@ class ProfileFragment : Fragment() {
 
     private lateinit var dialog: Dialog
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var viewModel: ProfileFragmentViewModel
+
+    private val PICK_IMAGE_REQUEST = 1
+    private val CAPTURE_IMAGE_REQUEST = 2
+    private var selectedImageBitmap: Bitmap? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +57,8 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
 
+
+
         validateOnChangeUserName()
         validateOnChangeEmail()
         validateOnChangeUserWeight()
@@ -42,38 +66,200 @@ class ProfileFragment : Fragment() {
 
 //        emailFocusListener()
 
+        initViewModel()
+        updateUserObservable()
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+        val userId = userData?.first
+        loadUserData(userId)
+
+        Log.e("userId", "$userId")
+
+
         binding.saveButton.setOnClickListener {
 
             if (validateForm()) {
-
-
-                successDialog()
+                updateUser(userId,selectedImageBitmap)
             }
+        }
+
+        binding.uploadButton.setOnClickListener {
+//            pickImage()
+            openGallery()
         }
 
         return binding.root
     }
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
 
-    private fun successDialog() {
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                PICK_IMAGE_REQUEST -> {
+                    val selectedImageUri = data?.data
+                    if (selectedImageUri != null) {
+                        binding.uploadImage.setImageURI(selectedImageUri)
+                        val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
+                        selectedImageBitmap = imageBitmap // Store the selected image in the variable
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
+    }
+
+
+
+    private fun updateUser(user_id: Int?,selectedImageBitmap: Bitmap?) {
+
+
+        val imageData: String? = if (selectedImageBitmap != null) {
+            encodeBitmapToBase64(selectedImageBitmap)
+        } else {
+            null
+        }
+
+        val selectedGender = when (binding.radioGroupGender.checkedRadioButtonId) {
+            R.id.radioMale -> "Male"
+            R.id.radioFemale -> "Female"
+            else -> null
+        }
+        val user = User(
+            null,
+            binding.eTextUserName.text.toString(),
+            binding.eTextEmail.text.toString(),
+            selectedGender,
+            imageData,
+            "",
+            "",
+            binding.eTextWeight.text.toString().toDoubleOrNull(),
+            binding.eTextHeight.text.toString().toDoubleOrNull()
+        )
+
+            viewModel.updateUser(user_id ?: 0, user)
+
+    }
+
+
+    private fun loadUserData(user_id: Int?) {
+        viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer<User?> {
+            if (it != null) {
+
+                binding.eTextUserName.setText(it.name)
+                binding.eTextEmail.setText(it.email)
+                binding.eTextWeight.setText(it.weight.toString())
+                binding.eTextHeight.setText(it.height.toString())
+                val custImageView = binding.uploadImage
+
+                if (!it.image.isNullOrBlank()) {
+
+                    Picasso.get().load(it.image).fit().into(custImageView)
+                } else{
+                    // If no image URL is available,  set a placeholder image or handle this case as needed.\
+                    Log.e("noimage", "noimage")
+                    Picasso.get().load(R.drawable.img_person).into(custImageView)
+                }
+                if (it.gender == "Male") {
+                    binding.radioMale.isChecked = true
+                } else {
+                    // Optionally, you can uncheck it here if "it.gender" is not "Male"
+                    binding.radioFemale.isChecked = true
+                }
+            }
+        })
+        viewModel.getUserData(user_id)
+    }
+
+
+
+    private fun updateUserObservable() {
+        viewModel.getUpdateProfileObservable().observe(viewLifecycleOwner, Observer<User?> {
+            if (it == null) {
+                UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+            } else {
+
+
+                val userData = retrieveUserDataFromSharedPreferences(requireContext())
+                val userId = userData?.first
+                loadUserData(userId)
+
+
+
+                //save back the newest share preferences
+                saveUserDataToSharedPreferences(requireContext(), it.id ?: 0, it.name)
+                showSuccessDialog()
+
+
+            }
+        })
+    }
+    private fun saveUserDataToSharedPreferences(context: Context, userId: Int, userName: String) {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("UserId", userId)
+        editor.putString("UserName", userName)
+        editor.apply()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(ProfileFragmentViewModel::class.java)
+
+    }
+    private fun encodeBitmapToBase64(bitmap: Bitmap): String? {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val byteArray = baos.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+    private fun showSuccessDialog(){
         dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.custom_dialog_success)
-        dialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.setCancelable(false) // Optional
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
 
-        dialog.window?.attributes?.windowAnimations =
-            R.style.DialogAnimation // Setting the animations to dialog
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
 
         val okay: Button = dialog.findViewById(R.id.btn_okay)
         val cancel: Button = dialog.findViewById(R.id.btn_cancel)
 
         okay.setOnClickListener {
-            Log.i("cancel", "gg")
-            Toast.makeText(requireContext(), "Okay", Toast.LENGTH_SHORT).show()
+
             dialog.dismiss()
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.profileFragment, true)
+                .build()
+            findNavController().navigate(R.id.action_profileFragment_to_homeFragment, null, navOptions)
+
         }
 
         cancel.setOnClickListener {
@@ -81,10 +267,56 @@ class ProfileFragment : Fragment() {
             dialog.dismiss()
         }
 
-
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         dialog.show() // Showing the dialog here
+
+
     }
+
+
+
+    private fun validEmail(emailText: String): String? {
+        if (emailText == "") {
+            return "Email Is Required"
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+            return "Invalid Email Address"
+        }
+        return null
+    }
+
+
+    private fun validWeight(weightText: String): String? {
+        if (weightText.isBlank()) {
+            return "Weight is required"
+        } else if (!weightText.matches("^(\\d{2,3}(\\.\\d{1,2})?|\\d{1}(\\.\\d{1,2})?)$".toRegex())) {
+            return "Invalid weight format. Enter in the format 'XX', 'XXX', 'XX.XX', 'XX.X', 'XXX.X', or 'XXX.XX'."
+        }
+        return null
+    }
+
+    private fun validHeight(heightText: String): String? {
+        if (heightText.isBlank()) {
+            return "Height is required"
+        } else if (!heightText.matches("^(\\d{2,3}(\\.\\d{1,2})?|\\d{1}(\\.\\d{1,2})?)$".toRegex())) {
+            return "Invalid height format. Enter in the format 'XX', 'XXX', 'XX.XX', 'XX.X', 'XXX.X', or 'XXX.XX'."
+        }
+        return null
+    }
+
+
+    private fun validUserName(nameText: String): String? {
+
+        if (nameText == "") {
+            return "Name Is Required"
+        } else if (nameText.length > 10) {
+            return "Invalid Name"
+        }
+        return null
+    }
+
+
+
 
 
     private fun validateForm(): Boolean {
@@ -332,45 +564,7 @@ class ProfileFragment : Fragment() {
 
 
 
-    private fun validEmail(emailText: String): String? {
-        if (emailText == "") {
-            return "Email Is Required"
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            return "Invalid Email Address"
-        }
-        return null
-    }
 
-
-    private fun validWeight(weightText: String): String? {
-        if (weightText.isBlank()) {
-            return "Weight is required"
-        } else if (!weightText.matches("^(\\d{2,3}(\\.\\d{1,2})?|\\d{1}(\\.\\d{1,2})?)$".toRegex())) {
-            return "Invalid weight format. Enter in the format 'XX', 'XXX', 'XX.XX', 'XX.X', 'XXX.X', or 'XXX.XX'."
-        }
-        return null
-    }
-
-    private fun validHeight(heightText: String): String? {
-        if (heightText.isBlank()) {
-            return "Height is required"
-        } else if (!heightText.matches("^(\\d{2,3}(\\.\\d{1,2})?|\\d{1}(\\.\\d{1,2})?)$".toRegex())) {
-            return "Invalid height format. Enter in the format 'XX', 'XXX', 'XX.XX', 'XX.X', 'XXX.X', or 'XXX.XX'."
-        }
-        return null
-    }
-
-
-    private fun validUserName(nameText: String): String? {
-
-        if (nameText == "") {
-            return "Name Is Required"
-        } else if (nameText.length > 10) {
-            return "Invalid Name"
-        }
-        return null
-    }
 
 
 }
