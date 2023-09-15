@@ -173,9 +173,7 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
         val cancel: Button = dialog.findViewById(R.id.btn_cancel)
 
         okay.setOnClickListener {
-
             dialog.dismiss()
-
         }
 
         cancel.setOnClickListener {
@@ -185,8 +183,6 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         dialog.show() // Showing the dialog here
-
-
     }
 
 

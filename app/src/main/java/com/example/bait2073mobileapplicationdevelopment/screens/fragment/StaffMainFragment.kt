@@ -36,9 +36,13 @@ class StaffMainFragment : AppCompatActivity(){
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.reportDashboardFragment, R.id.userListFragment,
+                R.id.reportDashboardFragment, R.id.eventListFragment,
                ),
             binding.drawerLayout
         )
+
+
+
 
 
 // Hide or show the ActionBar back button based on the current destination
