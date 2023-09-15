@@ -19,9 +19,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/add_user_btn"
-        android:layout_width="170dp"
+        android:layout_width="200dp"
 
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:layout_marginTop="65dp"
 
 
@@ -50,9 +50,20 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:text="Add Customer"
+                android:text="Overall Rating:"
                 android:textColor="#fff"
                 android:textSize="19dp"
+                 />
+            <TextView
+                android:id="@+id/ratingTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/poppins_bold"
+
+                android:text="5.75"
+                android:textColor="#fff"
+                android:textSize="29dp"
                 android:textStyle="bold" />
 
 
@@ -86,19 +97,7 @@
     </androidx.cardview.widget.CardView>
 
 
-    <ImageView
-        android:id="@+id/delete_img"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
 
-
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="68dp"
-        android:src="@drawable/baseline_delete_forever_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
@@ -107,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
-        tools:listitem="@layout/recycleview_customer"
+        tools:listitem="@layout/recycleview_rating"
 
 
         />

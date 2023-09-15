@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.AdminListFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminForm.AdminFormFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:layout_marginTop="45dp"
 
                 android:fontFamily="@font/poppins_bold"
-                android:text="Create User"
+                android:text="Create Admin"
                 android:textColor="@color/logintext"
                 android:textSize="27dp" />
 
@@ -132,55 +132,31 @@
                     android:layout_height="wrap_content"
                     android:inputType="text|textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_weight"
+                android:id="@+id/layout_phone"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="13dp"
-                android:hint="Weight"
+                android:hint="Phone"
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                app:placeholderText="ex: 56kg"
-                app:startIconDrawable="@drawable/baseline_monitor_weight_24"
+                android:layout_marginTop="18dp"
+                app:placeholderText="ex: 012-2071578"
+                app:startIconDrawable="@drawable/baseline_phone_enabled_24"
                 app:startIconTint="@color/lavender">
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/eTextWeight"
+                    android:id="@+id/eTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_height"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="13dp"
-                android:hint="Height"
-                app:boxBackgroundColor="@color/white"
-                app:boxBackgroundMode="outline"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/lavender"
-                app:placeholderText="ex: 172cm"
-                app:startIconDrawable="@drawable/baseline_boy_24"
-                app:startIconTint="@color/lavender">
-
-                <com.google.android.material.textfield.TextInputEditText
-
-                    android:id="@+id/eTextHeight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number|numberDecimal" />
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -230,7 +206,6 @@
             </RadioGroup>
 
 
-
             <TextView
                 android:id="@+id/genderError"
                 android:layout_width="wrap_content"
@@ -244,6 +219,7 @@
 
 
                 />
+
 
             <Button
                 android:id="@+id/createButton"

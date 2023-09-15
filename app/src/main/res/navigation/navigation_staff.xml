@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_reportDashboardFragment_to_customerListFragment2"
             app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_reportDashboardFragment_to_adminListFragment"
+            app:destination="@id/adminListFragment" />
     </fragment>
 
     <fragment
@@ -43,5 +46,34 @@
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutForm.WorkoutFormFragment"
         android:label="fragment_workout_form"
         tools:layout="@layout/fragment_workout_form" />
+    <fragment
+        android:id="@+id/adminFormFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminForm.AdminFormFragment"
+        android:label="fragment_admin_form"
+        tools:layout="@layout/fragment_admin_form" >
+        <action
+            android:id="@+id/action_adminFormFragment_to_adminListFragment"
+            app:destination="@id/adminListFragment" />
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminList.AdminListFragment"
+        android:label="fragment_admin_list"
+        tools:layout="@layout/fragment_admin_list" >
+        <action
+            android:id="@+id/action_adminListFragment_to_adminFormFragment"
+            app:destination="@id/adminFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userRatingFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserRatingFragment"
+        android:label="fragment_customer_list"
+        tools:layout="@layout/fragment_user_list">
+
+    </fragment>
 
 </navigation>

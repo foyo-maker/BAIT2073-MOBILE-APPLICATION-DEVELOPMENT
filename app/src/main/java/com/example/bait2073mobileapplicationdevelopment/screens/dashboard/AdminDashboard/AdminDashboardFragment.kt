@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.admin
+package com.example.bait2073mobileapplicationdevelopment.screens.dashboard.AdminDashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

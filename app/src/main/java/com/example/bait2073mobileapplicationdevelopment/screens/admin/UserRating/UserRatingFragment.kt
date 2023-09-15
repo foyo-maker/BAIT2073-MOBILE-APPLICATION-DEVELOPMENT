@@ -24,14 +24,16 @@ import com.example.bait2073mobileapplicationdevelopment.entities.User
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
+import com.example.bait2073mobileapplicationdevelopment.adapter.UserRatingAdapter
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentRatingListBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserListBinding
 
 
-class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenuItemClickListener {
+class UserRatingFragment: Fragment() {
 
-    lateinit var recyclerViewAdapter: UserAdapter
-    lateinit var viewModel: AdminListViewModel
-    private lateinit var binding:FragmentUserListBinding
+    lateinit var recyclerViewAdapter: UserRatingAdapter
+    lateinit var viewModel: UserRatingViewModel
+    private lateinit var binding:FragmentRatingListBinding
     lateinit var selectedUser : User
     private lateinit var dialog: Dialog
 
@@ -40,19 +42,13 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentUserListBinding.inflate(inflater, container, false)
+        binding = FragmentRatingListBinding.inflate(inflater, container, false)
         initViewModel()
         initRecyclerView()
 
-        observeUserDeletion()
         searchUser()
 
-        binding.addUserBtn.setOnClickListener {
 
-            val action =
-                UserListFragmentDirections.actionUserListFragmentToCreateUserFragement(0)
-            this.findNavController().navigate(action)
-        }
 
 
         return binding.root
@@ -78,7 +74,6 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
     private fun initRecyclerView() {
         binding.recycleView.setHasFixedSize(true)
         binding.recycleView.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
-        recyclerViewAdapter = UserAdapter(requireContext(), this)
         binding.recycleView.adapter = recyclerViewAdapter
 
     }
@@ -86,7 +81,7 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
     fun initViewModel() {
         viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(
-            AdminListViewModel::class.java)
+            UserRatingViewModel::class.java)
 
 
         viewModel.getUserListObserverable().observe(viewLifecycleOwner, Observer<List<User?>> {userListResponse ->
@@ -112,82 +107,9 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onItemClicked(user: User) {
-
-        val action =
-            UserListFragmentDirections.actionUserListFragmentToCreateUserFragement(
-                user.id ?: 0
-            )
-        this.findNavController().navigate(action)
-
-    }
-
-    override fun onLongItemClicked(user: User, cardView: CardView) {
-        selectedUser = user
-        popUpDisplay(cardView)
-    }
-
-    private fun popUpDisplay(cardView: CardView) {
-
-        val popup = PopupMenu(requireContext(),cardView)
-        popup.setOnMenuItemClickListener(this)
-        popup.inflate(R.menu.pop_up_menu)
-        popup.show()
-
-    }
-
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.delete_note){
-
-            viewModel.deleteUser(selectedUser)
-        }
-        return false
-    }
-
-    private fun observeUserDeletion() {
-        viewModel.getDeleteUserObservable().observe(viewLifecycleOwner, Observer<User?> { deletedUser ->
-            if (deletedUser == null) {
-                Toast.makeText(requireContext(), "Cannot Delete User", Toast.LENGTH_SHORT).show()
-            } else {
-                showSuccessDialog()
-                viewModel.getUsers()
-
-                // You can perform any other actions needed after successful deletion here
-            }
-        })
-    }
 
 
 
-    private fun showSuccessDialog(){
-        dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.custom_dialog_success)
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.setCancelable(false) // Optional
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
-
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
-
-        val okay: Button = dialog.findViewById(R.id.btn_okay)
-        val cancel: Button = dialog.findViewById(R.id.btn_cancel)
-
-        okay.setOnClickListener {
-
-            dialog.dismiss()
-
-        }
-
-        cancel.setOnClickListener {
-            Toast.makeText(requireContext(), "Cancel", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
-        }
-
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
-        dialog.show() // Showing the dialog here
-
-
-    }
 
 
 

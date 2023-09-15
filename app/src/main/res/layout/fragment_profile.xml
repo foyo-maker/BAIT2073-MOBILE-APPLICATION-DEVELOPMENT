@@ -264,9 +264,9 @@
                 android:textColor="#FF0000"
                 android:textSize="14dp"
                 android:layout_marginStart="4dp"
-
-                android:textAlignment="textStart"
                 android:visibility="gone"
+                android:textAlignment="textStart"
+
 
                 />
 

@@ -34,7 +34,7 @@ class AdminFormViewModel  : ViewModel() {
 
     fun createUser(user: User) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
-        val call = service.createUser(user)
+        val call = service.createAdmin(user)
         call.enqueue(object : Callback<User?> {
             override fun onFailure(call: Call<User?>, t: Throwable) {
                 Log.e("haha", "wandan")

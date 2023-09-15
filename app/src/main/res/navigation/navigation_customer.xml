@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DashboardFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.dashboard.UserDashboard.DashboardFragment"
         android:label="My Dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_homeFragment"

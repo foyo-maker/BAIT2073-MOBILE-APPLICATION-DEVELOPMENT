@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList
+package com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminList
 
 import android.app.Dialog
 import android.content.Intent
@@ -24,14 +24,16 @@ import com.example.bait2073mobileapplicationdevelopment.entities.User
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentAdminListBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserListBinding
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.AdminListViewModel
 
 
-class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenuItemClickListener {
+class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenuItemClickListener {
 
     lateinit var recyclerViewAdapter: UserAdapter
     lateinit var viewModel: AdminListViewModel
-    private lateinit var binding:FragmentUserListBinding
+    private lateinit var binding:FragmentAdminListBinding
     lateinit var selectedUser : User
     private lateinit var dialog: Dialog
 
@@ -40,7 +42,7 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentUserListBinding.inflate(inflater, container, false)
+        binding = FragmentAdminListBinding.inflate(inflater, container, false)
         initViewModel()
         initRecyclerView()
 
@@ -50,7 +52,7 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
         binding.addUserBtn.setOnClickListener {
 
             val action =
-                UserListFragmentDirections.actionUserListFragmentToCreateUserFragement(0)
+                AdminListFragmentDirections.actionAdminListFragmentToAdminFormFragment(0)
             this.findNavController().navigate(action)
         }
 
@@ -114,10 +116,9 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
 
     override fun onItemClicked(user: User) {
 
+
         val action =
-            UserListFragmentDirections.actionUserListFragmentToCreateUserFragement(
-                user.id ?: 0
-            )
+            AdminListFragmentDirections.actionAdminListFragmentToAdminFormFragment(0)
         this.findNavController().navigate(action)
 
     }
@@ -188,9 +189,6 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
 
 
     }
-
-
-
 
 
 }

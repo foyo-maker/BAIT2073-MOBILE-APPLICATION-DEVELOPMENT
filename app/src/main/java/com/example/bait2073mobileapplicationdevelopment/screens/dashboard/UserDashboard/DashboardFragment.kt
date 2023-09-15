@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.fragment
+package com.example.bait2073mobileapplicationdevelopment.screens.dashboard.UserDashboard
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,15 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentDashboardBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentHomeBinding
+import com.example.bait2073mobileapplicationdevelopment.viewmodel.StartWorkOutViewModel
+import java.text.DecimalFormat
 
 class DashboardFragment: Fragment() {
 
 
     private lateinit var binding: FragmentDashboardBinding
-
+    lateinit var viewModelStartWorkout: StartWorkOutViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +33,44 @@ class DashboardFragment: Fragment() {
 
         val userData = retrieveUserDataFromSharedPreferences(requireContext())
         val userName = userData?.second
-        Log.e("userName", "$userName")
+        val userId = userData?.first
         binding.nameTextView.text = userName
+
+
+        //intialize view model
+        viewModelStartWorkout = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(StartWorkOutViewModel::class.java)
+
+
+
+        viewModelStartWorkout.allStartWorkout.observe(viewLifecycleOwner){list->
+            list?.let{
+
+
+                var totalCalorie = 0.0 // Initialize totalCalorie to zero
+
+                for (workout in list) {
+                    if (workout.userId == userId) {
+                        workout.calorie?.let {
+                            totalCalorie += it // Add the calorie value of each workout to totalCalorie
+                        }
+                    }
+                }
+
+//
+//                for (workout in list) {
+//                    totalCalorie += workout.calorie ?: 0.0 // Add the calorie value of each workout to totalCalorie
+//                }
+
+                val format = DecimalFormat("###.0")
+                val formattedCalorie = format.format(totalCalorie)
+                // Now, you can display the totalCalorie in your UI
+                binding.totalCalorie.text = "$formattedCalorie"
+            }
+        }
+
 
 
         return binding.root

@@ -57,8 +57,14 @@ data class User(
     val height: Double?,
 
 
+    @ColumnInfo(name = "rating")
+    @Expose
+    @SerializedName("rating")
+    val rating: Float?,
 
-)
+
+
+    )
 data class LoginUser(
 
 
@@ -207,6 +213,81 @@ data class ResetPasswordUser(
     @SerializedName("password")
     val password: String?,
 
+
+    )
+
+
+data class UserRating(
+
+
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @Expose
+    @SerializedName("id")
+    val id: Int?,
+
+
+    @ColumnInfo(name = "rating")
+    @Expose
+    @SerializedName("rating")
+    val rating: Float?,
+
+    )
+
+
+data class UserRate(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @Expose
+    @SerializedName("id")
+    val id: Int?,
+
+    @ColumnInfo(name = "name")
+    @Expose
+    @SerializedName("name")
+    val name: String,
+
+    @ColumnInfo(name = "email")
+    @Expose
+    @SerializedName("email")
+    val email: String?,
+
+    @ColumnInfo(name = "gender")
+    @Expose
+    @SerializedName("gender")
+    val gender: String?,
+
+    @ColumnInfo(name = "image")
+    @Expose
+    @SerializedName("image")
+    val image: String?,
+
+    @ColumnInfo(name = "phone")
+    @Expose
+    @SerializedName("phone")
+    val phone: String?,
+
+
+    @ColumnInfo(name = "birthdate")
+    @Expose
+    @SerializedName("birthdate")
+    val birthdate: String?,
+
+
+    @ColumnInfo(name = "weight")
+    @Expose
+    @SerializedName("weight")
+    val weight: Double?,
+
+    @ColumnInfo(name = "height")
+    @Expose
+    @SerializedName("height")
+    val height: Double?,
+
+    @ColumnInfo(name = "rating")
+    @Expose
+    @SerializedName("rating")
+    val rating: Float?,
 
     )
 data class UserList(val data: List<User>)

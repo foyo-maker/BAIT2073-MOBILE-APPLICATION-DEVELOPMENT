@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.squareup.picasso.Picasso
 
-class UserAdapter (private val context : Context, val listener:UserClickListener): RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserRatingAdapter (private val context : Context, val listener:UserClickListener): RecyclerView.Adapter<UserRatingAdapter.UserViewHolder>() {
 
 
     private var ctx: Context? = null
@@ -41,11 +42,11 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
 
     inner class UserViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        val user_layout = itemView.findViewById<CardView>(R.id.rating_layout)
+        val user_layout = itemView.findViewById<CardView>(R.id.customer_layout)
         val id = itemView.findViewById<TextView>(R.id.tv_customerID)
         val userName = itemView.findViewById<TextView>(R.id.tv_customerName)
         val userEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)
-
+        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
 
 
     }
@@ -57,7 +58,7 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
         holder.id.text = currentUser.id.toString()
         holder.userEmail.text = currentUser.email
         holder.userName.text = currentUser.name
-
+        holder.ratingBar.rating = currentUser.rating?.toFloat() ?: 0.0f
 
         val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
         if (!currentUser.image.isNullOrBlank()) {
