@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventListFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListFragment"
         android:label="EventListFragment" />
     <fragment
         android:id="@+id/eventDetailsFragment"
