@@ -17,6 +17,8 @@ import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataSe
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,7 +26,7 @@ import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
-    private val SPLASH_SCREEN = 30000L // Change SPLASH_SCREEN type to Long
+    private val SPLASH_SCREEN = 0L // Change SPLASH_SCREEN type to Long
     private lateinit var image: ImageView
     private lateinit var logo: TextView
     lateinit var viewModel: UserViewModel
