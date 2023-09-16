@@ -8,69 +8,68 @@ import android.graphics.RectF
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [StartPlan.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StartPlan : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-//    private lateinit var binding: ActivityMainBinding
+    private lateinit var timer: CountDownTimer
+    private var timeProgress = 0
+    private var timeSelected : Int = 10
+    private var pauseOffSet: Long = 0
+
+    //    private lateinit var binding: ActivityMainBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_start_plan, container, false)
+//        return inflater.inflate(R.layout.fragment_start_plan, container, false)
+        val view = inflater.inflate(R.layout.fragment_start_plan, container, false)
+        val progressBar = view.findViewById<ProgressBar>(R.id.pbTimer)
+        val timeLeftTv = view.findViewById<TextView>(R.id.tvTimeLeft)
+
+        progressBar.progress = timeProgress
+
+        startTimer(timeSelected * 1000 - pauseOffSet * 1000, progressBar, timeLeftTv,view)
+
+
+        return view
     }
 
-    override fun onViewCreated(view:View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view,savedInstanceState)
-        val mimageView: ImageView = view.findViewById(R.id.speakerImg)
-        val mbitmap = (resources.getDrawable(R.drawable.baseline_navigate_next_24) as BitmapDrawable).bitmap
-        val imageRounded = Bitmap.createBitmap(mbitmap.width, mbitmap.height, mbitmap.config)
-        val canvas = Canvas(imageRounded)
-        val mpaint = Paint().apply {
-            isAntiAlias = true
-            shader = BitmapShader(mbitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-        }
-        canvas.drawRoundRect(RectF(20f, 20f, mbitmap.width.toFloat(), mbitmap.height.toFloat()), 300f, 300f, mpaint)
-        mimageView.setImageBitmap(imageRounded)
-    }
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StartPlan.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StartPlan().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun startTimer(timeInMillis: Long, progressBar: ProgressBar, timeLeftTv: TextView, view: View) {
+        timer = object : CountDownTimer(timeInMillis, 1000) {
+            override fun onTick(p0: Long) {
+                timeProgress++
+                pauseOffSet = (timeSelected - p0 / 1000).toLong()
+                progressBar.progress = (timeSelected - timeProgress).toInt()
+                timeLeftTv.text = (timeSelected - timeProgress).toString()
             }
+
+            override fun onFinish() {
+                if (timer!=null){
+                    timer!!.cancel()
+                    timeProgress=0
+                    timeSelected=0
+                    pauseOffSet=0
+
+
+                    view.findNavController()
+                        .navigate(R.id.action_startPlan_to_play_plan)
+
+                }
+                Toast.makeText(requireContext(), "Time's Up!", Toast.LENGTH_SHORT).show()
+            }
+        }.start()
     }
 }
