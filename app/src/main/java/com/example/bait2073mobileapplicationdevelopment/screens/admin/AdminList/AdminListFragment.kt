@@ -118,7 +118,7 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
 
 
         val action =
-            AdminListFragmentDirections.actionAdminListFragmentToAdminFormFragment(0)
+            AdminListFragmentDirections.actionAdminListFragmentToAdminFormFragment(user.id!!)
         this.findNavController().navigate(action)
 
     }

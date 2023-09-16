@@ -66,21 +66,21 @@ class LoginActivity : AppCompatActivity() {
 
 
 //            staff intent
-            val intent = Intent(this, StaffMainFragment::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, StaffMainFragment::class.java)
+//            startActivity(intent)
 
 
-//            if(validateForm()) {
-//                val user = LoginUser(
-//                    null,
-//                    binding.eTextEmail.text.toString(),
-//                    binding.eTextPassword.text.toString(),
-//                    "",
-//                    null
-//                )
-//
-//                viewModel.authenticate(user)
-//            }
+            if(validateForm()) {
+                val user = LoginUser(
+                    null,
+                    binding.eTextEmail.text.toString(),
+                    binding.eTextPassword.text.toString(),
+                    "",
+                    null
+                )
+
+                viewModel.authenticate(user)
+            }
         }
 
 

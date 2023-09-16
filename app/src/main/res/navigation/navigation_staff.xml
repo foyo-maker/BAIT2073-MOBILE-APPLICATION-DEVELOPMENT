@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_adminListFragment_to_adminFormFragment"
             app:destination="@id/adminFormFragment" />
+        <action
+            android:id="@+id/action_adminListFragment_to_reportDashboardFragment"
+            app:destination="@id/reportDashboardFragment" />
     </fragment>
 
     <fragment

@@ -76,7 +76,7 @@ class StartPersonalizedViewModel : ViewModel() {
     init {
 
         _activityName.value = ""
-        _activityCount.value = 0
+        _activityCount.value = 1
         activityList = mutableListOf()
         gifImageList = mutableListOf()
 

@@ -183,7 +183,7 @@ class UserFormFragment : Fragment() {
             binding.eTextEmail.text.toString(),
             selectedGender,
             imageData,
-            "",
+            null,
             "",
             binding.eTextWeight.text.toString().toDoubleOrNull(),
             binding.eTextHeight.text.toString().toDoubleOrNull(),
