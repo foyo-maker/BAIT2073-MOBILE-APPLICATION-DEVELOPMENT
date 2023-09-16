@@ -59,11 +59,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginButton.setOnClickListener {
-//
-//            //customer intent
+
+            //customer intent
 //            val intent = Intent(this, MainFragment::class.java)
 //            startActivity(intent)
-
+//
 
 //            staff intent
 //            val intent = Intent(this, StaffMainFragment::class.java)

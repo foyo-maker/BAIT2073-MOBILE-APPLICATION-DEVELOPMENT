@@ -181,6 +181,13 @@ class HomeFragment : Fragment() {
                 // Replace the current fragment with the WorkoutFragment
                 view?.findNavController()?.navigate(R.id.action_homeFragment_to_workoutFragment)
             }
+
+            val mytrainListCard: CardView? = view?.findViewById(R.id.myTrainCardView)
+            mytrainListCard?.setOnClickListener{
+
+                view?.findNavController()?.navigate(R.id.action_homeFragment_to_myTrainList)
+
+            }
         }
 
     }
