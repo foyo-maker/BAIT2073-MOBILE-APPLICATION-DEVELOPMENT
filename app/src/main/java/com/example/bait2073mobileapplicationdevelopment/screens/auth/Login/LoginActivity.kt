@@ -61,8 +61,8 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
 
             //customer intent
-            val intent = Intent(this, MainFragment::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, MainFragment::class.java)
+//            startActivity(intent)
 //
 
 //            staff intent
@@ -70,17 +70,17 @@ class LoginActivity : AppCompatActivity() {
 //            startActivity(intent)
 
 
-//            if(validateForm()) {
-//                val user = LoginUser(
-//                    null,
-//                    binding.eTextEmail.text.toString(),
-//                    binding.eTextPassword.text.toString(),
-//                    "",
-//                    null
-//                )
-//
-//                viewModel.authenticate(user)
-//            }
+            if(validateForm()) {
+                val user = LoginUser(
+                    null,
+                    binding.eTextEmail.text.toString(),
+                    binding.eTextPassword.text.toString(),
+                    "",
+                    null
+                )
+
+                viewModel.authenticate(user)
+            }
         }
 
 
