@@ -83,7 +83,7 @@ class StartPersonalizedViewModel : ViewModel() {
         _activityCount.value = 1
         activityList = mutableListOf()
         gifImageList = mutableListOf()
-        val progressBar = view.findViewById<ProgressBar>(R.id.pbTimer)
+//        val progressBar = view.findViewById<ProgressBar>(R.id.pbTimer)
         Log.i("GameViewModel", "GameViewModel created!")
 
 //         Creates a timer which triggers the end of the game when it finishes
