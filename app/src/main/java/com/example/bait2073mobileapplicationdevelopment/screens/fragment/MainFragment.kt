@@ -29,6 +29,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -42,6 +43,8 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentMain
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.auth.Login.LoginActivity
 import com.example.bait2073mobileapplicationdevelopment.screens.dialog.RatingDialog
+import com.example.bait2073mobileapplicationdevelopment.screens.dialog.RatingDialogViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.profile.BMI.RequestBmiActivityViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -51,7 +54,7 @@ class MainFragment : AppCompatActivity(){
     private lateinit var binding: FragmentMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-
+    private lateinit var viewModel: RatingDialogViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentMainBinding.inflate(layoutInflater)
@@ -64,7 +67,7 @@ class MainFragment : AppCompatActivity(){
             setOf(R.id.homeFragment, R.id.reportFragment,R.id.eventFragment,R.id.diseasePreventionFragment,R.id.dashboardFragment),
             binding.drawerLayout
         )
-
+        initViewModel()
 
 // Hide or show the ActionBar back button based on the current destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -159,12 +162,19 @@ class MainFragment : AppCompatActivity(){
         }
     }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
+        ).get(RatingDialogViewModel::class.java)
 
+
+    }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
     private fun showRatingDialog() {
-        val ratingDialog = RatingDialog(this)
+        val ratingDialog = RatingDialog(this,viewModel)
         ratingDialog.setContentView(R.layout.custom_dialog_rating)
         ratingDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         ratingDialog.setCancelable(false)

@@ -1,5 +1,6 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.event.EventList
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel

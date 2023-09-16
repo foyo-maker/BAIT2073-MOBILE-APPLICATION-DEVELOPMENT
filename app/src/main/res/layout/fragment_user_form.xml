@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserListFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.AdminListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                     android:id="@+id/eTextWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textWebEmailAddress" />
+                    android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -179,7 +179,7 @@
                     android:id="@+id/eTextHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textWebEmailAddress" />
+                    android:inputType="number|numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -229,6 +229,21 @@
 
             </RadioGroup>
 
+
+
+            <TextView
+                android:id="@+id/genderError"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#FF0000"
+                android:textSize="14dp"
+                android:layout_marginStart="4dp"
+                android:visibility="gone"
+                android:textAlignment="textStart"
+
+
+                />
 
             <Button
                 android:id="@+id/createButton"

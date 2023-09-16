@@ -8,6 +8,7 @@ import com.example.bait2073mobileapplicationdevelopment.entities.UpdateBmiUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdateGenderUser
 import com.example.bait2073mobileapplicationdevelopment.entities.UpdatePasswordUser
 import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.example.bait2073mobileapplicationdevelopment.entities.UserRating
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -34,6 +35,27 @@ interface GetUserDataService {
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun createUser(@Body params: User): Call<User>
 
+    @DELETE("users/{user_id}")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun deleteUser(@Path("user_id") user_id: Int): Call<User>
+
+
+
+    //this three need to be created in server
+    //need to create a entity in user call rating, as float
+    //   $table->float('your_float_column'); // Define a float column
+    @GET("admins")
+    fun getAdminList(): Call<List<User>>
+    @POST("admins")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun createAdmin(@Body params: User): Call<User>
+
+
+
+
+
     @POST("register")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
@@ -49,6 +71,10 @@ interface GetUserDataService {
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun updateUser(@Path("user_id") user_id: Int, @Body params: User): Call<User>
 
+    @PATCH("rating/{user_id}")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun updateRate(@Path("user_id") user_id: Int, @Body params: UserRating): Call<UserRating>
 
     @PATCH("users/{user_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",
@@ -76,8 +102,5 @@ interface GetUserDataService {
     fun sendEmail(@Body params: AutenticateEmailUser): Call<AutenticateEmailUser>
 
 
-    @DELETE("users/{user_id}")
-    @Headers("Accept:application/json", "Content-Type:application/json",
-        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
-    fun deleteUser(@Path("user_id") user_id: Int): Call<User>
+
 }
