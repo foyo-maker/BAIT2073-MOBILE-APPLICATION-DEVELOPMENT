@@ -13,109 +13,47 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints,NotSibling,UnknownId"
-            tools:layout_editor_absoluteX="-64dp">
-
-            <ProgressBar
-                android:id="@+id/plan1"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="#3099F4"
-                app:layout_constraintLeft_toRightOf="@+id/plan2" />
-
-            <ProgressBar
-                android:id="@+id/plan2"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="#D5D5D5"
-                app:layout_constraintLeft_toRightOf="@+id/plan3" />
-
-            <ProgressBar
-                android:id="@+id/plan3"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="#D5D5D5" />
-
-            <ProgressBar
-                android:id="@+id/plan4"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="10dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="#D5D5D5">
-
-            </ProgressBar>
-
-
-        </LinearLayout>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/speakerImg"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="#80D8FF"
-            android:src="@android:drawable/ic_lock_silent_mode_off"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/gifImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            app:shapeAppearanceOverlay="@style/roundimageview"/>
-
-        <ImageView
-            android:id="@+id/btnGoPrevious"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:rotationY="176"
-            android:src="@drawable/baseline_navigate_next_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/videoImg"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:adjustViewBounds="true"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/videoImg"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:adjustViewBounds="true"
 
-            android:background="#80D8FF"
-            android:scaleType="fitCenter"
-            android:src="@drawable/planvideocam"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/speakerImg"
-            app:shapeAppearanceOverlay="@style/roundimageview" />
+                android:background="#80D8FF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/planvideocam"
+                app:shapeAppearanceOverlay="@style/roundimageview" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/helpImg"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:adjustViewBounds="true"
-            android:background="#80D8FF"
-            android:scaleType="fitCenter"
-            android:src="@drawable/plan_question_mark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/videoImg"
-            app:shapeAppearanceOverlay="@style/roundimageview" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/helpImg"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:adjustViewBounds="true"
+                android:background="#80D8FF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/plan_question_mark"
+                app:shapeAppearanceOverlay="@style/roundimageview" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/speakerImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="#80D8FF"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_lock_silent_mode_off"
+                app:shapeAppearanceOverlay="@style/roundimageview" />
+        </LinearLayout>
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifImageView"
@@ -127,7 +65,7 @@
             android:src="@drawable/gif_exercise_squat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="180dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             tools:ignore="MissingConstraints" />
 
         <LinearLayout
@@ -145,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical"
-                android:text="READY TO GO"
+                android:text="R TO GO"
                 android:textAlignment="center"
                 android:textColor="#21154A"
                 android:textSize="24sp"

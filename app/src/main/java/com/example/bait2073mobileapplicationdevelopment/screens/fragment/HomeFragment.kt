@@ -26,6 +26,7 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentChan
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentHomeBinding
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.StartWorkOutViewModel
 import java.text.DecimalFormat
+import kotlin.math.log
 
 
 class HomeFragment : Fragment() {
@@ -176,7 +177,7 @@ class HomeFragment : Fragment() {
 
             val mytrainListCard: CardView? = view?.findViewById(R.id.myTrainCardView)
             mytrainListCard?.setOnClickListener{
-
+                Log.e("click","click")
                 view?.findNavController()?.navigate(R.id.action_homeFragment_to_myTrainList)
 
             }
