@@ -12,6 +12,15 @@ class EventRepository (private val eventDao: EventDao){
         eventDao.insertEvents(event)
     }
 
+    fun retrieve(): LiveData<List<Event>> {
+        return eventDao.getAllEvents()
+    }
+
+    suspend fun deleteAll(){
+        eventDao.clearAllEvents()
+    }
+
+
 
 }
 //class EventRepository @Inject constructor(

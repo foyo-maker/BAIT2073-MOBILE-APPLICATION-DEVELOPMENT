@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.event.EventList
+package com.example.bait2073mobileapplicationdevelopment.screens.event.UserEventList
 
 import android.app.Application
 import android.util.Log
@@ -17,7 +17,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventListViewModel (application: Application): AndroidViewModel(application) {
+
+class UserEventListViewModel (application: Application): AndroidViewModel(application) {
 
     private val repository : EventRepository
     val allEvent : LiveData<List<Event>>
@@ -30,23 +31,23 @@ class EventListViewModel (application: Application): AndroidViewModel(applicatio
         val dao = HealthyLifeDatabase.getDatabase(application).eventDao()
         repository = EventRepository(dao)
         allEvent = repository.allEvents
-         recyclerListDataDao = repository.retrieve()
+        recyclerListDataDao = repository.retrieve()
     }
 
     fun getLocalDao(){
         recyclerListDataDao.observeForever { newData ->
-                recyclerListData.postValue(newData)
-                Log.e("Error Event API onResponse", "Local Database ${newData}")
+            recyclerListData.postValue(newData)
+            Log.e("Error Event API onResponse", "Local Database ${newData}")
         }
     }
 
 
 
-    fun getDeleteEventObservable():MutableLiveData<Event?>{
+    fun getDeleteEventObservable(): MutableLiveData<Event?> {
         return deleteEventLiveData
     }
 
-    fun getEventListObserverable(): MutableLiveData<List<Event?>>{
+    fun getEventListObserverable(): MutableLiveData<List<Event?>> {
         return recyclerListData
     }
 

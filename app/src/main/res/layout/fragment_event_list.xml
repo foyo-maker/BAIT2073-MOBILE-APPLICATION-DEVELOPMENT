@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,8 +110,12 @@
             />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/relativeLayout2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -144,7 +148,6 @@
                 tools:visibility="visible" />
 
         </RelativeLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

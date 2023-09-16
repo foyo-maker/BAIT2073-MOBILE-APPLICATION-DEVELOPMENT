@@ -61,6 +61,7 @@
         <action
             android:id="@+id/action_manageEventFragment_to_eventListFragment"
             app:destination="@id/eventListFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/workoutFormFragment"
