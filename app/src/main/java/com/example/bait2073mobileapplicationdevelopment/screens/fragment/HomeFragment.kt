@@ -52,6 +52,14 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_workoutFragment, null, navOptions)
         }
 
+        binding.myTrainCardView.setOnClickListener{
+
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.myTrainList, true)
+                .build()
+            findNavController().navigate(R.id.action_homeFragment_to_myTrainList, null, navOptions)
+        }
+
         //intialize view model
         viewModelStartWorkout = ViewModelProvider(
             this,

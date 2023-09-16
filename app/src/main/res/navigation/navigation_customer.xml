@@ -16,6 +16,13 @@
             app:popUpTo="@id/action_homeFragment_to_workoutFragment"
             app:popUpToInclusive="true"
             />
+        <action
+            android:id="@+id/action_homeFragment_to_myTrainList"
+            app:destination="@id/myTrainList"
+            app:popUpTo="@id/action_homeFragment_to_myTrainList"
+            app:popUpToInclusive="true"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/workoutFragment"
@@ -126,6 +133,11 @@
             android:id="@+id/action_startPersonalizedFragment_to_workoutFragment"
             app:destination="@id/workoutFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/myTrainList"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.MyTrainList"
+        android:label="fragment_my_train_list"
+        tools:layout="@layout/fragment_my_train_list" />
 
 
 </navigation>

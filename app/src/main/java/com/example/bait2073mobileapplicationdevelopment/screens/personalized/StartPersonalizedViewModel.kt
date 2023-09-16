@@ -140,8 +140,10 @@ class StartPersonalizedViewModel : ViewModel() {
 
     /** Methods for buttons presses **/
     fun onSkip() {
-        _activityCount.value = (activityCount.value)?.plus(1)
+
         nextActivity()
+
+        _activityCount.value = (activityCount.value)?.plus(1)
     }
 
 
