@@ -1,6 +1,8 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.personalized
 
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -152,6 +154,11 @@ class StartPersonalizedFragment : Fragment() {
     fun insertDataIntoRoomDb(workouts: List<PersonalizedWorkout>) {
 
         val currentDate = Date() // Create a Date object with the current date and time
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+        val userId = userData?.first
+
+
         try {
             for (workout in workouts) {
                 Log.d("InsertDataIntoRoomDb", "Inserting workout with ID: ${workout}")
@@ -159,11 +166,13 @@ class StartPersonalizedFragment : Fragment() {
                     StartWorkout(
                         id = workout.id,
                         name = workout.name,
+                        userId!!,
                         description = workout.description,
                         link = workout.link,
                         gifimage = workout.gifimage,
                         calorie = workout.calorie,
                         bmi_status = workout.bmi_status,
+                        30,
                         currentDate
                     )
                 )
@@ -178,5 +187,23 @@ class StartPersonalizedFragment : Fragment() {
 
 
     }
+
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
+    }
+
 
 }

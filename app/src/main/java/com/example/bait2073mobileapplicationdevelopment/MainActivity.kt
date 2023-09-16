@@ -24,7 +24,7 @@ import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
-    private val SPLASH_SCREEN = 30000L // Change SPLASH_SCREEN type to Long
+    private val SPLASH_SCREEN = 0L // Change SPLASH_SCREEN type to Long
     private lateinit var image: ImageView
     private lateinit var logo: TextView
     lateinit var viewModel: UserViewModel
@@ -115,7 +115,8 @@ class MainActivity : BaseActivity() {
                                 phone = user.phone ?: "",
                                 birthdate = user.birthdate,
                                 weight = user.weight,
-                                height = user.height
+                                height = user.height,
+                                rating = user.rating
                             )
                         )
                     }

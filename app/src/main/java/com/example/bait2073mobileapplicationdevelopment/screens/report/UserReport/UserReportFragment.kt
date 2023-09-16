@@ -22,9 +22,9 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.adapter.CalendarAdapter
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentReportBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserListFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.utilities.CalendarUtils
 import com.example.bait2073mobileapplicationdevelopment.utilities.calendar.MonthlyViewActivity
+import com.example.bait2073mobileapplicationdevelopment.viewmodel.StartWorkOutViewModel
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
@@ -35,15 +35,17 @@ import java.time.LocalDate
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class UserReportFragment : Fragment() , CalendarAdapter.OnItemListener{
+class UserReportFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     private var monthYearText: TextView? = null
     private var calendarRecyclerView: RecyclerView? = null
-    private lateinit var binding :FragmentReportBinding
-
+    private lateinit var binding: FragmentReportBinding
+    lateinit var viewModelStartWorkout: StartWorkOutViewModel
     lateinit var viewModel: UserReportViewModel
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Inflate view and obtain an instance of the binding class
         binding = FragmentReportBinding.inflate(
@@ -52,29 +54,85 @@ class UserReportFragment : Fragment() , CalendarAdapter.OnItemListener{
             false
         )
 
-        viewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(
-            UserReportViewModel::class.java)
-
-
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(
+            UserReportViewModel::class.java
+        )
 
 
         val userData = retrieveUserDataFromSharedPreferences(requireContext())
         val userId = userData?.first
         loadUserData(userId)
 
-            // Update your UI elements with the user data
-        binding.heightImageView.setOnClickListener(){
+
+        //intialize view model
+        viewModelStartWorkout = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(StartWorkOutViewModel::class.java)
+
+
+
+        viewModelStartWorkout.allStartWorkout.observe(viewLifecycleOwner) { list ->
+            list?.let {
+
+
+                var totalCalorie = 0.0 // Initialize totalCalorie to zero
+                var durationInSeconds = 0
+
+
+                for (workout in list) {
+                    if (workout.userId == userId) {
+                        workout.calorie?.let {
+                            totalCalorie += it // Add the calorie value of each workout to totalCalorie
+                        }
+                        workout.duration?.let {
+                            durationInSeconds += it // Add the calorie value of each workout to totalCalorie
+                        }
+                    }
+                }
+
+                // Calculate minutes and seconds
+                val minutes = durationInSeconds / 60
+                val seconds = durationInSeconds % 60
+
+               // Format minutes and seconds into "mm:ss" format
+                val formattedDuration = String.format("%02d:%02d", minutes, seconds)
+                binding.totalDurationTV.text = "$formattedDuration"
+                binding.totalWorkOutTV.text = list.size.toString()
+
+
+
+
+//
+//                for (workout in list) {
+//                    totalCalorie += workout.calorie ?: 0.0 // Add the calorie value of each workout to totalCalorie
+//                }
+
+                val format = DecimalFormat("###.0")
+                if(totalCalorie==0.0){
+                    binding.totalCalorieTV.text = "0.0"
+                }else {
+                    val formattedCalorie = format.format(totalCalorie)
+                    // Now, you can display the totalCalorie in your UI
+                    binding.totalCalorieTV.text = "$formattedCalorie"
+                }
+            }
+        }
+        // Update your UI elements with the user data
+        binding.heightImageView.setOnClickListener() {
 
             navigateToProfileFragment()
         }
 
 
-        binding.weightImageView.setOnClickListener{
+        binding.weightImageView.setOnClickListener {
             navigateToProfileFragment()
         }
 
-        binding.editBmiClick.setOnClickListener{
+        binding.editBmiClick.setOnClickListener {
             navigateToProfileFragment()
         }
         if (CalendarUtils.selectedDate == null) {
@@ -96,34 +154,38 @@ class UserReportFragment : Fragment() , CalendarAdapter.OnItemListener{
 
     }
 
-    private fun navigateToProfileFragment(){
+    private fun navigateToProfileFragment() {
 
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.reportFragment, true)
             .build()
-        findNavController().navigate(R.id.action_reportFragment_to_profileFragment, null, navOptions)
+        findNavController().navigate(
+            R.id.action_reportFragment_to_profileFragment,
+            null,
+            navOptions
+        )
     }
+
     private fun loadUserData(user_id: Int?) {
         viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it != null) {
 
                 val format = DecimalFormat("###.0")
-                    val formattedHeight = format.format(it.height)
-                    val formattedWeight = format.format(it.weight)
-                    binding.heightEdit.text = "$formattedHeight"
-                    binding.weightEdit.text = "$formattedWeight"
+                val formattedHeight = format.format(it.height)
+                val formattedWeight = format.format(it.weight)
+                binding.heightEdit.text = "$formattedHeight"
+                binding.weightEdit.text = "$formattedWeight"
 
-                    calculateBMI(it.height ?: 0.0, it.weight ?: 0.0)
+                calculateBMI(it.height ?: 0.0, it.weight ?: 0.0)
 
-                }
+            }
 
 
         })
         viewModel.getUserData(user_id)
     }
 
-    private fun calculateBMI(height:Double,weight:Double)
-    {
+    private fun calculateBMI(height: Double, weight: Double) {
 
         val heightInMeters = height / 100.0
         // Calculate BMI
@@ -134,18 +196,16 @@ class UserReportFragment : Fragment() , CalendarAdapter.OnItemListener{
 
     }
 
-    private fun healthyMessage(bmi: Double): String
-    {
+    private fun healthyMessage(bmi: Double): String {
         if (bmi < 18.5)
             return "Underweight"
-        if(bmi < 25.0)
+        if (bmi < 25.0)
             return "Healthy"
         if (bmi < 30.0)
             return "Overweight"
 
         return "Obese"
     }
-
 
 
     private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
@@ -171,7 +231,6 @@ class UserReportFragment : Fragment() , CalendarAdapter.OnItemListener{
         monthYearText = binding.monthYearTV
 
     }
-
 
 
     private fun setWeekView() {

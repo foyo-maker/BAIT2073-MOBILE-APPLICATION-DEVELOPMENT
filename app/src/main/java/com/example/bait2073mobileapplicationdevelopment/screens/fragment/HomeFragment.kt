@@ -16,6 +16,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,8 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentChangePasswordBinding
 
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentHomeBinding
+import com.example.bait2073mobileapplicationdevelopment.viewmodel.StartWorkOutViewModel
+import java.text.DecimalFormat
 
 
 class HomeFragment : Fragment() {
@@ -30,7 +33,7 @@ class HomeFragment : Fragment() {
     private lateinit var dialog: Dialog
 
     private lateinit var binding: FragmentHomeBinding
-
+    lateinit var viewModelStartWorkout: StartWorkOutViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +52,62 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_workoutFragment, null, navOptions)
         }
 
+        //intialize view model
+        viewModelStartWorkout = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(StartWorkOutViewModel::class.java)
+
+
+
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+        val userId = userData?.first
+
+
+        viewModelStartWorkout.allStartWorkout.observe(viewLifecycleOwner) { list ->
+            list?.let {
+
+
+                var totalCalorie = 0.0 // Initialize totalCalorie to zero
+                var durationInSeconds = 0
+
+
+                for (workout in list) {
+                    if (workout.userId == userId) {
+                        workout.calorie?.let {
+                            totalCalorie += it // Add the calorie value of each workout to totalCalorie
+                        }
+                        workout.duration?.let {
+                            durationInSeconds += it // Add the calorie value of each workout to totalCalorie
+                        }
+                    }
+                }
+
+                // Calculate minutes and seconds
+                val minutes = durationInSeconds / 60
+                val seconds = durationInSeconds % 60
+
+                // Format minutes and seconds into "mm:ss" format
+                val formattedDuration = String.format("%02d:%02d", minutes, seconds)
+                binding.timeCal.text = "$formattedDuration"
+
+//
+//                for (workout in list) {
+//                    totalCalorie += workout.calorie ?: 0.0 // Add the calorie value of each workout to totalCalorie
+//                }
+
+                val format = DecimalFormat("###.0")
+                if(totalCalorie==0.0){
+                    binding.calorie.text = "0.0"
+                }else {
+                    val formattedCalorie = format.format(totalCalorie)
+                    // Now, you can display the totalCalorie in your UI
+                    binding.calorie.text = "$formattedCalorie"
+                }
+            }
+        }
+
 
 
 
@@ -56,6 +115,23 @@ class HomeFragment : Fragment() {
     }
 
 
+
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
+    }
 
     private fun showDialogNotification() {
         val showDialog: ImageView? = view?.findViewById(R.id.icon_add)

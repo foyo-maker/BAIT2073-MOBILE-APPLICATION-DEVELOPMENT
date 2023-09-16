@@ -39,9 +39,61 @@
             app:destination="@id/userListFragment" />
     </fragment>
     <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListFragment"
+        android:label="EventListFragment"
+        tools:layout="@layout/fragment_event_list">
+        <action
+            android:id="@+id/action_eventListFragment_to_manageEventFragment"
+            app:destination="@id/manageEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageEventFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventForm.ManageEventFragment"
+        android:label="fragment_manage_event"
+        tools:layout="@layout/fragment_manage_event" >
+        <argument
+            android:name="event_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_manageEventFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/workoutFormFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutForm.WorkoutFormFragment"
         android:label="fragment_workout_form"
         tools:layout="@layout/fragment_workout_form" />
+    <fragment
+        android:id="@+id/adminFormFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminForm.AdminFormFragment"
+        android:label="fragment_admin_form"
+        tools:layout="@layout/fragment_admin_form" >
+        <action
+            android:id="@+id/action_adminFormFragment_to_adminListFragment"
+            app:destination="@id/adminListFragment" />
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminList.AdminListFragment"
+        android:label="fragment_admin_list"
+        tools:layout="@layout/fragment_admin_list" >
+        <action
+            android:id="@+id/action_adminListFragment_to_adminFormFragment"
+            app:destination="@id/adminFormFragment" />
+        <action
+            android:id="@+id/action_adminListFragment_to_reportDashboardFragment"
+            app:destination="@id/reportDashboardFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/userRatingFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserRatingFragment"
+        android:label="fragment_customer_list"
+        tools:layout="@layout/fragment_user_list">
+
+    </fragment>
 </navigation>

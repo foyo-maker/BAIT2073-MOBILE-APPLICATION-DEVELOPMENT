@@ -16,10 +16,17 @@ data class StartWorkout(
     @SerializedName("id")
     val id: Int?,
 
+
+
     @ColumnInfo(name = "name")
     @Expose
     @SerializedName("name")
     val name: String,
+
+    @ColumnInfo(name = "userId")
+    @Expose
+    @SerializedName("userId")
+    val userId: Int,
 
     @ColumnInfo(name = "description")
     @Expose
@@ -45,6 +52,10 @@ data class StartWorkout(
     @Expose
     @SerializedName("bmi_status")
     val bmi_status: String?,
+
+    @ColumnInfo(name = "duration")
+    val duration: Int?,
+
 
     @ColumnInfo(name = "current_date")
     val currentDate: Date?,

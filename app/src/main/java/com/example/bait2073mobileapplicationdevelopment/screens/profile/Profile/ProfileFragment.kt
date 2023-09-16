@@ -44,6 +44,7 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var viewModel: ProfileFragmentViewModel
 
+    private lateinit var user: User
     private val PICK_IMAGE_REQUEST = 1
     private val CAPTURE_IMAGE_REQUEST = 2
     private var selectedImageBitmap: Bitmap? = null
@@ -154,10 +155,11 @@ class ProfileFragment : Fragment() {
             binding.eTextEmail.text.toString(),
             selectedGender,
             imageData,
-            "",
-            "",
+            user.phone,
+            user.birthdate,
             binding.eTextWeight.text.toString().toDoubleOrNull(),
-            binding.eTextHeight.text.toString().toDoubleOrNull()
+            binding.eTextHeight.text.toString().toDoubleOrNull(),
+            user.rating
         )
 
             viewModel.updateUser(user_id ?: 0, user)
@@ -169,6 +171,7 @@ class ProfileFragment : Fragment() {
         viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it != null) {
 
+                user = it
                 binding.eTextUserName.setText(it.name)
                 binding.eTextEmail.setText(it.email)
                 binding.eTextWeight.setText(it.weight.toString())
