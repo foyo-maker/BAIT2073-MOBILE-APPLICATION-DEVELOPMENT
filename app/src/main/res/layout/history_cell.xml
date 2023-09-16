@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/historyView"
+    android:id="@+id/history_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
@@ -25,16 +25,15 @@
         <!--            -->
         <!--            -->
         <!--            />-->
-        <ImageView
+
+
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/image_workout"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="155dp"
+            android:src="@drawable/gif_exercise_squat"
 
-            android:layout_height="70dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="14dp"
-            android:foregroundGravity="center"
-            app:srcCompat="@drawable/img_planx" />
-
+            />
 
         <TextView
             android:id="@+id/dateText"
@@ -109,13 +108,13 @@
 
 
         <TextView
-            android:id="@+id/time_calorie_edit"
+            android:id="@+id/calorie_edit"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
 
 
             android:layout_below="@+id/workOutTitle"
-            android:layout_marginStart="226dp"
+            android:layout_marginStart="228dp"
 
 
             android:layout_marginTop="7dp"
@@ -127,21 +126,10 @@
 
             />
 
-        <ImageView
-            android:id="@+id/nextHistory"
 
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="50dp"
-
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/baseline_navigate_next_24" />
 
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
