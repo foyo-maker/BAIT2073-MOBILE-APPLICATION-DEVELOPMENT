@@ -31,7 +31,7 @@ class UserRatingAdapter (private val context : Context, val listener:UserClickLi
         ctx = parent.context
         return UserViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycleview_customer, parent, false)
+                .inflate(R.layout.recycleview_rating, parent, false)
         )
     }
 
@@ -42,11 +42,11 @@ class UserRatingAdapter (private val context : Context, val listener:UserClickLi
 
     inner class UserViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        val user_layout = itemView.findViewById<CardView>(R.id.customer_layout)
+        val user_layout = itemView.findViewById<CardView>(R.id.rating_layout)
         val id = itemView.findViewById<TextView>(R.id.tv_customerID)
         val userName = itemView.findViewById<TextView>(R.id.tv_customerName)
         val userEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)
-        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
+
 
 
     }
@@ -58,8 +58,90 @@ class UserRatingAdapter (private val context : Context, val listener:UserClickLi
         holder.id.text = currentUser.id.toString()
         holder.userEmail.text = currentUser.email
         holder.userName.text = currentUser.name
-        holder.ratingBar.rating = currentUser.rating?.toFloat() ?: 0.0f
 
+
+
+        // Set star icons based on the user's rating
+        val star1 = holder.itemView.findViewById<ImageView>(R.id.star1)
+        val star2 = holder.itemView.findViewById<ImageView>(R.id.star2)
+        val star3 = holder.itemView.findViewById<ImageView>(R.id.star3)
+        val star4 = holder.itemView.findViewById<ImageView>(R.id.star4)
+        val star5 = holder.itemView.findViewById<ImageView>(R.id.star5)
+
+        val rating = currentUser.rating?.toFloat() ?: 0.0f
+
+        Log.d("Rating", "Rating: $rating")
+
+        star1.visibility = if (rating >= 1.0f) {
+            Log.d("StarVisibility", "Star 1 is visible")
+            View.VISIBLE
+        } else {
+            Log.d("StarVisibility", "Star 1 is gone")
+            View.GONE
+        }
+
+        star1.visibility = if (rating >= 0.5f) View.VISIBLE else View.GONE
+        star2.visibility = if (rating >= 1.5f) View.VISIBLE else View.GONE
+        star3.visibility = if (rating >= 2.5f) View.VISIBLE else View.GONE
+        star4.visibility = if (rating >= 3.5f) View.VISIBLE else View.GONE
+        star5.visibility = if (rating >= 4.5f) View.VISIBLE else View.GONE
+
+
+        when (rating) {
+            in 0.1f..0.5f -> star1.setImageResource(R.drawable.halfstar)
+            in 0.6f..1.0f -> star1.setImageResource(R.drawable.fullstar)
+            in 1.1f..1.5f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.halfstar)
+            }
+
+            in 1.6f..2.0f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+            }
+
+            in 2.1f..2.5f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+                star3.setImageResource(R.drawable.halfstar)
+            }
+
+            in 2.6f..3.0f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+                star3.setImageResource(R.drawable.fullstar)
+            }
+
+            in 3.1f..3.5f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+                star3.setImageResource(R.drawable.fullstar)
+                star4.setImageResource(R.drawable.halfstar)
+            }
+
+            in 3.6f..4.0f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+                star3.setImageResource(R.drawable.fullstar)
+                star4.setImageResource(R.drawable.fullstar)
+            }
+
+            in 4.1f..4.5f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+                star3.setImageResource(R.drawable.fullstar)
+                star4.setImageResource(R.drawable.fullstar)
+                star5.setImageResource(R.drawable.halfstar)
+            }
+
+            in 4.6f..5.0f -> {
+                star1.setImageResource(R.drawable.fullstar)
+                star2.setImageResource(R.drawable.fullstar)
+                star3.setImageResource(R.drawable.fullstar)
+                star4.setImageResource(R.drawable.fullstar)
+                star5.setImageResource(R.drawable.fullstar)
+            }
+        }
         val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
         if (!currentUser.image.isNullOrBlank()) {
 
@@ -118,6 +200,8 @@ class UserRatingAdapter (private val context : Context, val listener:UserClickLi
 
         notifyDataSetChanged()
     }
+
+
 
     interface UserClickListener{
         fun onItemClicked(user:User)

@@ -52,10 +52,6 @@ interface GetUserDataService {
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun createAdmin(@Body params: User): Call<User>
 
-    @PATCH("rating/{user_id}")
-    @Headers("Accept:application/json", "Content-Type:application/json",
-        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
-    fun updateRate(@Path("user_id") user_id: Int, @Body params: UserRating): Call<UserRating>
 
 
 
@@ -75,6 +71,10 @@ interface GetUserDataService {
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun updateUser(@Path("user_id") user_id: Int, @Body params: User): Call<User>
 
+    @PATCH("rating/{user_id}")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun updateRate(@Path("user_id") user_id: Int, @Body params: UserRating): Call<UserRating>
 
     @PATCH("users/{user_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",

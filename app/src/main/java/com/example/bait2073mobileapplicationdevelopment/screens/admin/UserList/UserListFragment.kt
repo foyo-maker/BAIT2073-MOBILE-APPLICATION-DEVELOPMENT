@@ -30,7 +30,7 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUser
 class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenuItemClickListener {
 
     lateinit var recyclerViewAdapter: UserAdapter
-    lateinit var viewModel: AdminListViewModel
+    lateinit var viewModel: UserListViewModel
     private lateinit var binding:FragmentUserListBinding
     lateinit var selectedUser : User
     private lateinit var dialog: Dialog
@@ -86,7 +86,7 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
     fun initViewModel() {
         viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(
-            AdminListViewModel::class.java)
+            UserListViewModel::class.java)
 
 
         viewModel.getUserListObserverable().observe(viewLifecycleOwner, Observer<List<User?>> {userListResponse ->

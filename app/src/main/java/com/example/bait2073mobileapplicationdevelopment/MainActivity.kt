@@ -17,8 +17,6 @@ import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataSe
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

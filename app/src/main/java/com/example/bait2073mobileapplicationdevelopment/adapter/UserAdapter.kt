@@ -41,7 +41,7 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
 
     inner class UserViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        val user_layout = itemView.findViewById<CardView>(R.id.rating_layout)
+        val user_layout = itemView.findViewById<CardView>(R.id.customer_layout)
         val id = itemView.findViewById<TextView>(R.id.tv_customerID)
         val userName = itemView.findViewById<TextView>(R.id.tv_customerName)
         val userEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)

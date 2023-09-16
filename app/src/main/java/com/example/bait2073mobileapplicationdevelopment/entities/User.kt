@@ -230,7 +230,7 @@ data class UserRating(
     @ColumnInfo(name = "rating")
     @Expose
     @SerializedName("rating")
-    val rating: Float?,
+    val rating: Double?,
 
     )
 

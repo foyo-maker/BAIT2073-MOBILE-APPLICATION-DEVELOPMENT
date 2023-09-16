@@ -29,13 +29,14 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentRati
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserListBinding
 
 
-class UserRatingFragment: Fragment() {
+class UserRatingFragment : Fragment(), UserRatingAdapter.UserClickListener{
 
     lateinit var recyclerViewAdapter: UserRatingAdapter
     lateinit var viewModel: UserRatingViewModel
     private lateinit var binding:FragmentRatingListBinding
-    lateinit var selectedUser : User
+    lateinit var users: List<User>
     private lateinit var dialog: Dialog
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +75,7 @@ class UserRatingFragment: Fragment() {
     private fun initRecyclerView() {
         binding.recycleView.setHasFixedSize(true)
         binding.recycleView.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
+        recyclerViewAdapter = UserRatingAdapter(requireContext(),this)
         binding.recycleView.adapter = recyclerViewAdapter
 
     }
@@ -93,6 +95,9 @@ class UserRatingFragment: Fragment() {
                 Log.i("haha", "$userList")
                 recyclerViewAdapter.updateList(userList)
                 recyclerViewAdapter.notifyDataSetChanged()
+                val averageRating = calculateAverageRating(userList)
+                binding.ratingTV.text = String.format("%.1f/5.0", averageRating)
+
             }
         })
         viewModel.getUsers()
@@ -107,6 +112,27 @@ class UserRatingFragment: Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun onItemClicked(user: User) {
+
+    }
+
+    override fun onLongItemClicked(user: User, cardView: CardView) {
+
+    }
+    private fun calculateAverageRating(users: List<User>): Float {
+        val ratedUsers = users.filter { it.rating != null }
+        if (ratedUsers.isNotEmpty()) {
+            var totalRating = 0.0f
+            for (user in ratedUsers) {
+                user.rating?.toFloat()?.let {
+                    totalRating += it
+                }
+            }
+            return totalRating / ratedUsers.size
+        } else {
+            return 0.0f
+        }
+    }
 
 
 

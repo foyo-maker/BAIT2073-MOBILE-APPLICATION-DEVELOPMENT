@@ -31,6 +31,8 @@ class RatingDialogViewModel : ViewModel() {
 
     fun updateUser(user_id: Int, user: UserRating) {
 
+
+        Log.e("update","$user")
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.updateRate(user_id, user)
         call.enqueue(object : Callback<UserRating?> {

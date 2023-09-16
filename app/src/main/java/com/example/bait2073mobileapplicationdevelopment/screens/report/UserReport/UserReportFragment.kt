@@ -112,9 +112,13 @@ class UserReportFragment : Fragment(), CalendarAdapter.OnItemListener {
 //                }
 
                 val format = DecimalFormat("###.0")
-                val formattedCalorie = format.format(totalCalorie)
-                // Now, you can display the totalCalorie in your UI
-                binding.totalCalorieTV.text = "$formattedCalorie"
+                if(totalCalorie==0.0){
+                    binding.totalCalorieTV.text = "0.0"
+                }else {
+                    val formattedCalorie = format.format(totalCalorie)
+                    // Now, you can display the totalCalorie in your UI
+                    binding.totalCalorieTV.text = "$formattedCalorie"
+                }
             }
         }
         // Update your UI elements with the user data

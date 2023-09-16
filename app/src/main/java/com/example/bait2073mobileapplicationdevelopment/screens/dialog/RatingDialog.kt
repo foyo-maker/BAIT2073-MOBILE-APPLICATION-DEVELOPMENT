@@ -47,6 +47,7 @@ class RatingDialog(context: Context, private val viewModel: RatingDialogViewMode
             //animate emoji image
             animateImage(ratingImage)
             userRate = rating
+
         }
 
         val userData = retrieveUserDataFromSharedPreferences(context.applicationContext)
@@ -56,10 +57,10 @@ class RatingDialog(context: Context, private val viewModel: RatingDialogViewMode
         rateNowBtn.setOnClickListener {
             // Implement the logic for the "Rate Now" button click here
 
-
+            Log.e("userRate","${userRate.toDouble()}")
             val user = UserRating(
                 userId,
-                userRate
+                userRate.toDouble()
 
             )
             viewModel.updateUser(userId ?: 0, user)

@@ -197,7 +197,8 @@ class ManageEventFragment : Fragment() {
             "",
             "",
             binding.eTextWeight.text.toString().toDoubleOrNull(),
-            binding.eTextHeight.text.toString().toDoubleOrNull()
+            binding.eTextHeight.text.toString().toDoubleOrNull(),
+            null
         )
 
         if (user_id == 0)

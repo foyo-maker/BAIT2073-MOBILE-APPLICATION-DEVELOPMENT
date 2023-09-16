@@ -6,9 +6,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+
 import androidx.lifecycle.viewModelScope
 import com.example.bait2073mobileapplicationdevelopment.BaseActivity
 import com.example.bait2073mobileapplicationdevelopment.database.EventDatabase
@@ -24,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.create
-import javax.inject.Inject
+
 
 import kotlinx.coroutines.launch
 class EventListViewModel (application: Application): AndroidViewModel(application) {

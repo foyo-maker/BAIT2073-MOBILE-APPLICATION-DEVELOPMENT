@@ -61,7 +61,7 @@
 
                 android:fontFamily="@font/poppins_bold"
 
-                android:text="5.75"
+
                 android:textColor="#fff"
                 android:textSize="29dp"
                 android:textStyle="bold" />

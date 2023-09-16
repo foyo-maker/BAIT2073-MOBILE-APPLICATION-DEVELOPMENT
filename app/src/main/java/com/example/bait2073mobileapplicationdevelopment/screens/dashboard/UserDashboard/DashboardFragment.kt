@@ -65,9 +65,14 @@ class DashboardFragment: Fragment() {
 //                }
 
                 val format = DecimalFormat("###.0")
-                val formattedCalorie = format.format(totalCalorie)
-                // Now, you can display the totalCalorie in your UI
-                binding.totalCalorie.text = "$formattedCalorie"
+                Log.e("calorie","$totalCalorie")
+                if(totalCalorie==0.0){
+                    binding.totalCalorieSpent.text = "0.0"
+                }else {
+                    val formattedCalorie = format.format(totalCalorie)
+                    // Now, you can display the totalCalorie in your UI
+                    binding.totalCalorieSpent.text = "$formattedCalorie"
+                }
             }
         }
 
