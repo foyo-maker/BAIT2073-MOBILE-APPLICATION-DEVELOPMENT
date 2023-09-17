@@ -71,6 +71,11 @@ class StartPersonalizedFragment : Fragment() {
             }
         }
 
+        viewModel.progressBar.observe(viewLifecycleOwner, Observer { progress ->
+            // Update the ProgressBar's progress here
+            binding.pbTimer.progress = progress
+        })
+
         viewModelStartWorkout = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
@@ -98,6 +103,19 @@ class StartPersonalizedFragment : Fragment() {
         })
         return binding.root
 
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Start the timer when the fragment is created
+        viewModel.startTimer()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // Stop the timer when the fragment is destroyed
+        viewModel.stopTimer()
     }
 
 

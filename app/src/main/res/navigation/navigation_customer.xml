@@ -40,7 +40,11 @@
         android:id="@+id/startPlan"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.StartPlan"
         android:label="Start Plan"
-        tools:layout="@layout/fragment_start_plan" />
+        tools:layout="@layout/fragment_start_plan" >
+        <action
+            android:id="@+id/action_startPlan_to_play_plan"
+            app:destination="@id/play_plan" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -125,7 +129,7 @@
     <fragment
         android:id="@+id/startPersonalizedFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.personalized.StartPersonalizedFragment"
-        android:label="StartPersonalizedFragment" >
+        android:label="Start Personalized Plan" >
         <action
             android:id="@+id/action_startPersonalizedFragment_to_reportFragment"
             app:destination="@id/reportFragment" />
@@ -138,8 +142,11 @@
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.MyTrainList"
         android:label="fragment_my_train_list"
         tools:layout="@layout/fragment_my_train_list" />
-
-
+    <fragment
+        android:id="@+id/play_plan"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.play_plan"
+        android:label="fragment_play_plan"
+        tools:layout="@layout/fragment_play_plan" />
 
 
 </navigation>
