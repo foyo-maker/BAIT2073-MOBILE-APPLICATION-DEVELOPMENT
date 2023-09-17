@@ -108,7 +108,6 @@ class StartPersonalizedViewModel : ViewModel() {
             }
 
             override fun onFinish() {
-
                 _currentTime.value = DONE
 //               _processBar.value = timeProgress
                 nextActivity()

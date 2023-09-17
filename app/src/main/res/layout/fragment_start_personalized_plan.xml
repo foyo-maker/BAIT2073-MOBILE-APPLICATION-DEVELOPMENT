@@ -13,16 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="150dp"
         tools:context=".screens.personalized.StartPersonalizedFragment">
 
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
 
+            android:layout_marginTop="150dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/gifImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -52,20 +53,27 @@
             android:layout_height="299dp"
 
             android:layout_marginStart="12dp"
+            android:layout_marginTop="29dp"
             android:layout_marginEnd="13dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/gif_exercise_squat"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="90dp" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="MissingConstraints" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="21dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/flTimer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gifImageView">
 
             <TextView
