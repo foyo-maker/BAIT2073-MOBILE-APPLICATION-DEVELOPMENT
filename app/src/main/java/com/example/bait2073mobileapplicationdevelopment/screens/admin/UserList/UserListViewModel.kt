@@ -39,7 +39,7 @@ class UserListViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     // Response contains a list of User objects
                     val userList = response.body()
-                    Log.e("gg", "Response not successful, code: ${userList}")
+                    Log.e("Response not successful", "Response not successful, code: ${userList}")
                     if (userList != null && userList.isNotEmpty()) {
                         // Insert the user data into the Room Database
                         recyclerListData.postValue(response.body())
@@ -61,16 +61,16 @@ class UserListViewModel : ViewModel() {
         call.enqueue(object : Callback<User?> {
 
             override fun onFailure(call: Call<User?>, t: Throwable) {
-                Log.e("haha", "dfd")
+                Log.e("API Error", t.message ?: "Unknown error")
                 deleteUserLiveData.postValue(null)
             }
 
             override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 if(response.isSuccessful) {
-                    Log.e("haha", "wandan")
+                    Log.e("API Response", "Response body is empty")
                     deleteUserLiveData.postValue(response.body())
                 } else {
-                    Log.e("haha", "wandan")
+                    Log.e("API Response", "Response body is empty")
                     deleteUserLiveData.postValue(null)
                 }
             }

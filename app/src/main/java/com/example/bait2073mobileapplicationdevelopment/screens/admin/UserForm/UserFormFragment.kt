@@ -215,7 +215,7 @@ class UserFormFragment : Fragment() {
     private fun createUserObservable() {
         viewModel.getCreateNewUserObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it == null) {
-                UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+                binding.layoutEmail.error = "Email Already Registered, Please Try Another Email"
             } else {
 
 

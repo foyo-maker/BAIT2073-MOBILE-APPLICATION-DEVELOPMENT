@@ -66,6 +66,7 @@ class AdminFormFragment : Fragment() {
         validateOnChangeEmail()
         validateOnChangePhone()
 
+
         binding.createButton.setOnClickListener {
 
             if(validateForm()) {
@@ -223,7 +224,7 @@ class AdminFormFragment : Fragment() {
     private fun createUserObservable() {
         viewModel.getCreateNewUserObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it == null) {
-                AdminFormFragmentDirections.actionAdminFormFragmentToAdminListFragment()
+                binding.layoutEmail.error = "Email Already Registered, Please Try Another Email"
             } else {
 
 

@@ -29,12 +29,13 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUser
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.AdminListViewModel
 
 
-class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenuItemClickListener {
+class AdminListFragment : Fragment(), UserAdapter.UserClickListener,
+    PopupMenu.OnMenuItemClickListener {
 
     lateinit var recyclerViewAdapter: UserAdapter
     lateinit var viewModel: AdminListViewModel
-    private lateinit var binding:FragmentAdminListBinding
-    lateinit var selectedUser : User
+    private lateinit var binding: FragmentAdminListBinding
+    lateinit var selectedUser: User
     private lateinit var dialog: Dialog
 
     override fun onCreateView(
@@ -49,6 +50,13 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
         observeUserDeletion()
         searchUser()
 
+        binding.deleteImg.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Long-press to delete a admin.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         binding.addUserBtn.setOnClickListener {
 
             val action =
@@ -77,6 +85,7 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
             }
         })
     }
+
     private fun initRecyclerView() {
         binding.recycleView.setHasFixedSize(true)
         binding.recycleView.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
@@ -86,29 +95,33 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
     }
 
     fun initViewModel() {
-        viewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(
-            AdminListViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(
+            AdminListViewModel::class.java
+        )
 
 
-        viewModel.getUserListObserverable().observe(viewLifecycleOwner, Observer<List<User?>> {userListResponse ->
-            if(userListResponse == null) {
-                Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
-            } else {
+        viewModel.getUserListObserverable()
+            .observe(viewLifecycleOwner, Observer<List<User?>> { userListResponse ->
+                if (userListResponse == null) {
+                    Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
+                } else {
 //                recyclerViewAdapter.updateList(it.toList().get(1))
-                val userList = userListResponse.filterNotNull().toMutableList()
-                Log.i("haha", "$userList")
-                recyclerViewAdapter.updateList(userList)
-                recyclerViewAdapter.notifyDataSetChanged()
-            }
-        })
+                    val userList = userListResponse.filterNotNull().toMutableList()
+                    Log.i("haha", "$userList")
+                    recyclerViewAdapter.updateList(userList)
+                    recyclerViewAdapter.notifyDataSetChanged()
+                }
+            })
         viewModel.getUsers()
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        if(requestCode == 1000) {
+        if (requestCode == 1000) {
             viewModel.getUsers()
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -130,7 +143,7 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
 
     private fun popUpDisplay(cardView: CardView) {
 
-        val popup = PopupMenu(requireContext(),cardView)
+        val popup = PopupMenu(requireContext(), cardView)
         popup.setOnMenuItemClickListener(this)
         popup.inflate(R.menu.pop_up_menu)
         popup.show()
@@ -139,7 +152,7 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
 
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.delete_note){
+        if (item?.itemId == R.id.delete_note) {
 
             viewModel.deleteUser(selectedUser)
         }
@@ -147,28 +160,33 @@ class AdminListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.On
     }
 
     private fun observeUserDeletion() {
-        viewModel.getDeleteUserObservable().observe(viewLifecycleOwner, Observer<User?> { deletedUser ->
-            if (deletedUser == null) {
-                Toast.makeText(requireContext(), "Cannot Delete User", Toast.LENGTH_SHORT).show()
-            } else {
-                showSuccessDialog()
-                viewModel.getUsers()
+        viewModel.getDeleteUserObservable()
+            .observe(viewLifecycleOwner, Observer<User?> { deletedUser ->
+                if (deletedUser == null) {
+                    Toast.makeText(requireContext(), "Cannot Delete User", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    showSuccessDialog()
+                    viewModel.getUsers()
 
-                // You can perform any other actions needed after successful deletion here
-            }
-        })
+                    // You can perform any other actions needed after successful deletion here
+                }
+            })
     }
 
 
-
-    private fun showSuccessDialog(){
+    private fun showSuccessDialog() {
         dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.custom_dialog_success)
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         dialog.setCancelable(false) // Optional
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
 
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
+        dialog.window?.attributes?.windowAnimations =
+            R.style.DialogAnimation // Setting the animations to dialog
 
         val okay: Button = dialog.findViewById(R.id.btn_okay)
         val cancel: Button = dialog.findViewById(R.id.btn_cancel)

@@ -91,7 +91,10 @@ class UserRatingFragment : Fragment(), UserRatingAdapter.UserClickListener{
                 Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
             } else {
 //                recyclerViewAdapter.updateList(it.toList().get(1))
-                val userList = userListResponse.filterNotNull().toMutableList()
+                val userList = userListResponse
+                    .filterNotNull()
+                    .filter { it.rating != null } // Filter out users with null ratings
+                    .toMutableList()
                 Log.i("haha", "$userList")
                 recyclerViewAdapter.updateList(userList)
                 recyclerViewAdapter.notifyDataSetChanged()

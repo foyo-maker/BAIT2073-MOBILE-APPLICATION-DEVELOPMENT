@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
         viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(UserViewModel::class.java)
 
-        readStorageTask()
+//        readStorageTask()
         // Initialize your views using findViewById
         image = findViewById(R.id.logo_image)
         logo = findViewById(R.id.logo_text)
@@ -84,7 +84,7 @@ class MainActivity : BaseActivity() {
                     Log.e("gg", "Response not successful, code: ${userList}")
                     if (userList != null && userList.isNotEmpty()) {
                         // Insert the user data into the Room Database
-                        insertDataIntoRoomDb(userList)
+//                        insertDataIntoRoomDb(userList)
                     } else {
                         // Handle the case where the response is empty
                         Log.e("API Response", "Response body is empty")

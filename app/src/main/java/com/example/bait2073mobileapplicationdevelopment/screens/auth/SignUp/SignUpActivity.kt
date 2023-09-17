@@ -75,7 +75,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun createUserObservable() {
         viewModel.getCreateNewUserObservable().observe(this, Observer<RegisterUser?> {
             if (it == null) {
-              Toast.makeText(this,"Cannot Create User",Toast.LENGTH_SHORT)
+                binding.layoutEmail.error = "Email Already Registered, Please Try Another Email"
+                Toast.makeText(this,"Cannot Create User",Toast.LENGTH_SHORT)
             } else {
 
                 saveUserDataToSharedPreferences(this, it.id ?:0, it.name)

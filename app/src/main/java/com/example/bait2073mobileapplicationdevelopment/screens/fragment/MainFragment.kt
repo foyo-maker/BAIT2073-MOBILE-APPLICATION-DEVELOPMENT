@@ -19,16 +19,20 @@ import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -40,13 +44,17 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityMainBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentMainBinding
+import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserListViewModel
 import com.example.bait2073mobileapplicationdevelopment.screens.auth.Login.LoginActivity
 import com.example.bait2073mobileapplicationdevelopment.screens.dialog.RatingDialog
 import com.example.bait2073mobileapplicationdevelopment.screens.dialog.RatingDialogViewModel
 import com.example.bait2073mobileapplicationdevelopment.screens.profile.BMI.RequestBmiActivityViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 
 class MainFragment : AppCompatActivity(){
 
@@ -55,6 +63,8 @@ class MainFragment : AppCompatActivity(){
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var viewModel: RatingDialogViewModel
+
+    private  lateinit var viewModelUser: MainFragmentViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentMainBinding.inflate(layoutInflater)
@@ -64,10 +74,11 @@ class MainFragment : AppCompatActivity(){
         navController = navHostFragment.findNavController()
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.reportFragment,R.id.eventFragment,R.id.diseasePreventionFragment,R.id.dashboardFragment),
+            setOf(R.id.homeFragment, R.id.reportFragment,R.id.eventFragment,R.id.diseasePreventionFragment,R.id.dashboardFragment,R.id.profileFragment,R.id.changePasswordFragment,R.id.logoutFragment,R.id.aboutFragment),
             binding.drawerLayout
         )
         initViewModel()
+        initUserViewModel()
 
 // Hide or show the ActionBar back button based on the current destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -135,6 +146,13 @@ class MainFragment : AppCompatActivity(){
 //            showBottomDialog()
 //        }
 
+        // Inside onCreate method of MainFragment
+
+        val userData = retrieveUserDataFromSharedPreferences(this)
+        val userId = userData?.first
+
+        loadUserData(userId)
+
     }
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -147,6 +165,47 @@ class MainFragment : AppCompatActivity(){
 //        }
 //    }
 
+
+    private fun loadUserData(user_id: Int?) {
+        viewModelUser.getLoadUserObservable().observe(this, Observer<User?> {
+            if (it != null) {
+
+                val navigationView = findViewById<NavigationView>(R.id.nav_view)
+                val navHeaderView = navigationView.getHeaderView(0) // Assuming it's the first header
+                val navImage = navHeaderView.findViewById<ImageView>(R.id.navImage)
+                val navName = navHeaderView.findViewById<TextView>(R.id.navName)
+                val navEmail = navHeaderView.findViewById<TextView>(R.id.navEmail)
+
+                navName.text = it.name
+                navEmail.text = it.email
+                Picasso.get().load(it.image).into(navImage)
+            }
+        })
+        viewModelUser.getUserData(user_id)
+    }
+    private fun initUserViewModel() {
+        viewModelUser = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(MainFragmentViewModel::class.java)
+    }
+
+        private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
         return true
