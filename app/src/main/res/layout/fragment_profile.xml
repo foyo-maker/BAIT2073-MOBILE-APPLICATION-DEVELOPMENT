@@ -136,7 +136,7 @@
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="6dp"
                 app:placeholderText="ex: abc@gmail.com"
                 app:startIconDrawable="@drawable/baseline_email_24"
                 app:startIconTint="@color/lavender">

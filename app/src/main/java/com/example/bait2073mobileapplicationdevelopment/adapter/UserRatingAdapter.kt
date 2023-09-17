@@ -146,11 +146,11 @@ class UserRatingAdapter (private val context : Context, val listener:UserClickLi
         if (!currentUser.image.isNullOrBlank()) {
 
 
-//            Picasso.get().load(currentUser.image).fit().into(custImageView)
-            Glide.with(ctx!!)
-                .load(currentUser.image)
-                .fitCenter() // Use fitCenter() for equivalent functionality
-                .into(custImageView)
+            Picasso.get().load(currentUser.image).fit().into(custImageView)
+//            Glide.with(ctx!!)
+//                .load(currentUser.image)
+//                .fitCenter() // Use fitCenter() for equivalent functionality
+//                .into(custImageView)
 
         } else {
             // If no image URL is available,  set a placeholder image or handle this case as needed.\

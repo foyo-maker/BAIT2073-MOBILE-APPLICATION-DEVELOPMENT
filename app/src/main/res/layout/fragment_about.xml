@@ -1,16 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.AboutFragment">
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="About Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/lavender"/>
-</RelativeLayout>
+    android:fillViewport="true"
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintHeight_max="900dp"
+
+        >
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/lavender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+
+
+            />
+
+
+        <ImageView
+            android:id="@+id/welcomeView"
+            android:layout_width="440dp"
+
+
+            android:layout_height="190dp"
+            android:layout_marginStart="24dp"
+
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/logo_image"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="12dp"
+
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+
+            app:layout_constraintEnd_toEndOf="parent"
+
+
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="34dp"
+            android:justificationMode="inter_word"
+            android:text="HealthyLife+ is a comprehensive mobile app that enhances users' health and well-being with personalized workout recommendations, event and vaccination programs, workout planning guidance, and infectious disease prevention. It empowers users to lead healthier and more fulfilling lives. Overall, HealthyLife+ is a valuable tool for anyone seeking to adopt a healthier and more active lifestyle. Embrace a healthier life with HealthyLife+ today !
+"
+            android:textColor="@color/gray"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

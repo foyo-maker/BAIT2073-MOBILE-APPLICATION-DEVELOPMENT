@@ -202,7 +202,7 @@ class ProfileFragment : Fragment() {
     private fun updateUserObservable() {
         viewModel.getUpdateProfileObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it == null) {
-                UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+                binding.layoutEmail.error = "Email Already Registered, Please Try Another Email"
             } else {
 
 

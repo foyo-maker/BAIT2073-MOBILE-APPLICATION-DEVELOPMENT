@@ -72,11 +72,11 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
         } else {
             // If no image URL is available,  set a placeholder image or handle this case as needed.\
             Log.e("noimage", "noimage")
-            Glide.with(ctx!!)
-                .load(R.drawable.img_person) // Use Glide for the placeholder image
-                .fitCenter() // Use fitCenter() for equivalent functionality
-                .into(custImageView)
-//            Picasso.get().load(R.drawable.img_person).into(custImageView)
+//            Glide.with(ctx!!)
+//                .load(R.drawable.img_person) // Use Glide for the placeholder image
+//                .fitCenter() // Use fitCenter() for equivalent functionality
+//                .into(custImageView)
+            Picasso.get().load(R.drawable.img_person).into(custImageView)
         }
         //image
 //        Glide.with(ctx!!).load(arrSubCategory[position].strMealThumb).into(holder.itemView.img_dish)

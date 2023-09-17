@@ -39,7 +39,7 @@ class UserRatingViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     // Response contains a list of User objects
                     val userList = response.body()
-                    Log.e("gg", "Response not successful, code: ${userList}")
+
                     if (userList != null && userList.isNotEmpty()) {
                         // Insert the user data into the Room Database
                         recyclerListData.postValue(response.body())

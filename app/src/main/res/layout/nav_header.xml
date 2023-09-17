@@ -8,14 +8,17 @@
     android:gravity="bottom"
     android:padding="16dp"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.fragment.MainFragment"
     >
 
     <androidx.cardview.widget.CardView
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:cardCornerRadius="35dp"
+        android:layout_marginTop="30dp"
         app:cardBackgroundColor="@color/white">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -24,6 +27,7 @@
             android:id="@+id/navImage"
             android:src="@drawable/aklogo"
             android:scaleType="centerCrop"
+
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
 
     </androidx.cardview.widget.CardView>
