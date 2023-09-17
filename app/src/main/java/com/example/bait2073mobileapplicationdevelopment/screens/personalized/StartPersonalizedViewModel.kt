@@ -2,9 +2,11 @@ package com.example.bait2073mobileapplicationdevelopment.screens.personalized
 
 import android.os.CountDownTimer
 import android.util.Log
+import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
 
 class StartPersonalizedViewModel : ViewModel() {
@@ -47,7 +49,9 @@ class StartPersonalizedViewModel : ViewModel() {
     private lateinit var gifImageList: MutableList<String>
 
     private val timer: CountDownTimer
-
+    private var timeProgress = 0
+    private var timeSelected : Int = 10
+    private var pauseOffSet: Long = 0
 
 //     The String version of the current time
 //    val currentTimeString = Transformations.map(currentTime) { time ->
@@ -79,11 +83,11 @@ class StartPersonalizedViewModel : ViewModel() {
         _activityCount.value = 1
         activityList = mutableListOf()
         gifImageList = mutableListOf()
-
+//        val progressBar = view.findViewById<ProgressBar>(R.id.pbTimer)
         Log.i("GameViewModel", "GameViewModel created!")
 
 //         Creates a timer which triggers the end of the game when it finishes
-        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+        timer = object : CountDownTimer(timeSelected * 1000 - pauseOffSet * 1000, ONE_SECOND) {
 
             override fun onTick(millisUntilFinished: Long)
             {
