@@ -52,11 +52,12 @@
             android:layout_width="wrap_content"
             android:layout_height="299dp"
 
+
             android:layout_marginStart="12dp"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="13dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/gif_exercise_squat"
+
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
