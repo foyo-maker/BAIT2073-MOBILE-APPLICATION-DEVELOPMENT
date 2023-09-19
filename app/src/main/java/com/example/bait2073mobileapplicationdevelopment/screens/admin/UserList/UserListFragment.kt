@@ -54,6 +54,13 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
             this.findNavController().navigate(action)
         }
 
+        binding.deleteImg.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Long-press to delete a user.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
         return binding.root
     }
@@ -173,9 +180,7 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
         val cancel: Button = dialog.findViewById(R.id.btn_cancel)
 
         okay.setOnClickListener {
-
             dialog.dismiss()
-
         }
 
         cancel.setOnClickListener {
@@ -185,9 +190,10 @@ class UserListFragment: Fragment(), UserAdapter.UserClickListener, PopupMenu.OnM
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         dialog.show() // Showing the dialog here
-
-
     }
+
+
+
 
 
 }

@@ -51,28 +51,35 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        binding.callForgetPassword.setOnClickListener {
+            val intent = Intent(this, RequestEmailActivity::class.java)
+            startActivity(intent)
+
+        }
+
         binding.loginButton.setOnClickListener {
 
             //customer intent
 //            val intent = Intent(this, MainFragment::class.java)
 //            startActivity(intent)
-
-
-           // staff intent
-            val intent = Intent(this, StaffMainFragment::class.java)
-            startActivity(intent)
-
-//            if(validateForm()) {
-//                val user = LoginUser(
-//                    null,
-//                    binding.eTextEmail.text.toString(),
-//                    binding.eTextPassword.text.toString(),
-//                    "",
-//                    null
-//                )
 //
-//                viewModel.authenticate(user)
-//            }
+
+//            staff intent
+//            val intent = Intent(this, StaffMainFragment::class.java)
+//            startActivity(intent)
+
+
+            if(validateForm()) {
+                val user = LoginUser(
+                    null,
+                    binding.eTextEmail.text.toString(),
+                    binding.eTextPassword.text.toString(),
+                    "",
+                    null
+                )
+
+                viewModel.authenticate(user)
+            }
         }
 
 

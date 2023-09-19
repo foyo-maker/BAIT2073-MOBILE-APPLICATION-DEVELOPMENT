@@ -19,8 +19,10 @@ interface UserDao {
     @Query("DELETE FROM user")
      fun clearDb()
 
-//    @Query("SELECT * FROM user WHERE id = :userId")
-//    suspend fun getSpecificUser(userId:String) : List<UserLists>
+    @Query("SELECT * FROM user WHERE id = :userId")
+    fun getUserById(userId: Int): LiveData<User>
+
+
 
     //@Query("SELECT *
 }

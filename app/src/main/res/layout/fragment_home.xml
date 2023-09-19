@@ -128,11 +128,12 @@
                 android:layout_height="wrap_content"
 
 
-                android:layout_centerInParent="true"
-                android:layout_marginTop="26dp"
+
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Set Time Reminder"
+                android:text="Begin Your Workout Today!"
                 android:textSize="17sp"
+                android:layout_marginStart="90dp"
                 app:layout_constraintStart_toStartOf="@+id/image_goal" />
 
             <ImageView
@@ -143,14 +144,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="-50px"
                 android:src="@drawable/img_goals" />
-            <ImageView
-                android:id="@+id/icon_add"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="-85px"
-                android:src="@drawable/icon_add" />
+
         </RelativeLayout>
 
 

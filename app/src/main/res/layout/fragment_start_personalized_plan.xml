@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="workoutViewModel"
+            type="com.example.bait2073mobileapplicationdevelopment.screens.personalized.StartPersonalizedViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.personalized.StartPersonalizedFragment">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="150dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/gifImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/activityleftv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+
+                android:text="@{@string/activity_format(workoutViewModel.activityCount)}"
+
+                android:textAlignment="center"
+                android:textColor="#21154A"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="Current Activity" />
+
+
+        </LinearLayout>
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="299dp"
+
+
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="10dp"
+
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="21dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/flTimer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gifImageView">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:text="READY TO GO"
+                android:textAlignment="center"
+                android:textColor="#21154A"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/exeNametxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{workoutViewModel.activityName}"
+
+                android:textAlignment="center"
+                android:textColor="#939393"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Squat" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/flTimer"
+            android:layout_width="163dp"
+            android:layout_height="145dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="46dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <ProgressBar
+                android:id="@+id/pbTimer"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="143dp"
+                android:layout_height="157dp"
+                android:layout_gravity="center"
+                android:background="@drawable/gray_progressbar_background"
+                android:indeterminate="false"
+                android:progress="@{workoutViewModel.progressBar}"
+                android:progressDrawable="@drawable/blue_progressbar_background"
+                android:rotation="-90"></ProgressBar>
+
+            <TextView
+                android:id="@+id/tvTimeLeft"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@{workoutViewModel.currentTime.toString()}"
+                android:textColor="@color/black"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/btnGoNext"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="@{() -> workoutViewModel.onSkip()}"
+            android:src="@drawable/baseline_navigate_next_24"
+            app:layout_constraintBottom_toBottomOf="@+id/flTimer"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

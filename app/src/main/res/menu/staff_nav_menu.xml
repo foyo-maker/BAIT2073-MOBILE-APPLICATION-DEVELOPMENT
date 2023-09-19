@@ -7,13 +7,11 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/dashboardFragment"
+            android:id="@+id/workoutFormFragment"
             android:icon="@drawable/baseline_accessibility_white_24"
-            android:title="My Dashboard"/>
-        <item
-            android:id="@+id/homeFragment"
-            android:icon="@drawable/nav_home"
-            android:title="Home"/>
+            android:title="Dashboard"/>
+
+
 
 
         <item
@@ -42,13 +40,19 @@
             android:title="All Hospitals"/>
 
         <item
-            android:id="@+id/changePasswordFragment"
-            android:icon="@drawable/baseline_lock_24"
-            android:title="Change Password"/>
+            android:id="@+id/eventListFragment"
+            android:icon="@drawable/baseline_event_24"
+            android:title="All Events"/>
+
+
         <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/nav_about"
-            android:title="About Us"/>
+            android:id="@+id/userRatingFragment"
+            android:icon="@drawable/baseline_stars_24"
+            android:title="All Rating"/>
+        <item
+            android:id="@+id/adminListFragment"
+            android:icon="@drawable/baseline_admin_panel_settings_24"
+            android:title="All Admins"/>
 
         <!--        <item-->
         <!--            android:id="@+id/nav_customer"-->
@@ -64,7 +68,7 @@
         android:title="">
         <menu>
             <item
-                android:id="@+id/nav_logout"
+                android:id="@+id/logoutFragment"
                 android:icon="@drawable/nav_logout"
                 android:title="Logout"/>
         </menu>

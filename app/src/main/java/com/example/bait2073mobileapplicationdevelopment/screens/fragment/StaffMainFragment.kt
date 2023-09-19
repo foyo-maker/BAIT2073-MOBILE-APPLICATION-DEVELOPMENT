@@ -1,12 +1,18 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +22,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentStaffMainBinding
+import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.screens.dialog.RatingDialog
+import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 
 class StaffMainFragment : AppCompatActivity(){
 
@@ -24,7 +33,7 @@ class StaffMainFragment : AppCompatActivity(){
     private lateinit var binding: FragmentStaffMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-
+    private  lateinit var viewModelUser: StaffMainFragmentViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentStaffMainBinding.inflate(layoutInflater)
@@ -35,11 +44,18 @@ class StaffMainFragment : AppCompatActivity(){
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.reportDashboardFragment, R.id.userListFragment,R.id.symptomListFragment2,R.id.diseaseListFragment,R.id.recipeListFragment2,R.id.hospitalListFragment2 //add action id here
+                R.id.reportDashboardFragment, R.id.userListFragment, //add action id here
+                R.id.adminListFragment, R.id.eventListFragment,R.id.userRatingFragment,R.id.symptomListFragment2,R.id.diseaseListFragment,R.id.recipeListFragment2,R.id.hospitalListFragment2,R.id.logoutFragment
                ),
             binding.drawerLayout
         )
 
+        initUserViewModel()
+
+        val userData = retrieveUserDataFromSharedPreferences(this)
+        val userId = userData?.first
+
+        loadUserData(userId)
 
 // Hide or show the ActionBar back button based on the current destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -125,6 +141,38 @@ class StaffMainFragment : AppCompatActivity(){
 
 
 
+    private fun loadUserData(user_id: Int?) {
+        viewModelUser.getLoadUserObservable().observe(this, Observer<User?> {
+            if (it != null) {
+
+                val navigationView = findViewById<NavigationView>(R.id.nav_view)
+                val navHeaderView = navigationView.getHeaderView(0) // Assuming it's the first header
+                val navImage = navHeaderView.findViewById<ImageView>(R.id.navImage)
+                val navName = navHeaderView.findViewById<TextView>(R.id.navName)
+                val navEmail = navHeaderView.findViewById<TextView>(R.id.navEmail)
+                navName.text = it.name
+                navEmail.text = it.email
+                Picasso.get().load(it.image).into(navImage)
+            }
+        })
+        viewModelUser.getUserData(user_id)
+    }
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -166,5 +214,13 @@ class StaffMainFragment : AppCompatActivity(){
 //        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
 //        dialog.window?.setGravity(Gravity.BOTTOM)
 //    }
+
+
+    private fun initUserViewModel() {
+        viewModelUser = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(StaffMainFragmentViewModel::class.java)
+    }
 
 }

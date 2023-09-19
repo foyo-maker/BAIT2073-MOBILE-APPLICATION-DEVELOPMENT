@@ -8,9 +8,13 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATION" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SEND_NOTIFICATIONS" />
     <application
 
         android:allowBackup="false"
@@ -29,8 +33,9 @@
 
         <!-- Add RequestGenderActivity declaration -->
 
+        <receiver android:name=".utilities.ExerciseNotificationClass" />
         <activity
-            android:name=".screens.fragment.WorkoutFragment"
+            android:name=".screens.personalized.WorkoutFragment"
 
             />
 
@@ -40,6 +45,20 @@
             />
         <activity
             android:name=".utilities.calendar.MonthlyViewActivity"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".screens.password.ForgetPassword.ForgetPasswordActivity"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".screens.password.RequestEmail.RequestEmailActivity"
+            android:exported="true"
+            />
+        <activity
+            android:name=".screens.password.RequestCode.RequestCodeActivity"
             android:exported="true"
             />
         <activity

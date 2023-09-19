@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.squareup.picasso.Picasso
@@ -57,12 +58,21 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
 
         val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
         if (!currentUser.image.isNullOrBlank()) {
-            Picasso.get().load(currentUser.image).fit().into(custImageView)
 
-//            Picasso.get().load(currentCust.image).centerInside().into(custImageView)
+
+//            Picasso.get().load(currentUser.image).fit().into(custImageView)
+            Glide.with(ctx!!)
+                .load(currentUser.image)
+                .fitCenter() // Use fitCenter() for equivalent functionality
+                .into(custImageView)
+
         } else {
             // If no image URL is available,  set a placeholder image or handle this case as needed.\
             Log.e("noimage", "noimage")
+//            Glide.with(ctx!!)
+//                .load(R.drawable.img_person) // Use Glide for the placeholder image
+//                .fitCenter() // Use fitCenter() for equivalent functionality
+//                .into(custImageView)
             Picasso.get().load(R.drawable.img_person).into(custImageView)
         }
         //image
