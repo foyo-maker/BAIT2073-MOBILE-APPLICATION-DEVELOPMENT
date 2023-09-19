@@ -58,10 +58,9 @@ class LoginActivity : AppCompatActivity() {
 //            startActivity(intent)
 
 
-//            staff intent
+           // staff intent
             val intent = Intent(this, StaffMainFragment::class.java)
             startActivity(intent)
-
 
 //            if(validateForm()) {
 //                val user = LoginUser(

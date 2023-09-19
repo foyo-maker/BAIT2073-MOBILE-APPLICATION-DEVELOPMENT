@@ -21,6 +21,25 @@
             android:icon="@drawable/baseline_person_24"
             android:title="All Users"/>
 
+        <item
+            android:id="@+id/symptomListFragment2"
+            android:icon="@drawable/baseline_person_24"
+            android:title="All Symptoms"/>
+
+        <item
+            android:id="@+id/diseaseListFragment"
+            android:icon="@drawable/baseline_person_24"
+            android:title="All Diseases"/>
+
+        <item
+            android:id="@+id/recipeListFragment2"
+            android:icon="@drawable/baseline_person_24"
+            android:title="All Recipes"/>
+
+        <item
+            android:id="@+id/hospitalListFragment2"
+            android:icon="@drawable/baseline_person_24"
+            android:title="All Hospitals"/>
 
         <item
             android:id="@+id/changePasswordFragment"

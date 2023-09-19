@@ -14,6 +14,18 @@
         <action
             android:id="@+id/action_reportDashboardFragment_to_customerListFragment2"
             app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_reportDashboardFragment_to_symptomListFragment2"
+            app:destination="@id/symptomListFragment2" />
+        <action
+            android:id="@+id/action_reportDashboardFragment_to_diseaseListFragment"
+            app:destination="@id/diseaseListFragment" />
+        <action
+            android:id="@+id/action_reportDashboardFragment_to_recipeListFragment2"
+            app:destination="@id/recipeListFragment2" />
+        <action
+            android:id="@+id/action_reportDashboardFragment_to_hospitalListFragment2"
+            app:destination="@id/hospitalListFragment2" />
     </fragment>
 
     <fragment
@@ -37,5 +49,60 @@
         <action
             android:id="@+id/action_createUserFragement_to_userListFragment"
             app:destination="@id/userListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/symptomListFragment2"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.symptomList.SymptomListFragment"
+        android:label="fragment_symptom_list"
+        tools:layout="@layout/fragment_symptom_list">
+        <action
+        android:id="@+id/action_symptomListFragment2_to_createSymptomFragment"
+        app:destination="@id/createSymptomFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createSymptomFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.symptomForm.SymptomFormFragment"
+        android:label="fragment_symptom_form"
+        tools:layout="@layout/fragment_symptom_form">
+        <argument
+            android:name="symptom_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_createSymptomFragment_to_symptomListFragment2"
+            app:destination="@id/symptomListFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/diseaseListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.diseaseList.DiseaseListFragment"
+        android:label="fragment_disease_list"
+        tools:layout="@layout/fragment_disease_list"/>
+    <fragment
+        android:id="@+id/recipeListFragment2"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.recipeList.RecipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" />
+    <fragment
+        android:id="@+id/hospitalListFragment2"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.hospitalList.HospitalListFragment"
+        android:label="fragment_hospital_list"
+        tools:layout="@layout/fragment_hospital_list">
+    <action
+        android:id="@+id/action_hospitalListFragment2_to_createHospitalFragment"
+        app:destination="@id/createHospitalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createHospitalFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.admin.hospitalForm.HospitalFormFragment"
+        android:label="fragment_hospital_form"
+        tools:layout="@layout/fragment_hospital_form">
+        <argument
+            android:name="hospital_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_createHospitalFragment_to_hospitalListFragment2"
+            app:destination="@id/hospitalListFragment2" />
     </fragment>
 </navigation>

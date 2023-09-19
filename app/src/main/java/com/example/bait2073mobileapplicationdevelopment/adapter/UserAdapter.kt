@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 
 class UserAdapter (private val context : Context, val listener:UserClickListener): RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-
     private var ctx: Context? = null
     var userList = mutableListOf<User>()
     var fullList = mutableListOf<User>()
@@ -44,8 +43,6 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
         val id = itemView.findViewById<TextView>(R.id.tv_customerID)
         val userName = itemView.findViewById<TextView>(R.id.tv_customerName)
         val userEmail = itemView.findViewById<TextView>(R.id.tv_customerEmail)
-
-
 
     }
 

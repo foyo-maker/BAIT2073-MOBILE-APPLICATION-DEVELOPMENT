@@ -31,7 +31,6 @@ import java.io.ByteArrayOutputStream
 
 class UserFormFragment : Fragment() {
 
-
     private lateinit var viewModel: UserFormViewModel
     private lateinit var binding: FragmentUserFormBinding
     private val PICK_IMAGE_REQUEST = 1
