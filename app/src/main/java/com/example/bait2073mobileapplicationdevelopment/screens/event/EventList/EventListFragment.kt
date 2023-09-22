@@ -1,9 +1,14 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.event.EventList
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,37 +20,29 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bait2073mobileapplicationdevelopment.BaseActivity
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.adapter.EventAdapter
 import com.example.bait2073mobileapplicationdevelopment.adapter.EventListAdapter
-import com.example.bait2073mobileapplicationdevelopment.dao.EventDao
-import com.example.bait2073mobileapplicationdevelopment.database.EventDatabase
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentEventListBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
-import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.interfaces.GetEventDataService
-import com.example.bait2073mobileapplicationdevelopment.repository.EventRepository
-import com.example.bait2073mobileapplicationdevelopment.util.Resource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.example.bait2073mobileapplicationdevelopment.screens.event.EventForm.EventFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.eventParticipants.EventParticipantsParticipants.EventParticipantsViewModel
 
 
 class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, PopupMenu.OnMenuItemClickListener {
 
     lateinit var recyclerViewAdapter: EventListAdapter
+
     lateinit var viewModel: EventListViewModel
+    lateinit var viewModelEventParticipants: EventParticipantsViewModel
+
+    lateinit var viewModelForm: EventFormViewModel
 
 //    lateinit var api: GetEventDataService
 //    lateinit var db: EventDatabase
@@ -64,12 +61,12 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
         initRecyclerView()
         observeEventDeletion()
         searchEvent()
-
+        getLocalDao()
 
         binding.addEventBtn.setOnClickListener {
 
             val action =
-                EventListFragmentDirections.actionEventListFragmentToManageEventFragment(0)
+                EventListFragmentDirections.actionEventListFragmentToManageEventFragment(0,true)
             this.findNavController().navigate(action)
         }
 
@@ -111,9 +108,11 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
 
 
 
-    fun initViewModel(){
+     fun initViewModel(){
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
             .get(EventListViewModel::class.java)
+         viewModelForm= ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
+             .get(EventFormViewModel::class.java)
 
         viewModel.getEventListObserverable().observe(viewLifecycleOwner,Observer<List<Event?>>{
             eventListResponse->
@@ -127,6 +126,7 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
             }
         })
         viewModel.getEvents()
+
     }
 
 
@@ -139,7 +139,7 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
     }
 
     override fun onItemClicked(event: Event) {
-        val action=EventListFragmentDirections.actionEventListFragmentToManageEventFragment(event.id?:0)
+        val action=EventListFragmentDirections.actionEventListFragmentToManageEventFragment(event.id?:0,false)
         this.findNavController().navigate(action)
     }
 
@@ -160,6 +160,10 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         if(item?.itemId == R.id.delete_note){
             viewModel.deleteEvent(selectedEvent)
+//            selectedEvent.status = "Inactive"
+
+//            selectedEvent.id?.let { viewModelForm.updateEvent(it,selectedEvent) }
+            return true
         }
         return false
     }
@@ -199,6 +203,42 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
         dialog.show()
+    }
+
+    fun getLocalDao(){
+        if (!checkForInternet(context)) {
+            viewModel.getLocalDao()
+            Log.e("Nooo", "${!checkForInternet(context)}")
+        }else{
+            initViewModel()
+        }
+    }
+
+    private fun checkForInternet(context: Context?): Boolean {
+
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            val network = connectivityManager.activeNetwork ?: return false
+
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+            return when {
+
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+                else -> false
+            }
+        } else {
+            @Suppress("DEPRECATION") val networkInfo =
+                connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
+        }
     }
 
 

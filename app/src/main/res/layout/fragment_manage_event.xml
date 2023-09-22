@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,28 +28,31 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
-            android:id="@+id/linearLayout6"
-            android:layout_width="0dp"
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
 
 
             android:orientation="vertical"
             android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+
+
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
             <TextView
+                android:id="@+id/createEventTitletv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="4dp"
-                android:fontFamily="@font/poppins_bold"
+                android:layout_marginTop="45dp"
 
-                android:text="Edit Profile"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Create User"
                 android:textColor="@color/logintext"
                 android:textSize="27dp" />
 
@@ -66,33 +70,44 @@
                     android:layout_height="65dp"
                     android:layout_marginRight="30dp"
                     android:text="Upload Image"
-
-
                     />
 
 
                 <ImageView
+                    android:id="@+id/eventImgAdmin"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/event_vaccine" />
-
+                    android:src="@drawable/event_default" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginStart="4dp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:text="Title:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_username"
+                android:id="@+id/numGoingAdmin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                android:layout_marginTop="34dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/lavender"
+                app:startIconTint="@color/lavender">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/numGoingAdminText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                     />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,70 +116,55 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
                 app:counterEnabled="true"
-                app:counterMaxLength="10"
+                app:counterMaxLength="15"
+                android:layout_marginTop="2dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                app:placeholderText="ex: foyo0522"
                 app:startIconDrawable="@drawable/baseline_person_24"
                 app:startIconTint="@color/lavender">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/eTextUserName"
+                    android:id="@+id/eTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="15"
+                    android:imeOptions="actionDone"
                     android:inputType="text|textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/email_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="0dp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:text="Short Address Name:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp" />
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_email"
+                android:id="@+id/layout_details"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                app:counterMaxLength="50"
+                app:counterEnabled="true"
                 android:layout_marginTop="0dp"
-                android:hint="Short Address Name"
+                android:hint="Details"
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
                 app:placeholderText="ex: abc@gmail.com"
-                app:startIconDrawable="@drawable/baseline_email_24"
+                app:startIconDrawable="@drawable/baseline_short_text_24"
                 app:startIconTint="@color/lavender">
 
-                <com.google.android.material.textfield.TextInputEditText
-
-                    android:id="@+id/eTextEmail"
+                <EditText
+                    android:id="@+id/eTextDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textWebEmailAddress" />
+                    android:lines="5"
+                    android:minLines="3"
+                    android:maxLength="50"
+                    android:imeOptions="actionDone"
+                    android:gravity="top|start"
+                    android:scrollbars="vertical"
+                    android:scrollbarStyle="insideInset"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/weight_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:text="Full Address:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp" />
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_weight"
+                android:id="@+id/layout_address"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,110 +175,75 @@
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                app:placeholderText="ex: 56kg"
                 app:startIconDrawable="@drawable/baseline_monitor_weight_24"
                 app:startIconTint="@color/lavender">
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/eTextWeight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text|textWebEmailAddress" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/height_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:text="Event Detail:"
-                android:textColor="@color/logintext"
-                android:textSize="14dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_height"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="0dp"
-                android:hint="Event Detail"
-                app:boxBackgroundColor="@color/white"
-                app:boxBackgroundMode="outline"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/lavender"
-                app:placeholderText="ex: 172cm"
-                app:startIconDrawable="@drawable/baseline_boy_24"
-                app:startIconTint="@color/lavender">
-
-                <com.google.android.material.textfield.TextInputEditText
-
-                    android:id="@+id/eTextHeight"
+                    android:id="@+id/eTextAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
+
             <TextView
-                android:id="@+id/gender_text"
+                android:id="@+id/date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Gender:"
+                android:text="Event Date:"
                 android:textAlignment="textStart"
                 android:textColor="@color/logintext"
                 android:textSize="14dp"
 
                 />
 
-
-            <RadioGroup
+            <DatePicker
+                android:id="@+id/datePicker1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
 
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Event Time:"
+                android:textAlignment="textStart"
+                android:textColor="@color/logintext"
+                android:textSize="14dp"
+                />
 
-                >
-
-                <RadioButton
-                    android:id="@+id/radioMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Male"
-
-
-                    />
-
-                <RadioButton
-                    android:id="@+id/radioFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="36dp"
-                    android:text="Female"
-
-
-                    />
-
-            </RadioGroup>
-
+            <TimePicker
+                android:id="@+id/timePicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:timePickerMode="spinner"/>
 
             <Button
-                android:id="@+id/saveButton"
+                android:id="@+id/createEventButton"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/lavender"
-                android:text="Save"
+                android:text="Create"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
+
+
+
 
 
         </LinearLayout>

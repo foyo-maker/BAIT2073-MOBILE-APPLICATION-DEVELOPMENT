@@ -22,10 +22,16 @@ interface GetEventDataService {
     @Headers("Accept:application/json","Content-Type:application/json")
     fun getEvent(@Path("event_id") event_id: Int): Call<Event>
 
-    @POST("event")
+    @POST("events")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun addEvent(@Body params: Event): Call<Event>
+
+    @PATCH("events/{event_id}")
+    @Headers("Accept:application/json", "Content-Type:application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
+    fun updateEvent(@Path("event_id") event_id: Int, @Body params: Event): Call<Event>
+
 
     @DELETE("events/{event_id}")
     @Headers("Accept:application/json", "Content-Type:application/json",

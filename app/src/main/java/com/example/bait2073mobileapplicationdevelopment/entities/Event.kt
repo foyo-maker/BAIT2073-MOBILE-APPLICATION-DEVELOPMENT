@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import org.w3c.dom.Text
 
 
 @Entity(tableName = "Event")
@@ -39,7 +38,17 @@ data class Event(
     @ColumnInfo(name="address")
     @Expose
     @SerializedName("address")
-    val address: String?
+    val address: String?,
+
+    @ColumnInfo(name="status")
+    @Expose
+    @SerializedName("status")
+    var status: String?,
+
+    @ColumnInfo(name="user_id")
+    @Expose
+    @SerializedName("user_id")
+    val user_id: Int?
 )
 
 data class EventList(val data: List<Event>)
