@@ -17,8 +17,6 @@ class PersonalizedWorkoutViewModel(application: Application) : AndroidViewModel(
 
     val allPersonalizedWorkout: LiveData<List<PersonalizedWorkout>>
 
-
-
     init {
         val dao = HealthyLifeDatabase.getDatabase(application).personalizedWorkoutDao()
         repository = PersonalizedWorkoutRepository(dao)
@@ -28,12 +26,10 @@ class PersonalizedWorkoutViewModel(application: Application) : AndroidViewModel(
 
     // Define the function to retrieve a specific user
 
-
     // Define the function to insert a user
     fun insertWorkout(personalizedWorkout: PersonalizedWorkout) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(personalizedWorkout)
     }
-
 
     fun clearWorkout() = viewModelScope.launch(Dispatchers.IO) {
         repository.clearWorkout()

@@ -178,7 +178,17 @@ class MainFragment : AppCompatActivity(){
 
                 navName.text = it.name
                 navEmail.text = it.email
-                Picasso.get().load(it.image).into(navImage)
+                if (!it.image.isNullOrBlank()) {
+
+                    Picasso.get().load(it.image).into(navImage)
+
+
+                } else {
+                    Log.e("noimage", "noimage")
+                    Picasso.get().load(R.drawable.img_person).into(navImage)
+                }
+
+
             }
         })
         viewModelUser.getUserData(user_id)

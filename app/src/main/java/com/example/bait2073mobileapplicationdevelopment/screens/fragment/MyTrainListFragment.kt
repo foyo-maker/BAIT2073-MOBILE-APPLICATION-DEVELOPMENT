@@ -1,32 +1,31 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.fragment
 
 
-import android.content.Intent
+import UserPlanListAdapter
+import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentDisplayPersonalizedWorkoutBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentMyTrainListBinding
+import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
+import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserPlanViewModel
 
-class MyTrainListFragment : Fragment() {
-
-    private lateinit var binding: FragmentMyTrainListBinding
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_my_train_list, container, false)
-        binding = FragmentMyTrainListBinding.inflate(inflater, container, false)
-
-        return binding.root
-
-    }
-
-
-
+class MyTrainListFragment{
 }

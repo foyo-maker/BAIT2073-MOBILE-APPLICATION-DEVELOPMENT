@@ -141,9 +141,19 @@ class DashboardFragment : Fragment() {
         Log.e("loaduser", "$user_id")
         viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer<User?> {
             if (it != null) {
-                Picasso.get().load(it.image).into(binding.profileImg)
+
                 insertDataIntoRoomDb(it)
+
+
+                if (!it.image.isNullOrBlank()) {
+                    Picasso.get().load(it.image).into(binding.profileImg)
+
+                } else {
+                    Log.e("noimage", "noimage")
+                    Picasso.get().load(R.drawable.img_person).into(binding.profileImg)
+                }
             }
+
         })
         viewModel.getUserData(user_id)
     }

@@ -54,7 +54,11 @@ class PersonalizedWorkOutAdapter (private val context : Context, val listener:Wo
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
 
 
+
+
         val currentWorkout = workoutList[position]
+
+
         holder.workout_name.text = currentWorkout.name
         Glide.with(ctx!!)
             .asGif() // Ensure that Glide knows it's a GIF
