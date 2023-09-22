@@ -95,12 +95,12 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
 
 
         viewModel.getWorkoutListObserverable()
-            .observe(viewLifecycleOwner, Observer<List<Workout?>> { userListResponse ->
-                if (userListResponse == null) {
+            .observe(viewLifecycleOwner, Observer<List<Workout?>> { personalizedListResponse ->
+                if (personalizedListResponse == null) {
                     Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
                 } else {
 //                recyclerViewAdapter.updateList(it.toList().get(1))
-                    val workoutList = userListResponse.filterNotNull().toMutableList()
+                    val workoutList = personalizedListResponse.filterNotNull().toMutableList()
                     Log.i("workoutlist", "$workoutList")
                     recyclerViewAdapter.updateList(workoutList)
                     recyclerViewAdapter.notifyDataSetChanged()
