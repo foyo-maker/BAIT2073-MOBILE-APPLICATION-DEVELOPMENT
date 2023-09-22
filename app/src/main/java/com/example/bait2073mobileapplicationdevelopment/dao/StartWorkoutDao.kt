@@ -19,6 +19,6 @@ interface StartWorkoutDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWorkout(workout: StartWorkout)
 
-    @Query("DELETE FROM personalizedworkout")
+    @Query("DELETE FROM startworkout")
     fun clearDb()
 }

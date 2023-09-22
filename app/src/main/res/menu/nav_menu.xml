@@ -27,7 +27,7 @@
             android:icon="@drawable/baseline_lock_24"
             android:title="Change Password"/>
         <item
-            android:id="@+id/nav_about"
+            android:id="@+id/aboutFragment"
             android:icon="@drawable/nav_about"
             android:title="About Us"/>
 

@@ -1,12 +1,14 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.personalized
 
 import android.os.CountDownTimer
+import android.os.Process
 import android.util.Log
 import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bait2073mobileapplicationdevelopment.R
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentStartPersonalizedPlanBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
 
 class StartPersonalizedViewModel : ViewModel() {
@@ -17,10 +19,11 @@ class StartPersonalizedViewModel : ViewModel() {
     private val workoutList = ArrayList<PersonalizedWorkout>()
 
 
-    private val _activityName= MutableLiveData<String>()
+    private val _activityName = MutableLiveData<String>()
 
     val activityName: LiveData<String>
         get() = _activityName
+
     // The current score
     private val _activityCount = MutableLiveData<Int>()
     val activityCount: LiveData<Int>
@@ -33,24 +36,26 @@ class StartPersonalizedViewModel : ViewModel() {
         get() = _currentTime
     // The list of words - the front of the list is the next word to guess
 
-
-
     private val _gifImageUrl = MutableLiveData<String>()
     val gifImageUrl: LiveData<String>
         get() = _gifImageUrl
 
 
-    private val _eventGameFinish = MutableLiveData<Boolean>()
-    val eventGameFinish: LiveData<Boolean>
-        get() = _eventGameFinish
+    private val _eventActivityFinish = MutableLiveData<Boolean>()
+    val eventActivityFinish: LiveData<Boolean>
+        get() = _eventActivityFinish
 
+    private val _progressBar = MutableLiveData<Int>()
+    val progressBar: LiveData<Int>
+        get() = _progressBar
 
     private lateinit var activityList: MutableList<String>
     private lateinit var gifImageList: MutableList<String>
 
-    private val timer: CountDownTimer
+    private var timer: CountDownTimer? = null
+    private val totaltime: Long = 10000 // 11 second in milliseconds
     private var timeProgress = 0
-    private var timeSelected : Int = 10
+    private val timeSelected: Long = 10000
     private var pauseOffSet: Long = 0
 
 //     The String version of the current time
@@ -77,54 +82,66 @@ class StartPersonalizedViewModel : ViewModel() {
 
     }
 
-    init {
 
+    init {
         _activityName.value = ""
         _activityCount.value = 1
         activityList = mutableListOf()
         gifImageList = mutableListOf()
+//        binding.pbTimer.progress = timeProgress
 //        val progressBar = view.findViewById<ProgressBar>(R.id.pbTimer)
         Log.i("GameViewModel", "GameViewModel created!")
 
 //         Creates a timer which triggers the end of the game when it finishes
-        timer = object : CountDownTimer(timeSelected * 1000 - pauseOffSet * 1000, ONE_SECOND) {
+        timer = object : CountDownTimer(timeSelected, 1000L) {
 
-            override fun onTick(millisUntilFinished: Long)
-            {
-                _currentTime.value = millisUntilFinished/ ONE_SECOND
+            override fun onTick(millisUntilFinished: Long) {
+                val progress = ((millisUntilFinished.toFloat() / totaltime) * 100).toInt()
+                // Update the progress bar (assuming it's from 0 to 100)
+                _progressBar.value = progress
+                _currentTime.value = (millisUntilFinished / 1000)
             }
 
             override fun onFinish() {
                 _currentTime.value = DONE
+//               _processBar.value = timeProgress
 
+                Log.e("finish","finish")
                 nextActivity()
+                if (_activityCount.value != 5)
+                    _activityCount.value = (activityCount.value)?.plus(1)
 
-                if(activityList.isEmpty())
-                onGameFinish()
             }
         }
 
-        timer.start()
+        timer?.start()
     }
-    fun updateList(newList : List<PersonalizedWorkout>){
+
+    fun updateList(newList: List<PersonalizedWorkout>) {
         workoutList.clear()
         workoutList.addAll(newList)
         Log.e("update", "$workoutList")
         resetList()
         nextActivity()
     }
+
     /**
      * Moves to the next word in the list
      */
     private fun nextActivity() {
+
         // Shuffle the word list, if the list is empty
         if (activityList.isEmpty()) {
-            onGameFinish()
+            onActivityFinish()
+            return
         } else {
+            timeProgress = 0
+//            timeSelected=1100
+            pauseOffSet = 0
             // Remove a word from the list
             _activityName.value = activityList.removeAt(0)
             _gifImageUrl.value = gifImageList.removeAt(0)
-            timer.start()
+            timer?.start()
         }
     }
 
@@ -147,13 +164,13 @@ class StartPersonalizedViewModel : ViewModel() {
 
         nextActivity()
 
-        _activityCount.value = (activityCount.value)?.plus(1)
+        if (_activityCount.value != 5)
+            _activityCount.value = (activityCount.value)?.plus(1)
+
     }
 
 
-
     // Event which triggers the end of the game
-
 
 
     override fun onCleared() {
@@ -163,14 +180,11 @@ class StartPersonalizedViewModel : ViewModel() {
     }
 
 
-
-    //method for game completed event
-
-    fun onGameFinish() {
-        _eventGameFinish.value = true
+    fun onActivityFinish() {
+        _eventActivityFinish.value = true
     }
 
-    fun onGameFinishComplete(){
-        _eventGameFinish.value = false
+    fun onActivityFinishComplete() {
+        _eventActivityFinish.value = false
     }
 }

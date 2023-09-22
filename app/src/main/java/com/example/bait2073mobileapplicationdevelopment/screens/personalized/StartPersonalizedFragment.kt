@@ -71,6 +71,11 @@ class StartPersonalizedFragment : Fragment() {
             }
         }
 
+        viewModel.progressBar.observe(viewLifecycleOwner, Observer { progress ->
+            // Update the ProgressBar's progress here
+            binding.pbTimer.progress = progress
+        })
+
         viewModelStartWorkout = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
@@ -93,10 +98,23 @@ class StartPersonalizedFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
+        viewModel.eventActivityFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
             if (hasFinished) activityFinished()
         })
         return binding.root
+
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Start the timer when the fragment is created
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // Stop the timer when the fragment is destroyed
 
     }
 
@@ -114,13 +132,14 @@ class StartPersonalizedFragment : Fragment() {
 
 
 
+        Log.e("dialog","dialogshow")
         showSuccessDialog()
-        viewModel.onGameFinishComplete()
+        viewModel.onActivityFinishComplete()
     }
 
     private fun showSuccessDialog(){
         dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.custom_dialog_success)
+        dialog.setContentView(R.layout.custom_dialog_success_workout)
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.setCancelable(false) // Optional
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
@@ -164,7 +183,7 @@ class StartPersonalizedFragment : Fragment() {
                 Log.d("InsertDataIntoRoomDb", "Inserting workout with ID: ${workout}")
                 viewModelStartWorkout.insertWorkout(
                     StartWorkout(
-                        id = workout.id,
+                        null,
                         name = workout.name,
                         userId!!,
                         description = workout.description,

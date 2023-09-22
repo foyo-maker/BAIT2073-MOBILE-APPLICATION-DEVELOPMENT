@@ -37,14 +37,13 @@ class UserFormViewModel  : ViewModel() {
         val call = service.createUser(user)
         call.enqueue(object : Callback<User?> {
             override fun onFailure(call: Call<User?>, t: Throwable) {
-                Log.e("haha", "wandan")
+                Log.e("API Error", t.message ?: "Unknown error")
                 createNewUserLiveData.postValue(null)
             }
 
             override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 if (response.isSuccessful) {
                     val resposne = response.body()
-                    Log.i("haha", "$resposne")
                     createNewUserLiveData.postValue(response.body())
                 } else {
                     val resposne = response.body()

@@ -64,8 +64,8 @@ class StartPlan : Fragment() {
                     pauseOffSet=0
 
 
-                    view.findNavController()
-                        .navigate(R.id.action_startPlan_to_play_plan)
+//                    view.findNavController()
+//                        .navigate(R.id.action_startPlan_to_play_plan)
 
                 }
                 Toast.makeText(requireContext(), "Time's Up!", Toast.LENGTH_SHORT).show()

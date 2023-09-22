@@ -48,7 +48,7 @@
         android:title="">
         <menu>
             <item
-                android:id="@+id/admin_nav_logout"
+                android:id="@+id/logoutFragment"
                 android:icon="@drawable/nav_logout"
                 android:title="Logout"/>
         </menu>
