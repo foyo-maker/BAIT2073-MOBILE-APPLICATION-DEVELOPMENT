@@ -17,8 +17,6 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
     RecyclerView.Adapter<UserPlanListAdapter.UserPlanListViewHolder>() {
 
     private var ctx: Context? = null
-    var UserPlanList = mutableListOf<UserPlanList>()
-    var userPlanWorkoutfullList = mutableListOf<UserPlanList>()
     var UserPlan = mutableListOf<UserPlan>()
     var UserPlanfullList = mutableListOf<UserPlan>()
 
@@ -47,12 +45,12 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
 
     override fun getItemCount(): Int {
 
-        return UserPlanList.size
+        return UserPlan.size
     }
 
     override fun onBindViewHolder(holder: UserPlanListViewHolder, position: Int) {
 
-        val currentUserPlanList = UserPlanList[position]
+
         val currentUserPlan = UserPlan[position]
         Log.e("userplan","$currentUserPlan")
         holder.planName.text = currentUserPlan.name
@@ -61,12 +59,11 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
 
         holder.userPlan_layout.setOnClickListener{
 
-            listener.onItemClicked(UserPlan[holder.adapterPosition],UserPlanList[holder.adapterPosition])
+            listener.onItemClicked(UserPlan[holder.adapterPosition])
 
         }
         holder.userPlan_layout.setOnLongClickListener{
 
-            listener.OnLongItemClicked(UserPlan[holder.adapterPosition],UserPlanList[holder.adapterPosition], holder.userPlan_layout)
 
             true
         }
@@ -83,18 +80,12 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
         Log.e("gg","$UserPlan")
         notifyDataSetChanged()
     }
-    fun updateUserPlanWorkoutList(newList : List<UserPlanList>){
-        userPlanWorkoutfullList.clear()
-        userPlanWorkoutfullList.addAll(newList)
-        UserPlanList.clear()
-        UserPlanList.addAll(userPlanWorkoutfullList)
-        notifyDataSetChanged()
-    }
+
 
 
     interface UserPlanClickListener {
-        fun onItemClicked(userPlan: UserPlan,userPlanList: UserPlanList)
-        fun OnLongItemClicked(userPlan: UserPlan,userPlanList: UserPlanList,cardView: CardView)
+        fun onItemClicked(userPlan: UserPlan)
+        fun OnLongItemClicked(userPlan: UserPlan,cardView: CardView)
     }
 }
 
