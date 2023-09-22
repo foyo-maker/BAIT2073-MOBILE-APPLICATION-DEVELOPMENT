@@ -180,12 +180,10 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
     }
 
     override fun onItemClicked(workout: Workout) {
-
         // Start the new activity here
         val intent = Intent(requireContext(), WorkoutDetailsActivity::class.java)
         intent.putExtra("workout", workout)
         startActivity(intent)
-
 
     }
 
