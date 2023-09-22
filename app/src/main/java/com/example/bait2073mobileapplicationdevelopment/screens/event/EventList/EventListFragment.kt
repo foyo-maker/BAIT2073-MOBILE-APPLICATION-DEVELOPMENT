@@ -3,6 +3,7 @@ package com.example.bait2073mobileapplicationdevelopment.screens.event.EventList
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
@@ -30,12 +31,18 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.adapter.EventListAdapter
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentEventListBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
+import com.example.bait2073mobileapplicationdevelopment.screens.event.EventForm.EventFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.eventParticipants.EventParticipantsParticipants.EventParticipantsViewModel
 
 
 class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, PopupMenu.OnMenuItemClickListener {
 
     lateinit var recyclerViewAdapter: EventListAdapter
+
     lateinit var viewModel: EventListViewModel
+    lateinit var viewModelEventParticipants: EventParticipantsViewModel
+
+    lateinit var viewModelForm: EventFormViewModel
 
 //    lateinit var api: GetEventDataService
 //    lateinit var db: EventDatabase
@@ -59,7 +66,7 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
         binding.addEventBtn.setOnClickListener {
 
             val action =
-                EventListFragmentDirections.actionEventListFragmentToManageEventFragment(0)
+                EventListFragmentDirections.actionEventListFragmentToManageEventFragment(0,true)
             this.findNavController().navigate(action)
         }
 
@@ -104,6 +111,8 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
      fun initViewModel(){
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
             .get(EventListViewModel::class.java)
+         viewModelForm= ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
+             .get(EventFormViewModel::class.java)
 
         viewModel.getEventListObserverable().observe(viewLifecycleOwner,Observer<List<Event?>>{
             eventListResponse->
@@ -117,6 +126,7 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
             }
         })
         viewModel.getEvents()
+
     }
 
 
@@ -129,7 +139,7 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
     }
 
     override fun onItemClicked(event: Event) {
-        val action=EventListFragmentDirections.actionEventListFragmentToManageEventFragment(event.id?:0)
+        val action=EventListFragmentDirections.actionEventListFragmentToManageEventFragment(event.id?:0,false)
         this.findNavController().navigate(action)
     }
 
@@ -150,6 +160,10 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         if(item?.itemId == R.id.delete_note){
             viewModel.deleteEvent(selectedEvent)
+//            selectedEvent.status = "Inactive"
+
+//            selectedEvent.id?.let { viewModelForm.updateEvent(it,selectedEvent) }
+            return true
         }
         return false
     }

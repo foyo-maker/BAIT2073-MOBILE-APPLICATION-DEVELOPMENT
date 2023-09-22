@@ -4,13 +4,16 @@ package com.example.bait2073mobileapplicationdevelopment.screens.event.EventForm
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,8 +28,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentManageEventBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
-import com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListFragmentDirections
-import com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.eventParticipants.EventParticipantsParticipants.EventParticipantsViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventDetailsFragmentArgs
 import com.squareup.picasso.Callback
 
 import com.squareup.picasso.Picasso
@@ -40,6 +43,7 @@ class ManageEventFragment : Fragment() {
 
 
     private lateinit var viewModel: EventFormViewModel
+    private lateinit var viewModelEventParticipants: EventParticipantsViewModel
     private lateinit var binding: FragmentManageEventBinding
     private val PICK_IMAGE_REQUEST = 1
     private val CAPTURE_IMAGE_REQUEST = 2
@@ -54,8 +58,11 @@ class ManageEventFragment : Fragment() {
         //val event_id = intent.getStringExtra("event_id")
         binding = FragmentManageEventBinding.inflate(inflater, container, false)
 
+        setupTimePicker()
+        setupDatePicker()
         initViewModel()
         createEventObservable()
+
         val args = ManageEventFragmentArgs.fromBundle(requireArguments())
         val event_id = args.eventId
 
@@ -74,8 +81,75 @@ class ManageEventFragment : Fragment() {
             showImagePickerDialog()
         }
 
+
+        viewModelEventParticipants = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(EventParticipantsViewModel::class.java)
+
+        viewModelEventParticipants.getEventPartSizeObserverable().observe(viewLifecycleOwner,Observer<Int?>{
+                eventListResponse->
+            if (eventListResponse==null){
+            }else{
+
+                if(args.add){
+                    binding.numGoingAdminText.setText("")
+                }else{
+                    val eventListSize = eventListResponse
+                    binding.numGoingAdminText.setText("Total user joined : "+eventListSize.toString())
+                    Log.i("viewModelPart","initViewModel:\n"+"$eventListSize")
+                }
+
+
+            }
+        })
+
+
+        viewModelEventParticipants.getEventsPartSize(event_id)
+
+
+
+
         return binding.root
     }
+
+
+    private fun setupDatePicker() {
+        val datePicker = binding.datePicker1
+
+        // Get the current date
+        val currentDate = Calendar.getInstance()
+
+        // Set the minimum date for the DatePicker to today's date
+        datePicker.minDate = currentDate.timeInMillis
+
+        // Optionally, you can set the initial date to today
+        datePicker.init(
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DAY_OF_MONTH)
+        ) { _, year, month, dayOfMonth ->
+            // Date selected listener (optional)
+            // You can perform actions when the user selects a date
+        }
+    }
+
+    private fun setupTimePicker() {
+        val timePicker = binding.timePicker1
+
+        val currentTime = Calendar.getInstance()
+
+        // Set the minimum time for the TimePicker to the current time
+        timePicker.hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        timePicker.minute = currentTime.get(Calendar.MINUTE)
+
+        // Optionally, you can set a time selected listener (if needed)
+        timePicker.setOnTimeChangedListener { _, _, _ ->
+            // Time selected listener (optional)
+            // You can perform actions when the user selects a time
+        }
+    }
+
 
     private fun pickImage() {
         val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
@@ -116,7 +190,6 @@ class ManageEventFragment : Fragment() {
                 PICK_IMAGE_REQUEST -> {
                     val selectedImageUri = data?.data
                     if (selectedImageUri != null) {
-
 
                         binding.eventImgAdmin.setImageURI(selectedImageUri)
                         val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
@@ -174,7 +247,7 @@ class ManageEventFragment : Fragment() {
                     Picasso.get()
                         .load(event.image)
                         .fit()
-                        .error(R.drawable.img_person)
+                        .error(R.drawable.event_default)
                         .into(eventImageView, object : Callback {
                             override fun onSuccess() {
                                 Log.e("NICE", "image")
@@ -186,7 +259,7 @@ class ManageEventFragment : Fragment() {
                         })
                 } else {
                     Log.e("noimage", "noimage")
-                    Picasso.get().load(R.drawable.img_person).into(eventImageView)
+                    Picasso.get().load(R.drawable.event_default).into(eventImageView)
                 }
             }
         })
@@ -223,6 +296,11 @@ class ManageEventFragment : Fragment() {
         }
 
         val formattedDate = String.format("%04d-%02d-%02d %02d:%02d:00", year, month, day, hourOfDay, minute)
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+
+        val userId = userData?.first
+
         val event = Event(
             null,
             binding.eTextTitle.text.toString(),
@@ -230,12 +308,32 @@ class ManageEventFragment : Fragment() {
             imageData,
             formattedDate,
             binding.eTextAddress.text.toString(),
+            "Active",
+            userId
         )
+
 
         if (event_id == 0)
             viewModel.createEvent(event)
         else
             viewModel.updateEvent(event_id ?: 0, event)
+    }
+
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
     }
 
 

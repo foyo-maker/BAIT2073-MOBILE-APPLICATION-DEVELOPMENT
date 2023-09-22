@@ -62,15 +62,27 @@
         <action
             android:id="@+id/action_eventFragment_to_eventDetailsFragment"
             app:destination="@id/eventDetailsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListFragment"
         android:label="EventListFragment" />
+
     <fragment
         android:id="@+id/eventDetailsFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventDetailsFragment"
-        android:label="EventDetailsFragment" />
+        android:label="EventDetailsFragment" >
+        <argument
+            android:name="event_id"
+            app:argType="integer" />
+        <argument
+            android:name="joined"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.password.ChangePassword.ChangePasswordFragment"
@@ -138,8 +150,6 @@
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.MyTrainList"
         android:label="fragment_my_train_list"
         tools:layout="@layout/fragment_my_train_list" />
-
-
 
 
 </navigation>

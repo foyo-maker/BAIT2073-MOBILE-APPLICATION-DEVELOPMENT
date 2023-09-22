@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,6 +18,7 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentEven
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
 import com.squareup.picasso.Picasso
 import androidx.recyclerview.widget.ListAdapter
+import com.example.bait2073mobileapplicationdevelopment.screens.eventParticipants.EventParticipantsParticipants.EventParticipantsViewModel
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -25,6 +28,7 @@ class EventListAdapter (private val context: Context, val listener:EventClickLis
     private var ctx:Context?=null
     var eventList = mutableListOf<Event>()
     var fullList = mutableListOf<Event>()
+    private lateinit var viewModelEventParticipants: EventParticipantsViewModel
 
 
     fun setData(arrData: List<Event>) {
@@ -63,6 +67,7 @@ class EventListAdapter (private val context: Context, val listener:EventClickLis
         val eventImageView =  holder.itemView.findViewById<ImageView>(R.id.event_image)
 
         if (!currentEvent.image.isNullOrBlank()) {
+            Log.e("EventListAdapterWa","${currentEvent.image}")
             Picasso.get().load(currentEvent.image).fit().into(eventImageView)
         }else{
             Log.e("EventListAdapter","event image")
@@ -76,6 +81,9 @@ class EventListAdapter (private val context: Context, val listener:EventClickLis
             listener.onLongItemClicked(eventList[holder.adapterPosition],holder.event_layout)
             true
         }
+
+
+
     }
 
 

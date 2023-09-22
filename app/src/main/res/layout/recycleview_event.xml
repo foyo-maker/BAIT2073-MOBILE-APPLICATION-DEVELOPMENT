@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/Card_View"
+        android:id="@+id/event_list_user_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
@@ -20,11 +20,14 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/item_image"
+                android:id="@+id/item_image_list_event"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/event_run3" />
+                app:srcCompat="@drawable/event_default"
+                app:shapeAppearanceOverlay="@style/Circular"
+               />
+
 
 
 
@@ -41,7 +44,6 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_light"
 
-                    android:text="Stay away from bad habits"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -66,7 +68,6 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_light"
-                    android:text="45 people going"
                     android:textColor="@color/ligth_text"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -79,7 +80,6 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/poppins_bold"
                     android:gravity="center"
-                    android:text="JAN\n25"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -89,8 +89,8 @@
 
                 <Button
                     android:id="@+id/component4"
-                    android:layout_width="85dp"
-                    android:layout_height="54dp"
+                    android:layout_width="110dp"
+                    android:layout_height="67dp"
                     android:fontFamily="@font/lato"
                     android:gravity="center"
                     android:hint="Component 4"

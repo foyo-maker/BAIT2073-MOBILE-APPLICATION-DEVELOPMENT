@@ -55,6 +55,9 @@
         <argument
             android:name="event_id"
             app:argType="integer" />
+        <argument
+            android:name="add"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_manageEventFragment_to_eventListFragment"
             app:destination="@id/eventListFragment" />

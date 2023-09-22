@@ -70,9 +70,8 @@
                     android:layout_height="65dp"
                     android:layout_marginRight="30dp"
                     android:text="Upload Image"
-
-
                     />
+
 
                 <ImageView
                     android:id="@+id/eventImgAdmin"
@@ -84,6 +83,30 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/numGoingAdmin"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                android:layout_marginTop="34dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/lavender"
+                app:startIconTint="@color/lavender">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/numGoingAdminText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                     />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -93,8 +116,8 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxBackgroundMode="outline"
                 app:counterEnabled="true"
-                app:counterMaxLength="30"
-                android:layout_marginTop="34dp"
+                app:counterMaxLength="15"
+                android:layout_marginTop="2dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
                 app:startIconDrawable="@drawable/baseline_person_24"
@@ -104,6 +127,8 @@
                     android:id="@+id/eTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="15"
+                    android:imeOptions="actionDone"
                     android:inputType="text|textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +137,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                app:counterMaxLength="50"
+                app:counterEnabled="true"
                 android:layout_marginTop="0dp"
                 android:hint="Details"
                 app:boxBackgroundColor="@color/white"
@@ -127,9 +153,10 @@
                     android:id="@+id/eTextDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine|textWebEmailAddress"
                     android:lines="5"
                     android:minLines="3"
+                    android:maxLength="50"
+                    android:imeOptions="actionDone"
                     android:gravity="top|start"
                     android:scrollbars="vertical"
                     android:scrollbarStyle="insideInset"
@@ -148,7 +175,6 @@
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                app:placeholderText="ex: 56kg"
                 app:startIconDrawable="@drawable/baseline_monitor_weight_24"
                 app:startIconTint="@color/lavender">
 
