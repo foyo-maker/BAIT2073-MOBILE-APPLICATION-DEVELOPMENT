@@ -21,7 +21,7 @@ import com.example.bait2073mobileapplicationdevelopment.entities.Workout
 import com.example.bait2073mobileapplicationdevelopment.utilities.DateConverter
 
 
-@Database(entities = [User::class,PersonalizedWorkout::class,StartWorkout::class, Event::class,,UserPlan::class,UserPlanList::class,Workout::class],version = 1,exportSchema = false)
+@Database(entities = [User::class,PersonalizedWorkout::class,StartWorkout::class, Event::class,UserPlan::class,UserPlanList::class,Workout::class],version = 1,exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class HealthyLifeDatabase: RoomDatabase()  {
 
