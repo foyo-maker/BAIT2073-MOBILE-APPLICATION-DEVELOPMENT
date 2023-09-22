@@ -105,6 +105,7 @@ class MyTrainList : Fragment(), UserPlanListAdapter.UserPlanClickListener, Popup
 
                     recyclerViewAdapter.updateUserPlanList(userPlanList)
                     recyclerViewAdapter.setData(userPlanList)
+                    recyclerViewAdapter.notifyDataSetChanged()
 
                 }
             })
@@ -113,20 +114,20 @@ class MyTrainList : Fragment(), UserPlanListAdapter.UserPlanClickListener, Popup
         viewModel.getPlan(userId)
     }
 
-    override fun onItemClicked(userPlan: UserPlan, userPlanList: UserPlanList) {
-        val action = MyTrainListDirections.actionMyTrainListToAddPlanLIst()
-        this.findNavController().navigate(action)
-    }
-
-    override fun OnLongItemClicked(
-        userPlan: UserPlan,
-        userPlanList: UserPlanList,
-        cardView: CardView
-    ) {
-        selectedPlanList = userPlanList
-        selectedPlan = userPlan
-        popUpDisplay(cardView)
-    }
+//    override fun onItemClicked(userPlan: UserPlan, userPlanList: UserPlanList) {
+//        val action = MyTrainListDirections.actionMyTrainListToAddPlanLIst()
+//        this.findNavController().navigate(action)
+//    }
+//
+//    override fun OnLongItemClicked(
+//        userPlan: UserPlan,
+//    userPlanList: UserPlanList,
+//    cardView: CardView
+//    ) {
+//        selectedPlanList = userPlanList
+//        selectedPlan = userPlan
+//        popUpDisplay(cardView)
+//    }
 
     private fun popUpDisplay(cardView: CardView) {
 
@@ -145,6 +146,16 @@ class MyTrainList : Fragment(), UserPlanListAdapter.UserPlanClickListener, Popup
             viewModel.deleteUserPlan(userId, selectedPlan.id)
         }
         return false
+    }
+
+    override fun onItemClicked(userPlan: UserPlan) {
+        val action = MyTrainListDirections.actionMyTrainListToAddPlanLIst()
+        this.findNavController().navigate(action)
+    }
+
+    override fun OnLongItemClicked(userPlan: UserPlan, cardView: CardView) {
+        selectedPlan = userPlan
+        popUpDisplay(cardView)
     }
 
 }
