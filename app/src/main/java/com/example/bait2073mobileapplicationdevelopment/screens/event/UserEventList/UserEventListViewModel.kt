@@ -72,6 +72,8 @@ class UserEventListViewModel (application: Application): AndroidViewModel(applic
                                 image = event.image ?: "",
                                 date = event.date ?: "",
                                 address = event.address ?: "",
+                                "",
+                                0
                             )
                         )
                     }

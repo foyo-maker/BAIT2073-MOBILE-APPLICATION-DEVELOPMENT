@@ -192,7 +192,7 @@
     </fragment>
     <fragment
         android:id="@+id/myTrainList"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.MyTrainListFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.MyTrainList"
         android:label="fragment_my_train_list"
         tools:layout="@layout/fragment_my_train_list" >
         <action
