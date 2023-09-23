@@ -7,10 +7,7 @@ import androidx.room.ForeignKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "user_plan" , foreignKeys  = [
-    ForeignKey(entity = User::class, parentColumns = ["id"], childColumns = ["user_id"],  onDelete = ForeignKey.CASCADE)
-
-])
+@Entity(tableName = "user_plan")
 data class UserPlan (
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -26,6 +23,6 @@ data class UserPlan (
     @ColumnInfo(name = "plan_name")
     @Expose
     @SerializedName("plan_name")
-    val name: String
+    val plan_name: String
 
 )
