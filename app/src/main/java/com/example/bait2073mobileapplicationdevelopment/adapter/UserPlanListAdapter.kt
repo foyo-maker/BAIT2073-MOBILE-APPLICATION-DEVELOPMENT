@@ -19,11 +19,17 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
     private var ctx: Context? = null
     var UserPlan = mutableListOf<UserPlan>()
     var UserPlanfullList = mutableListOf<UserPlan>()
-
+    var UserPlanList = mutableListOf<UserPlanList>()
+    var userPlanWorkoutfullList = mutableListOf<UserPlanList>()
 
     fun setData(newData:  List<UserPlan>) {
         UserPlan.clear()
         UserPlan.addAll(newData)
+        notifyDataSetChanged()
+    }
+    fun setUserPlanData(newData:  List<UserPlanList>) {
+        UserPlanList.clear()
+        UserPlanList.addAll(newData)
         notifyDataSetChanged()
     }
     inner class UserPlanListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -52,9 +58,14 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
 
 
         val currentUserPlan = UserPlan[position]
-        Log.e("userplan","$currentUserPlan")
-        holder.planName.text = currentUserPlan.name
-        holder.totalExcise.text = currentUserPlan.id.toString()
+        val currentUserPlanList = UserPlanList
+        // Filter UserPlanList to get the matching UserPlanId
+        Log.e("haha","${currentUserPlan.id.toString().toInt()} ")
+        Log.e("haha","${UserPlanList.size} ")
+        val matchingUserPlanList = UserPlanList.filter { it.userPlanId == currentUserPlan.id }
+        Log.e("userplan","$matchingUserPlanList")
+        holder.planName.text = currentUserPlan.plan_name
+        holder.totalExcise.text = matchingUserPlanList.size.toString()
 
 
         holder.userPlan_layout.setOnClickListener{

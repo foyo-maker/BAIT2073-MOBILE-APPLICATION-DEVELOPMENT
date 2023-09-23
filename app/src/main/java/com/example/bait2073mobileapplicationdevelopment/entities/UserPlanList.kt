@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
         ForeignKey(
             entity = UserPlan::class,
             parentColumns = ["id"],
-            childColumns = ["userPlan_id"],
+            childColumns = ["user_plan_id"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -31,13 +31,23 @@ data class UserPlanList(
     @SerializedName("id")
     val id: Int? = null,
 
-    @ColumnInfo(name = "userPlan_id")
+    @ColumnInfo(name = "user_plan_id")
     @Expose
-    @SerializedName("userPlan_id")
+    @SerializedName("user_plan_id")
     val userPlanId: Int,
 
     @ColumnInfo(name = "workout_id")
     @Expose
     @SerializedName("workout_id")
-    val workoutId: Int
+    val workoutId: Int,
+
+    @ColumnInfo(name = "name")
+    @Expose
+    @SerializedName("name")
+    val name: String,
+
+    @ColumnInfo(name = "gifimage")
+    @Expose
+    @SerializedName("gifimage")
+    val gifimage: String?
 )

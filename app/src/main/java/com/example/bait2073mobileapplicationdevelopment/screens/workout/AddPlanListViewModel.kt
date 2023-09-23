@@ -1,41 +1,53 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList
+package com.example.bait2073mobileapplicationdevelopment.screens.workout
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bait2073mobileapplicationdevelopment.entities.User
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
+import com.example.bait2073mobileapplicationdevelopment.entities.Workout
 import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataService
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserPLanListService
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetWorkoutDataService
 import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+class AddPlanListViewModel : ViewModel() {
 
-class UserListViewModel : ViewModel() {
-
-    var recyclerListData: MutableLiveData<List<User?>> = MutableLiveData()
-     var deleteUserLiveData: MutableLiveData<User?> = MutableLiveData()
+    var recyclerListData: MutableLiveData<List<Workout?>> = MutableLiveData()
 
 
 
-    fun getDeleteUserObservable(): MutableLiveData<User?> {
-        return  deleteUserLiveData
+    lateinit var createNewUserPlanLiveData: MutableLiveData<UserPlanList?>
+
+    init {
+        createNewUserPlanLiveData = MutableLiveData()
+
+
     }
-    fun getUserListObserverable(): MutableLiveData<List<User?>> {
+
+    fun getWorkoutObserverable(): MutableLiveData<List<Workout?>> {
         return recyclerListData
     }
 
 
-    fun getUsers() {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
-        val call = service.getUserList()
-        call.enqueue(object : Callback<List<User>> {
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+    fun getCreateNewUserPlanObservable(): MutableLiveData<UserPlanList?> {
+        return createNewUserPlanLiveData
+    }
+
+
+    fun getWorkouts() {
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetWorkoutDataService::class.java)
+        val call = service.getWorkoutList()
+        call.enqueue(object : Callback<List<Workout>> {
+            override fun onFailure(call: Call<List<Workout>>, t: Throwable) {
                 // Handle API call failure
                 Log.e("API Error", t.message ?: "Unknown error")
             }
 
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+            override fun onResponse(call: Call<List<Workout>>, response: Response<List<Workout>>) {
                 if (response.isSuccessful) {
                     // Response contains a list of User objects
                     val userList = response.body()
@@ -55,22 +67,27 @@ class UserListViewModel : ViewModel() {
         })
     }
 
-    fun deleteUser(user: User) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
-        val call = service.deleteUser(user.id?:0)
-        call.enqueue(object : Callback<User?> {
-            override fun onFailure(call: Call<User?>, t: Throwable) {
+
+    fun createPlanWorkout(userPlanList: UserPlanList) {
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserPLanListService::class.java)
+        val call = service.insertUserPlanList(userPlanList)
+        call.enqueue(object : Callback<UserPlanList?> {
+            override fun onFailure(call: Call<UserPlanList?>, t: Throwable) {
                 Log.e("API Error", t.message ?: "Unknown error")
-                deleteUserLiveData.postValue(null)
+                createNewUserPlanLiveData.postValue(null)
             }
 
-            override fun onResponse(call: Call<User?>, response: Response<User?>) {
-                if(response.isSuccessful) {
-                    Log.e("API Response", "Response body is empty")
-                    deleteUserLiveData.postValue(response.body())
+            override fun onResponse(call: Call<UserPlanList?>, response: Response<UserPlanList?>) {
+                if (response.isSuccessful) {
+                    val resposne = response.body()
+                    createNewUserPlanLiveData.postValue(response.body())
                 } else {
-                    Log.e("API Response", "Response body is empty")
-                    deleteUserLiveData.postValue(null)
+                    val resposne = response.body()
+                    val errorBody = response.errorBody()?.string()
+                    val responseCode = response.code()
+                    val responseMessage = response.message()
+                    Log.e("haha", "Response is not successful. Code: $responseCode, Message: $responseMessage, Error Body: $errorBody")
+                    createNewUserPlanLiveData.postValue(null)
                 }
             }
         })

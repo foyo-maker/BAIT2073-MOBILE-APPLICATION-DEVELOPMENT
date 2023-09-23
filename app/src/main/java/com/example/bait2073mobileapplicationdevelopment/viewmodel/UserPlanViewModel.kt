@@ -142,7 +142,6 @@ class UserPlanViewModel: ViewModel() {
                             Log.e("API Error", t.message ?: "Unknown error")
                             deleteUserPlan.postValue(null)
                         }
-
                         override fun onResponse(call: Call<UserPlan?>, response: Response<UserPlan?>) {
                             if(response.isSuccessful) {
                                 Log.e("API Response", "Response body is empty")
