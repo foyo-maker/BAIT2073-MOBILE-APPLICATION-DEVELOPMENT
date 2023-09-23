@@ -7,11 +7,13 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.adapter.UserAdapter
-import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
-import com.example.bait2073mobileapplicationdevelopment.screens.fragment.MyTrainListFragment
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserPLanListService
+import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UserPlanListAdapter(private val context: Context, private val listener: UserPlanClickListener) :
     RecyclerView.Adapter<UserPlanListAdapter.UserPlanListViewHolder>() {
@@ -55,29 +57,39 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
     }
 
     override fun onBindViewHolder(holder: UserPlanListViewHolder, position: Int) {
-
-
         val currentUserPlan = UserPlan[position]
         val currentUserPlanList = UserPlanList
-        // Filter UserPlanList to get the matching UserPlanId
-        Log.e("haha","${currentUserPlan.id.toString().toInt()} ")
-        Log.e("haha","${UserPlanList.size} ")
-        val matchingUserPlanList = UserPlanList.filter { it.userPlanId == currentUserPlan.id }
-        Log.e("userplan","$matchingUserPlanList")
-        holder.planName.text = currentUserPlan.plan_name
-        holder.totalExcise.text = matchingUserPlanList.size.toString()
+
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserPLanListService::class.java)
+        val call = service.getUserPlanListByUserPlanId(currentUserPlan.id)
+        call.enqueue(object : Callback<List<UserPlanList>> {
+            override fun onResponse(call: Call<List<UserPlanList>>, response: Response<List<UserPlanList>>) {
+                if (response.isSuccessful) {
+                    val userPlanList = response.body()
+                    val totalExcise = userPlanList?.size ?: 0 // Get the size of the fetched list
+
+                    holder.planName.text = currentUserPlan.plan_name
+                    holder.totalExcise.text = totalExcise.toString()
+
+                    holder.userPlan_layout.setOnClickListener {
+                        listener.onItemClicked(UserPlan[holder.adapterPosition])
+                    }
+
+                    holder.userPlan_layout.setOnLongClickListener {
+                        listener.OnLongItemClicked(UserPlan[holder.adapterPosition], holder.userPlan_layout)
+                        true
+                    }
+                } else {
+                    // Handle the case where the API request was not successful
+                }
+            }
+
+            override fun onFailure(call: Call<List<UserPlanList>>, t: Throwable) {
+                // Handle the failure of the API request
+            }
+        })
 
 
-        holder.userPlan_layout.setOnClickListener{
-
-            listener.onItemClicked(UserPlan[holder.adapterPosition])
-
-        }
-        holder.userPlan_layout.setOnLongClickListener{
-
-
-            true
-        }
 
 
     }

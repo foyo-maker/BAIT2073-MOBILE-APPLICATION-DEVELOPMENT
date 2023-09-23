@@ -2,53 +2,48 @@ package com.example.bait2073mobileapplicationdevelopment.adapter
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
-import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
 import com.example.bait2073mobileapplicationdevelopment.entities.Workout
-import com.squareup.picasso.Picasso
 import pl.droidsonroids.gif.GifImageView
 
-class userPlanWorkoutShowAdapter (private val context : Context, val listener:WorkoutClickListener): RecyclerView.Adapter<userPlanWorkoutShowAdapter.WorkoutViewHolder>() {
+class WorkoutListAdapter (private val context : Context, val listener:WorkoutClickListener): RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHolder>() {
 
 
     private var ctx: Context? = null
-    var userPlanListWorkout = mutableListOf<UserPlanList>()
-    var fullList = mutableListOf<UserPlanList>()
+    var workoutList = mutableListOf<Workout>()
+    var fullList = mutableListOf<Workout>()
 
 
     fun setData(arrData: List<Workout>) {
-        userPlanListWorkout = arrData as ArrayList<UserPlanList>
+        workoutList = arrData as ArrayList<Workout>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
         ctx = parent.context
         return WorkoutViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycleview_workoutlist, parent, false)
+                .inflate(R.layout.recycleview_workout, parent, false)
         )
     }
 
-    override fun getItemCount(): Int {
-        return userPlanListWorkout.size
-    }
 
+    override fun getItemCount(): Int {
+        return workoutList.size
+    }
 
     inner class WorkoutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val workout_layout = itemView.findViewById<CardView>(R.id.workOutCardView)
-        val workout_name = itemView.findViewById<TextView>(R.id.userPlanWorkoutName)
-        val workoutGif = itemView.findViewById<GifImageView>(R.id.userPlanWorkoutGif)
+        val workout_layout = itemView.findViewById<CardView>(R.id.workout_list_layout)
+        val workout_name = itemView.findViewById<TextView>(R.id.workoutName)
+        val workoutGif = itemView.findViewById<GifImageView>(R.id.workoutGif)
 
 
     }
@@ -58,10 +53,13 @@ class userPlanWorkoutShowAdapter (private val context : Context, val listener:Wo
 
 
 
-        val currentWorkout = userPlanListWorkout[position]
+        val currentWorkout = workoutList[position]
 
 
         holder.workout_name.text = currentWorkout.name
+
+        // Clear the Glide cache
+
         Glide.with(ctx!!)
             .asGif() // Ensure that Glide knows it's a GIF
             .load(Uri.parse(currentWorkout.gifimage)) // Parse the GIF URL to a Uri
@@ -81,26 +79,29 @@ class userPlanWorkoutShowAdapter (private val context : Context, val listener:Wo
 
         holder.workout_layout.setOnClickListener {
 
-            listener.onItemClicked(userPlanListWorkout[holder.adapterPosition])
+            listener.onItemClicked(workoutList[holder.adapterPosition])
 
         }
-//        holder.workout_layout.setOnLongClickListener {
-//            listener.OnLongItemClicked(userPlanListWorkout[holder.adapterPosition], holder.workout_layout)
-//            true
-//        }
+
+        holder.workout_layout.setOnLongClickListener{
+
+            listener.onLongItemClicked(workoutList[holder.adapterPosition],holder.workout_layout)
+
+            true
+        }
 
     }
 
-    fun updateList(newList: List<UserPlanList>) {
+    fun updateList(newList: List<Workout>) {
         fullList.clear()
         fullList.addAll(newList)
-        userPlanListWorkout.clear()
-        userPlanListWorkout.addAll(fullList)
+        workoutList.clear()
+        workoutList.addAll(fullList)
         notifyDataSetChanged()
     }
 
     fun filerList(search: String) {
-        userPlanListWorkout.clear()
+        workoutList.clear()
 
         for (item in fullList) {
 
@@ -110,7 +111,7 @@ class userPlanWorkoutShowAdapter (private val context : Context, val listener:Wo
                         .lowercase()
                 ) == true
             ) {
-                userPlanListWorkout.add(item)
+                workoutList.add(item)
 
             }
         }
@@ -119,8 +120,7 @@ class userPlanWorkoutShowAdapter (private val context : Context, val listener:Wo
     }
 
     interface WorkoutClickListener {
-        fun onItemClicked(userPlanList: UserPlanList)
-//        fun OnLongItemClicked(userPlanList: UserPlanList, cardView: CardView)
+        fun onItemClicked(workout: Workout)
+        fun onLongItemClicked(workout: Workout, cardView:CardView)
     }
-
 }

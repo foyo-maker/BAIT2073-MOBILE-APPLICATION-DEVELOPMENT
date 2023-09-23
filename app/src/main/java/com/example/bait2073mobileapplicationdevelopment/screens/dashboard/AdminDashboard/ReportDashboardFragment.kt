@@ -37,6 +37,7 @@ class ReportDashboardFragment  : Fragment() {
         val userData = retrieveUserDataFromSharedPreferences(requireContext())
         val userName = userData?.second
         val userId = userData?.first
+        binding.nameTV.text = userName
 
         loadUserData(userId)
 

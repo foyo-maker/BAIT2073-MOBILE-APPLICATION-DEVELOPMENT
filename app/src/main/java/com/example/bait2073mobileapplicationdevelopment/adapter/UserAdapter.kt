@@ -52,22 +52,20 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
-
         val currentUser = userList[position]
         holder.id.text = currentUser.id.toString()
         holder.userEmail.text = currentUser.email
         holder.userName.text = currentUser.name
 
-
         val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
         if (!currentUser.image.isNullOrBlank()) {
 
 
-//            Picasso.get().load(currentUser.image).fit().into(custImageView)
-            Glide.with(ctx!!)
-                .load(currentUser.image)
-                .fitCenter() // Use fitCenter() for equivalent functionality
-                .into(custImageView)
+            Picasso.get().load(currentUser.image).fit().into(custImageView)
+//            Glide.with(ctx!!)
+//                .load(currentUser.image)
+//                .fitCenter() // Use fitCenter() for equivalent functionality
+//                .into(custImageView)
 
         } else {
             // If no image URL is available,  set a placeholder image or handle this case as needed.\

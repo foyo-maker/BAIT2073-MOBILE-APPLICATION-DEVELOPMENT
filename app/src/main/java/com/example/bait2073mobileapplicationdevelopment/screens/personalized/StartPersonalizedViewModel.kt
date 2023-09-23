@@ -53,9 +53,9 @@ class StartPersonalizedViewModel : ViewModel() {
     private lateinit var gifImageList: MutableList<String>
 
     private var timer: CountDownTimer? = null
-    private val totaltime: Long = 10000 // 11 second in milliseconds
+    private val totaltime: Long = 30000 // 11 second in milliseconds
     private var timeProgress = 0
-    private val timeSelected: Long = 10000
+    private val timeSelected: Long = 30000
     private var pauseOffSet: Long = 0
 
 //     The String version of the current time

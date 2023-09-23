@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.fragment.MyTrainListFragment">
+    android:background="@color/transparent"
+    tools:context=".screens.workout.MyTrainList">
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="581dp"
+        android:layout_height="590dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/ActionBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +39,6 @@
         android:layout_width="65dp"
         android:layout_height="69dp"
         android:layout_marginStart="300dp"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:background="@drawable/gradient"

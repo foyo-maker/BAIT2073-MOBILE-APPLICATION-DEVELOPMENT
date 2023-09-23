@@ -31,7 +31,9 @@ import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentMyTr
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
+import com.example.bait2073mobileapplicationdevelopment.entities.Workout
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserListFragmentDirections
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutList.WorkoutListFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.dialog.AddPlanPopUpFragment
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserPlanViewModel
 
@@ -40,7 +42,7 @@ class MyTrainList : Fragment(), UserPlanListAdapter.UserPlanClickListener, Popup
     lateinit var recyclerViewAdapter: UserPlanListAdapter
     lateinit var viewModel: MyTrainViewModel
     private lateinit var binding: FragmentMyTrainListBinding
-    lateinit var selectedPlanList: UserPlanList
+
     lateinit var selectedPlan: UserPlan
     private lateinit var dialog: Dialog
 
@@ -246,7 +248,10 @@ class MyTrainList : Fragment(), UserPlanListAdapter.UserPlanClickListener, Popup
         val userId = userData?.first!!
         if (item?.itemId == R.id.delete_note) {
 
-            viewModel.deleteUserPlan(userId, selectedPlan.id)
+            viewModel.deleteUserPlan(selectedPlan.id)
+            val action =
+                MyTrainListDirections.actionMyTrainListToHomeFragment()
+            this.findNavController().navigate(action)
         }
         return false
     }
@@ -264,5 +269,8 @@ class MyTrainList : Fragment(), UserPlanListAdapter.UserPlanClickListener, Popup
         selectedPlan = userPlan
         popUpDisplay(cardView)
     }
+
+
+
 
 }

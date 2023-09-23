@@ -21,4 +21,7 @@ interface UserPlanListDao {
 
     @Delete
     fun deleteWorkoutsByUserPlan(userPlanList: List<UserPlanList>)  // Corrected the parameter type
+
+    @Query("DELETE FROM User_Plan_List")
+    fun clearDb()
 }

@@ -30,9 +30,6 @@
         android:label="Personalized Recommendation WorkOut"
         tools:layout="@layout/fragment_display_workout" >
         <action
-            android:id="@+id/action_workoutFragment_to_startPlan"
-            app:destination="@id/startPlan" />
-        <action
             android:id="@+id/action_workoutFragment_to_startPersonalizedFragment"
             app:destination="@id/startPersonalizedFragment" />
     </fragment>
@@ -42,8 +39,14 @@
         android:label="Start Plan"
         tools:layout="@layout/fragment_start_plan" >
         <action
-            android:id="@+id/action_startPlan_to_play_plan"
-            app:destination="@id/play_plan" />
+            android:id="@+id/action_startPlan_to_myTrainList"
+            app:destination="@id/myTrainList" />
+        <action
+            android:id="@+id/action_startPlan_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <argument
+            android:name="user_plan_id"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -201,16 +204,14 @@
         <action
             android:id="@+id/action_myTrainList_to_userPlanWorkoutShow"
             app:destination="@id/userPlanWorkoutShow" />
+        <action
+            android:id="@+id/action_myTrainList_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.AboutFragment"
         android:label="About Us" />
-    <fragment
-        android:id="@+id/play_plan"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.play_plan"
-        android:label="fragment_play_plan"
-        tools:layout="@layout/fragment_play_plan" />
     <fragment
         android:id="@+id/addPlanLIst"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.AddPlanList"
@@ -231,6 +232,15 @@
         <argument
             android:name="user_plan_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_userPlanWorkoutShow_to_startPlan"
+            app:destination="@id/startPlan" />
+        <action
+            android:id="@+id/action_userPlanWorkoutShow_to_addPlanLIst"
+            app:destination="@id/addPlanLIst" />
+        <action
+            android:id="@+id/action_userPlanWorkoutShow_to_myTrainList"
+            app:destination="@id/myTrainList" />
     </fragment>
 
 

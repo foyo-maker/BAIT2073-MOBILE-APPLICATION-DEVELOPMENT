@@ -6,16 +6,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
 
 class StartUserWorkoutPlanViewModel : ViewModel() {
     // The current word
     // The current word
 
 
-    private val workoutList = ArrayList<PersonalizedWorkout>()
+    private val workoutList = ArrayList<UserPlanList>()
 
 
     private val _activityName = MutableLiveData<String>()
+
+    private val _totalUserPlanListCount = MutableLiveData<Int>()
+    val totalUserPlanListCount: LiveData<Int>
+        get() = _totalUserPlanListCount
 
     val activityName: LiveData<String>
         get() = _activityName
@@ -49,9 +54,9 @@ class StartUserWorkoutPlanViewModel : ViewModel() {
     private lateinit var gifImageList: MutableList<String>
 
     private var timer: CountDownTimer? = null
-    private val totaltime: Long = 10000 // 11 second in milliseconds
+    private val totaltime: Long = 30000 // 11 second in milliseconds
     private var timeProgress = 0
-    private val timeSelected: Long = 10000
+    private val timeSelected: Long = 30000
     private var pauseOffSet: Long = 0
 
 //     The String version of the current time
@@ -113,10 +118,11 @@ class StartUserWorkoutPlanViewModel : ViewModel() {
         timer?.start()
     }
 
-    fun updateList(newList: List<PersonalizedWorkout>) {
+    fun updateList(newList: List<UserPlanList>) {
         workoutList.clear()
         workoutList.addAll(newList)
         Log.e("update", "$workoutList")
+        _totalUserPlanListCount.value = workoutList.size
         resetList()
         nextActivity()
     }
@@ -182,5 +188,7 @@ class StartUserWorkoutPlanViewModel : ViewModel() {
 
     fun onActivityFinishComplete() {
         _eventActivityFinish.value = false
+        return
     }
+
 }

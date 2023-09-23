@@ -12,6 +12,8 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserFormBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentWorkoutFormBinding
@@ -32,6 +35,7 @@ import com.example.bait2073mobileapplicationdevelopment.entities.Workout
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentArgs
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutList.WorkoutListFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentViewModel
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
@@ -53,7 +57,6 @@ class WorkoutFormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         //val user_id = intent.getStringExtra("user_id")
         binding = FragmentWorkoutFormBinding.inflate(inflater, container, false)
 
@@ -64,17 +67,93 @@ class WorkoutFormFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerBmiStatus.adapter = adapter
 
+
+        val args = WorkoutFormFragmentArgs.fromBundle(requireArguments())
+        val workout_id = args.workoutId
         binding.createButton.setOnClickListener {
-            createWorkout(selectedGifUri)
+            createWorkout(workout_id,selectedGifUri)
         }
 
 
-        binding.uploadButton.setOnClickListener {
+        binding.uploadButton.setOnClickListener{
 //            pickImage()
             showImagePickerDialog()
         }
 
+        Log.e("workoutId","$workout_id")
+        if (workout_id != 0) {
+
+            binding.createTitletv.text = "Update Workout"
+            loadWorkoutData(workout_id)
+        }
+        binding.eTextName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateName()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.eTextDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateDescription()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.eTextCalorie.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateCalorie()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.eTextLink.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateLink()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         return binding.root
+    }
+
+
+    private fun loadWorkoutData(workout_id: Int?) {
+        viewModel.getLoadWorkoutObservable().observe(viewLifecycleOwner, Observer<Workout?> {
+            if (it != null) {
+
+
+                binding.eTextName.setText(it.name)
+                binding.eTextDescription.setText(it.description)
+                binding.eTextLink.setText(it.link)
+                binding.eTextCalorie.setText(it.calorie.toString())
+                val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.bmi_status,android.R.layout.simple_spinner_item)
+                val selectedValue = it.bmi_status // Replace with the actual property name from your Workout object.
+                val adapterPosition = adapter.getPosition(selectedValue)
+                binding.spinnerBmiStatus.setSelection(adapterPosition)
+
+                if (!it.gifimage.isNullOrBlank()) {
+                    Glide.with(requireContext())
+                        .asGif() // Ensure that Glide knows it's a GIF
+                        .load(Uri.parse(it.gifimage)) // Parse the GIF URL to a Uri
+                        .into( binding.gifImageView)
+                }
+
+            }
+        })
+        viewModel.getWorkoutData(workout_id)
     }
 
     private fun pickImage() {
@@ -150,7 +229,7 @@ class WorkoutFormFragment : Fragment() {
     }
 
 
-    private fun createWorkout(selectedGifUri: Uri?) {
+    private fun createWorkout(workout_id: Int?,selectedGifUri: Uri?) {
 
 
         val imageData: String? = if (selectedGifUri != null) {
@@ -169,12 +248,14 @@ class WorkoutFormFragment : Fragment() {
             binding.spinnerBmiStatus.selectedItem.toString()
         )
 
-
+        if (workout_id == 0)
             viewModel.createWorkout(workout)
+        else
+            viewModel.updateWorkout(workout_id ?: 0, workout)
+
 
 
     }
-
 
     fun encodeGifToBase64(context: Context, gifUri: Uri): String? {
         var inputStream: InputStream? = null
@@ -208,7 +289,6 @@ class WorkoutFormFragment : Fragment() {
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         ).get(WorkoutFormViewModel::class.java)
-
     }
 
     private fun createWorkoutObservable() {
@@ -216,11 +296,7 @@ class WorkoutFormFragment : Fragment() {
             if (it == null) {
                 UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
             } else {
-
-
                 showSuccessDialog()
-
-
             }
         })
     }
@@ -244,7 +320,7 @@ class WorkoutFormFragment : Fragment() {
         okay.setOnClickListener {
 
             dialog.dismiss()
-            val action = UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+            val action = WorkoutFormFragmentDirections.actionWorkoutFormFragmentToWorkoutListFragment()
             findNavController().navigate(action)
 
         }
@@ -259,4 +335,58 @@ class WorkoutFormFragment : Fragment() {
 
 
     }
+    private fun validateName(): Boolean {
+        val name = binding.eTextName.text.toString().trim()
+        return if (name.isEmpty()) {
+            binding.layoutUsername.error = "Name cannot be empty"
+            false
+        } else {
+            binding.layoutUsername.error = null
+            true
+        }
+    }
+
+    private fun validateDescription(): Boolean {
+        val description = binding.eTextDescription.text.toString().trim()
+        return if (description.isEmpty()) {
+            binding.layoutDescription.error = "Description cannot be empty"
+            false
+        } else {
+            binding.layoutDescription.error = null
+            true
+        }
+    }
+
+    private fun validateCalorie(): Boolean {
+        val calorieText = binding.eTextCalorie.text.toString().trim()
+        return if (calorieText.isEmpty() || calorieText.toDoubleOrNull() == null) {
+            binding.layoutCalorie.error = "Invalid Calorie Consume"
+            false
+        } else {
+            binding.layoutCalorie.error = null
+            true
+        }
+    }
+
+    private fun validateLink(): Boolean {
+        val link = binding.eTextLink.text.toString().trim()
+        return if (!link.startsWith("http://") && !link.startsWith("https://")) {
+            binding.layoutLink.error = "Link must start with 'http://' or 'https://'"
+            false
+        } else {
+            binding.layoutLink.error = null
+            true
+        }
+    }
+
+    private fun validateForm(): Boolean {
+        val isValidName = validateName()
+        val isValidDescription = validateDescription()
+        val isValidCalorie = validateCalorie()
+        val isValidLink = validateLink()
+        return isValidName && isValidDescription && isValidCalorie && isValidLink
+    }
+
+
+
 }

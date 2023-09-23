@@ -1,5 +1,7 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.workout
 
+import UserPlanListModel
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,34 +9,34 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.adapter.PersonalizedWorkOutAdapter
 import com.example.bait2073mobileapplicationdevelopment.adapter.userPlanWorkoutShowAdapter
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentDisplayPersonalizedWorkoutBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserPlanWorkoutShowBinding
-import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
-import com.example.bait2073mobileapplicationdevelopment.entities.Workout
-import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentDirections
-import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentViewModel
-import com.example.bait2073mobileapplicationdevelopment.viewmodel.PersonalizedWorkoutViewModel
 
 
 class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickListener {
 
     lateinit var recyclerViewAdapter: userPlanWorkoutShowAdapter
     lateinit var viewModel: userrPlanWorkoutViewModel
-//    lateinit var viewModelRoom: PersonalizedWorkoutViewModel
+    lateinit var viewModelPlan: MyTrainViewModel
+    lateinit var viewModelRoom: UserPlanListModel
     private lateinit var binding: FragmentUserPlanWorkoutShowBinding
+    lateinit var selectedPlanList: UserPlanList
 
 
     override fun onCreateView(
@@ -43,11 +45,23 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
     ): View? {
         Log.e("userPlanWork","userPlanWork")
         binding = FragmentUserPlanWorkoutShowBinding.inflate(inflater, container, false)
-
+        val args = userPlanWorkoutShowArgs.fromBundle(requireArguments())
+        val user_plan_id = args.userPlanId
 //        viewModelRoom = ViewModelProvider(
 //            this,
 //            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
 //        ).get(PersonalizedWorkoutViewModel::class.java)
+        binding.startButton.setOnClickListener{
+            val action = userPlanWorkoutShowDirections.actionUserPlanWorkoutShowToStartPlan(user_plan_id)
+            this.findNavController().navigate(action)
+        }
+        binding.EditUserPlanBtn.setOnClickListener {
+            showEditUserPlanNameDialog()
+        }
+        binding.addWorkoutBtn.setOnClickListener{
+            val action = userPlanWorkoutShowDirections.actionUserPlanWorkoutShowToAddPlanLIst(user_plan_id)
+            this.findNavController().navigate(action)
+        }
         initViewModel()
 
         initRecyclerView()
@@ -58,6 +72,10 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
 //            findNavController().navigate(R.id.)
 //
 //        }
+        viewModelRoom = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(UserPlanListModel::class.java)
 
         return binding.root
     }
@@ -98,6 +116,12 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
         ).get(
             userrPlanWorkoutViewModel::class.java
         )
+        viewModelPlan = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(
+            MyTrainViewModel::class.java
+        )
 
 
         viewModel.getWorkoutListObserverable()
@@ -111,51 +135,99 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
                     recyclerViewAdapter.updateList(workoutList)
                     recyclerViewAdapter.notifyDataSetChanged()
 
-//                    clearPersonalizedDb()
-//                    insertDataIntoRoomDb(workoutList)
+//                    clearUserPlandDb()
+                    insertDataIntoRoomDb(workoutList)
                 }
             })
 
-
-        viewModel.getPersonalizedWorkoutList(user_plan_id)
+        viewModel.getUserPlanWorkoutList(user_plan_id)
     }
 
+    private fun showEditUserPlanNameDialog() {
+        val args = userPlanWorkoutShowArgs.fromBundle(requireArguments())
+        val user_plan_id = args.userPlanId
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Enter Plan Name")
 
-//    fun insertDataIntoRoomDb(workouts: List<Workout>) {
-//
-//
-//        try {
-//            for (workout in workouts) {
-//                Log.d("InsertDataIntoRoomDb", "Inserting workout with ID: ${workout}")
-//                viewModelRoom.insertWorkout(
-//                    PersonalizedWorkout(
-//                        id = workout.id,
-//                        name = workout.name,
-//                        description = workout.description,
-//                        link = workout.link,
-//                        gifimage = workout.gifimage,
-//                        calorie = workout.calorie,
-//                        bmi_status = workout.bmi_status
-//                    )
-//                )
-//            }
-//        } catch (e: Exception) {
-//            Log.e(
-//                "InsertDataIntoRoomDb",
-//                "Error inserting data into Room Database: ${e.message}",
-//
-//                )
-//        }
-//
-//
-//    }
+        val input = EditText(requireContext())
+        input.hint = "Plan Name"
+        builder.setView(input)
 
-//    fun clearPersonalizedDb() {
-//
-//
-//        viewModelRoom.clearWorkout()
-//
-//    }
+        builder.setPositiveButton("OK") { dialog, _ ->
+            val planName = input.text.toString()
+            if (planName.isNotEmpty()) {
+                // Handle the planName as needed
+                Log.e("value", planName)
+                updatePlanName(user_plan_id,planName)
+                val action = userPlanWorkoutShowDirections.actionUserPlanWorkoutShowToMyTrainList()
+                findNavController().navigate(action)
+            } else {
+                Toast.makeText(requireContext(), "Plan name is empty", Toast.LENGTH_SHORT).show()
+            }
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    private fun updatePlanName(UserPlanId: Int,newPlanName: String) {
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+
+        val userId = userData?.first
+
+        Log.e("user_id","$userId")
+
+        val userPlan = UserPlan(
+            UserPlanId,
+            userId!!,
+            newPlanName
+        )
+        viewModelPlan.editUserPlanName(userPlan)
+
+    }
+
+    fun insertDataIntoRoomDb(userPlanList: List<UserPlanList>) {
+
+
+        try {
+            for (userPlanWorkout in userPlanList) {
+                Log.d("InsertDataIntoRoomDb", "Inserting workout with ID: ${userPlanWorkout}")
+                viewModelRoom.insertUserPlanList(
+                    UserPlanList(
+                        id = userPlanWorkout.id,
+                        userPlanId= userPlanWorkout.userPlanId,
+                        workoutId = userPlanWorkout.workoutId,
+                        name = userPlanWorkout.name,
+                        userId= userPlanWorkout.userId,
+                        description = userPlanWorkout.description,
+                        link = userPlanWorkout.link,
+                        gifimage = userPlanWorkout.gifimage,
+                        calorie = userPlanWorkout.calorie,
+                        bmi_status = userPlanWorkout.bmi_status
+
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            Log.e(
+                "InsertDataIntoRoomDb",
+                "Error inserting data into Room Database: ${e.message}",
+
+                )
+        }
+
+
+    }
+
+    fun clearUserPlandDb() {
+        viewModelRoom.clearWorkout()
+
+    }
 
     private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
         val sharedPreferences: SharedPreferences =
@@ -175,7 +247,6 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         if (requestCode == 1000) {
             viewModel.getWorkoutListObserverable()
         }
@@ -189,6 +260,33 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
 //        startActivity(intent)
 
     }
+
+
+//    private fun popUpDisplay(cardView: CardView) {
+//
+//        val popup = PopupMenu(requireContext(), cardView)
+//        popup.setOnMenuItemClickListener(this)
+//        popup.inflate(R.menu.pop_up_menu)
+//        popup.show()
+//
+//    }
+//
+//    override fun onMenuItemClick(item: MenuItem?): Boolean {
+//        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+//        val userId = userData?.first!!
+//        if (item?.itemId == R.id.delete_note) {
+//
+//            viewModel.deleteUserPlanList(selectedPlanList.id)
+//            val action =
+//                userPlanWorkoutShowDirections.actionUserPlanWorkoutShowToMyTrainList()
+//            this.findNavController().navigate(action)
+//        }
+//        return false
+//    }
+//    override fun OnLongItemClicked(userPlanList: UserPlanList, cardView: CardView) {
+//        selectedPlanList = userPlanList
+//        popUpDisplay(cardView)
+//    }
 
 
 }

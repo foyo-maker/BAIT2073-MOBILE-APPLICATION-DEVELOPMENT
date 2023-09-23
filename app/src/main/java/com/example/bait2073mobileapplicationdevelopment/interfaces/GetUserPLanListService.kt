@@ -7,8 +7,8 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface GetUserPLanListService {
@@ -18,7 +18,7 @@ interface GetUserPLanListService {
     fun getUserPlanList(): Call<List<UserPlanList>>
 
     @GET("userPlanList/{user_plan_id}")
-    fun getUserPlanListByUserPlanId(@Path("user_plan_id") userPlanId: Int): Call<List<UserPlanList>>
+    fun getUserPlanListByUserPlanId(@Path("user_plan_id") userPlanId: Int?): Call<List<UserPlanList>>
 
     @POST("userPlanList")
     @Headers("Accept:application/json", "Content-Type:application/json",
@@ -29,12 +29,22 @@ interface GetUserPLanListService {
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
     fun deleteUserPlanListByUserPlanId(@Path("user_plan_id") userPlanId: Int): Call<UserPlanList>
-
-    @DELETE("deleteUserPlanList/{user_plan_id}/{workout_id}")
+    @GET("checkUserPlanListEmpty/{userPlanId}")
+    fun checkUserPlanListEmpty(@Path("userPlanId") userPlanId: Int): Call<Boolean>
+    @DELETE("deleteUserPlanList/{id}")
     @Headers("Accept:application/json", "Content-Type:application/json",
         "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c")
-    fun deleteUserPlanListByWorkoutIdAndUserPlanId(
+    fun deleteUserPlanListById(@Path("id") id: Int?): Call<UserPlanList>
+
+    @PUT("userPlanList/{user_plan_id}")
+    @Headers(
+        "Accept: application/json",
+        "Content-Type: application/json",
+        "Authorization: Bearer 73668350bdf06c66f3388408c1a712b378c3e25da599753b21b664a6261e246c"
+    )
+    fun updateUserPlanListByUserPlanId(
         @Path("user_plan_id") userPlanId: Int,
-        @Path("workout_id") workoutId: Int
+        @Body updatedUserPlan: UserPlanList
     ): Call<UserPlanList>
+
 }

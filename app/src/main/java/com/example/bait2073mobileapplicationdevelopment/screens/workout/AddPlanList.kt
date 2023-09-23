@@ -160,7 +160,12 @@ class AddPlanList : Fragment(), WorkOutAdapter.WorkoutClickListener {
             user_plan_id!!,
             workout.id!!,
             workout.name!!,
-            workout.gifimage!!
+            userId!!,
+            workout.description!!,
+            workout.gifimage!!,
+            workout.calorie!!,
+            workout.link!!,
+            workout.bmi_status
         )
         viewModel.createPlanWorkout(userPlanList)
         Toast.makeText(requireContext(),"Workout Created to your plan",Toast.LENGTH_SHORT).show()

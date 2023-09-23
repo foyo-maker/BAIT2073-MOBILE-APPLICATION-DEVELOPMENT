@@ -125,5 +125,5 @@
         <item>Obese</item>
     </string-array>
 
-    <string name="activity_format">Current Activity: (%d / 5)</string>
+    <string name="activity_format">Current Activity: (%d /5)</string>
 </resources>
