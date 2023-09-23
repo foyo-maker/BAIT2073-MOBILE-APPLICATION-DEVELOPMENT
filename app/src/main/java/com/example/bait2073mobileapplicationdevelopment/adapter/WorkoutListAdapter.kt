@@ -83,7 +83,6 @@ class WorkoutListAdapter (private val context : Context, val listener:WorkoutCli
 
         }
 
-<<<<<<< HEAD
         holder.workout_layout.setOnLongClickListener{
 
             listener.onLongItemClicked(workoutList[holder.adapterPosition],holder.workout_layout)
@@ -91,8 +90,6 @@ class WorkoutListAdapter (private val context : Context, val listener:WorkoutCli
             true
         }
 
-=======
->>>>>>> origin/master
     }
 
     fun updateList(newList: List<Workout>) {

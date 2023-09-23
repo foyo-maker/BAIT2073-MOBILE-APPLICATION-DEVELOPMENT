@@ -27,6 +27,13 @@ import com.example.bait2073mobileapplicationdevelopment.adapter.userPlanWorkoutS
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserPlanWorkoutShowBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
+import com.example.bait2073mobileapplicationdevelopment.entities.Workout
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserPLanListService
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetWorkoutDataService
+import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickListener {
@@ -254,9 +261,40 @@ class userPlanWorkoutShow : Fragment(), userPlanWorkoutShowAdapter.WorkoutClickL
     }
 
     override fun onItemClicked(userPlanList: UserPlanList) {
-        // Start the new activity here
-//        val intent = Intent(requireContext(), userPlanWorkoutShow::class.java)
-//        intent.putExtra("userPlanList", userPlanList.id)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetWorkoutDataService::class.java)
+        val call = service.getWorkout(userPlanList.workoutId)
+        call.enqueue(object : Callback<Workout> {
+            override fun onResponse(call: Call<Workout>, response: Response<Workout>) {
+                if (response.isSuccessful) {
+                    val workout = response.body()
+                    if (workout != null) {
+                        // Successfully retrieved the workout data
+                        Log.e("API Response", "Response body is empty")
+                        val intent = Intent(requireContext(), WorkoutDetailsActivity::class.java)
+                        intent.putExtra("workout", workout)
+                        startActivity(intent)
+                    } else {
+                        val resposne = response.body()
+                        val errorBody = response.errorBody()?.string()
+                        val responseCode = response.code()
+                        val responseMessage = response.message()
+                        Log.e("haha", "Response is not successful. Code: $responseCode, Message: $responseMessage, Error Body: $errorBody")
+                    }
+                } else {
+                    val resposne = response.body()
+                    val errorBody = response.errorBody()?.string()
+                    val responseCode = response.code()
+                    val responseMessage = response.message()
+                    Log.e("haha", "Response is not successful. Code: $responseCode, Message: $responseMessage, Error Body: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Workout>, t: Throwable) {
+                Log.e("API Response", "Response body is Fail")
+            }
+        })
+//        val intent = Intent(requireContext(), WorkoutDetailsActivity::class.java)
+//        intent.putExtra("workout", userPlanList)
 //        startActivity(intent)
 
     }

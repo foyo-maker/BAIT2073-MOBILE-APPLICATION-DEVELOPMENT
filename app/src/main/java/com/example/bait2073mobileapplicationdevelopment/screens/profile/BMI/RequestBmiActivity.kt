@@ -39,6 +39,10 @@ class RequestBmiActivity : AppCompatActivity(){
         binding.heightPicker.minValue = 100
         binding.heightPicker.maxValue = 250
 
+        binding.heightPicker.value = 170
+
+        binding.weightPicker.value = 55
+
         // Set click listener for the back arrow ImageView
         binding.imgBackArrow.setOnClickListener {
            onBackPressed()

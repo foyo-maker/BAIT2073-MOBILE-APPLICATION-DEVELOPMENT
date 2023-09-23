@@ -64,7 +64,7 @@ class WorkoutListFragment : Fragment(), WorkoutListAdapter.WorkoutClickListener,
 
             val action =
                 WorkoutListFragmentDirections.actionWorkoutListFragmentToWorkoutFormFragment(
-                   0
+                    0
                 )
             this.findNavController().navigate(action)
         }
@@ -207,10 +207,7 @@ class WorkoutListFragment : Fragment(), WorkoutListAdapter.WorkoutClickListener,
         if(item?.itemId == R.id.delete_note){
 
             viewModel.deleteWorkout(selectedWorkout)
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
         }
         return false
     }
