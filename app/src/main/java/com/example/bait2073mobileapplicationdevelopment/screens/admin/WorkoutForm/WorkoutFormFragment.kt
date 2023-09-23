@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserFormBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentWorkoutFormBinding
@@ -32,6 +33,7 @@ import com.example.bait2073mobileapplicationdevelopment.entities.Workout
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentArgs
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutList.WorkoutListFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentViewModel
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
@@ -64,8 +66,11 @@ class WorkoutFormFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerBmiStatus.adapter = adapter
 
+
+        val args = WorkoutFormFragmentArgs.fromBundle(requireArguments())
+        val workout_id = args.workoutId
         binding.createButton.setOnClickListener {
-            createWorkout(selectedGifUri)
+            createWorkout(workout_id,selectedGifUri)
         }
 
 
@@ -74,7 +79,50 @@ class WorkoutFormFragment : Fragment() {
             showImagePickerDialog()
         }
 
+
+
+
+        Log.e("workoutId","$workout_id")
+        if (workout_id != 0) {
+
+            binding.createTitletv.text = "Upload Workout"
+            loadWorkoutData(workout_id)
+        }
+
         return binding.root
+    }
+
+
+    private fun loadWorkoutData(workout_id: Int?) {
+        viewModel.getLoadWorkoutObservable().observe(viewLifecycleOwner, Observer<Workout?> {
+            if (it != null) {
+
+
+                binding.eTextName.setText(it.name)
+                binding.eTextDescription.setText(it.description)
+                binding.eTextLink.setText(it.link)
+                binding.eTextCalorie.setText(it.calorie.toString())
+                val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.bmi_status,android.R.layout.simple_spinner_item)
+                val selectedValue = it.bmi_status // Replace with the actual property name from your Workout object.
+                val adapterPosition = adapter.getPosition(selectedValue)
+                binding.spinnerBmiStatus.setSelection(adapterPosition)
+
+                if (!it.gifimage.isNullOrBlank()) {
+
+
+
+
+                    Glide.with(requireContext())
+                        .asGif() // Ensure that Glide knows it's a GIF
+                        .load(Uri.parse(it.gifimage)) // Parse the GIF URL to a Uri
+                        .into( binding.gifImageView)
+                }
+
+
+
+            }
+        })
+        viewModel.getWorkoutData(workout_id)
     }
 
     private fun pickImage() {
@@ -150,7 +198,7 @@ class WorkoutFormFragment : Fragment() {
     }
 
 
-    private fun createWorkout(selectedGifUri: Uri?) {
+    private fun createWorkout(workout_id: Int?,selectedGifUri: Uri?) {
 
 
         val imageData: String? = if (selectedGifUri != null) {
@@ -158,6 +206,7 @@ class WorkoutFormFragment : Fragment() {
         } else {
             null
         }
+
 
         val workout = Workout(
             null,
@@ -169,8 +218,11 @@ class WorkoutFormFragment : Fragment() {
             binding.spinnerBmiStatus.selectedItem.toString()
         )
 
-
+        if (workout_id == 0)
             viewModel.createWorkout(workout)
+        else
+            viewModel.updateWorkout(workout_id ?: 0, workout)
+
 
 
     }
@@ -244,7 +296,7 @@ class WorkoutFormFragment : Fragment() {
         okay.setOnClickListener {
 
             dialog.dismiss()
-            val action = UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+            val action = WorkoutFormFragmentDirections.actionWorkoutFormFragmentToWorkoutListFragment()
             findNavController().navigate(action)
 
         }
