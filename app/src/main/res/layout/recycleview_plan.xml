@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/plan_workout_layout"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+
+
+    app:cardCornerRadius="8dp"
+    app:cardElevation="10dp"
+
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_black_bottom"
+
+
+        android:orientation="horizontal">
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifImage"
+            android:layout_width="151dp"
+            android:layout_height="155dp"
+            android:src="@drawable/gif_exercise_squat"
+
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-6dp"
+            android:layout_marginTop="26dp"
+            android:layout_weight="5.0"
+            android:orientation="vertical"
+
+
+            >
+
+            <TextView
+
+                android:id="@+id/workout_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:layout_marginTop="15dp"
+
+                android:fontFamily="@font/poppins_bold"
+                android:text="Squat With Standing Position"
+                android:textSize="16sp" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1"
+                android:text="30 Seconds"
+                android:textColor="@color/dialog_color_2"
+                android:textSize="@dimen/titleSubFont" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100px"
+            android:layout_weight="2.0"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+
+                    android:layout_width="60dp"
+                    android:layout_height="33dp"
+
+
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginTop="20dp"
+
+
+                    android:layout_marginEnd="30dp"
+                    android:src="@drawable/icon_add" />
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

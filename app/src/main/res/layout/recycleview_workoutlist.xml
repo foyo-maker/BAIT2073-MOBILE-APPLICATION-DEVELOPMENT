@@ -16,6 +16,7 @@
 
 
             <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/userPlanWorkoutGif"
                 android:layout_width="151dp"
                 android:layout_height="155dp"
                 android:src="@drawable/gif_exercise_squat"
@@ -34,7 +35,7 @@
                 >
 
                 <TextView
-
+                    android:id="@+id/userPlanWorkoutName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 

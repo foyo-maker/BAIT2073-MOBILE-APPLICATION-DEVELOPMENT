@@ -198,6 +198,9 @@
         <action
             android:id="@+id/action_myTrainList_to_addPlanLIst"
             app:destination="@id/addPlanLIst" />
+        <action
+            android:id="@+id/action_myTrainList_to_userPlanWorkoutShow"
+            app:destination="@id/userPlanWorkoutShow" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -210,9 +213,25 @@
         tools:layout="@layout/fragment_play_plan" />
     <fragment
         android:id="@+id/addPlanLIst"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.AddPlanLIst"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.AddPlanList"
         android:label="fragment_add_plan_l_ist"
-        tools:layout="@layout/fragment_add_plan_l_ist" />
+        tools:layout="@layout/fragment_add_plan_l_ist" >
+        <argument
+            android:name="user_plan_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addPlanLIst_to_myTrainList"
+            app:destination="@id/myTrainList" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPlanWorkoutShow"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.userPlanWorkoutShow"
+        android:label="fragment_user_plan_workout_show"
+        tools:layout="@layout/fragment_user_plan_workout_show" >
+        <argument
+            android:name="user_plan_id"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>
