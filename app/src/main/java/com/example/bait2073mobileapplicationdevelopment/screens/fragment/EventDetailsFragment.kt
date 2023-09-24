@@ -351,7 +351,7 @@ class EventDetailsFragment : Fragment() {
     private fun searchGoogleWithAddress(context: Context, address: String) {
         try {
             val escapedQuery = URLEncoder.encode(address, "UTF-8")
-            val uri = Uri.parse("http://www.google.com/#q=$escapedQuery")
+            val uri = Uri.parse("http://www.google.com/maps?#q=$escapedQuery")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(intent)
         } catch (e: UnsupportedEncodingException) {

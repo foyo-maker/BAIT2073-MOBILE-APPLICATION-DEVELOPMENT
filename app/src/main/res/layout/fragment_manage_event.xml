@@ -130,7 +130,14 @@
                     android:maxLength="15"
                     android:imeOptions="actionDone"
                     android:inputType="text|textWebEmailAddress" />
+
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_details"

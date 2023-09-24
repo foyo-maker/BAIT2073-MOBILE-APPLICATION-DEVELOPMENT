@@ -13,7 +13,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.InputType
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,9 +28,8 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentManageEventBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
 import com.example.bait2073mobileapplicationdevelopment.screens.eventParticipants.EventParticipantsParticipants.EventParticipantsViewModel
-import com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventDetailsFragmentArgs
+import com.google.android.material.textfield.TextInputEditText
 import com.squareup.picasso.Callback
-
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -62,7 +60,6 @@ class ManageEventFragment : Fragment() {
         setupDatePicker()
         initViewModel()
         createEventObservable()
-
         val args = ManageEventFragmentArgs.fromBundle(requireArguments())
         val event_id = args.eventId
 
@@ -72,6 +69,8 @@ class ManageEventFragment : Fragment() {
 
 
         binding.createEventButton.setOnClickListener {
+            validateForm()
+
             createEvent(event_id,selectedImageBitmap)
         }
 
@@ -390,4 +389,25 @@ class ManageEventFragment : Fragment() {
 
 
     }
+
+
+    private fun validateForm() : Boolean{
+        val editTextTitle: TextInputEditText = binding.eTextTitle
+        val title = editTextTitle.text.toString()
+            .trim { it <= ' ' }
+
+
+        if (title.isEmpty()) {
+            // Input is empty, show an error or handle the case as needed
+            binding.layoutTitle.error = "Title cannot be empty"
+            binding.layoutAddress.error = "Address cannot be empty"
+            binding.layoutDetails.error = "Details cannot be empty"
+
+            return false
+        } else {
+            return true
+        }
+
+    }
+
 }
