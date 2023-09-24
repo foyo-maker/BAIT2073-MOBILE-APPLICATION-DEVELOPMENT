@@ -6,7 +6,6 @@ import android.app.Dialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -14,7 +13,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,16 +26,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserFormBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentWorkoutFormBinding
-import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.entities.Workout
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentArgs
 import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormViewModel
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.WorkoutList.WorkoutListFragmentDirections
-import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentViewModel
-import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -169,8 +160,8 @@ class WorkoutFormFragment : Fragment() {
 
     private fun validateLink(): Boolean {
         val link = binding.eTextLink.text.toString().trim()
-        return if (!link.startsWith("http://") && !link.startsWith("https://")) {
-            binding.layoutLink.error = "Link must start with 'http://' or 'https://'"
+        return if (!link.isEmpty()) {
+            binding.layoutLink.error = "Link cannot be empty"
             false
         } else {
             binding.layoutLink.error = null
@@ -291,44 +282,46 @@ class WorkoutFormFragment : Fragment() {
         }
     }
 
+    
 
-    private fun createWorkout(workout_id: Int?, selectedGifUri: Uri?) {
-        if (validateForm()) {
-            val imageData: String? = if (selectedGifUri != null) {
-                encodeGifToBase64(requireContext(), selectedGifUri)
+    private fun createWorkout(workout_id: Int?, selectedGifUri: Uri?) =
+        if (validateForm() && !selectedGifUri.isNullOrEmpty()) {
+            val imageData: String? = encodeGifToBase64(requireContext(), selectedGifUri)
+
+            if (!imageData.isNullOrEmpty()) {
+                val workout = Workout(
+                    null,
+                    binding.eTextName.text.toString(),
+                    binding.eTextDescription.text.toString(),
+                    binding.eTextLink.text.toString(),
+                    imageData,
+                    binding.eTextCalorie.text.toString().toDoubleOrNull(),
+                    binding.spinnerBmiStatus.selectedItem.toString()
+                )
+
+                if (workout_id == 0) {
+                    viewModel.createWorkout(workout)
+                } else {
+                    viewModel.updateWorkout(workout_id ?: 0, workout)
+                }
             } else {
-                null
-            }
-
-            val workout = Workout(
-                null,
-                binding.eTextName.text.toString(),
-                binding.eTextDescription.text.toString(),
-                binding.eTextLink.text.toString(),
-                imageData,
-                binding.eTextCalorie.text.toString().toDoubleOrNull(),
-                binding.spinnerBmiStatus.selectedItem.toString()
-            )
-
-            if (workout_id == 0) {
-                viewModel.createWorkout(workout)
-            } else {
-                viewModel.updateWorkout(workout_id ?: 0, workout)
+                // Handle the case where image data is empty
+                Toast.makeText(requireContext(), "Please select an image.", Toast.LENGTH_SHORT).show()
             }
         } else {
             // Validation failed, show an error message to the user
             Toast.makeText(requireContext(), "Please fill in all fields correctly.", Toast.LENGTH_SHORT).show()
         }
-    }
 
 
 
-    fun encodeGifToBase64(context: Context, gifUri: Uri): String? {
+
+    fun encodeGifToBase64(context: Context, gifUri: Uri?): String? {
         var inputStream: InputStream? = null
         val contentResolver: ContentResolver = context.contentResolver
 
         try {
-            inputStream = contentResolver.openInputStream(gifUri)
+            inputStream = contentResolver.openInputStream(gifUri!!)
             if (inputStream != null) {
                 val buffer = ByteArray(1024)
                 val outputStream = ByteArrayOutputStream()
@@ -407,3 +400,7 @@ class WorkoutFormFragment : Fragment() {
 
     }
 }
+
+    private fun Uri?.isNullOrEmpty(): Boolean {
+        return this == null || this.toString().isEmpty()
+    }

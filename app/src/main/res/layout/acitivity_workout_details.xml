@@ -60,7 +60,7 @@
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:src="@drawable/gif_exercise_squat"
+
 
 
                     tools:ignore="WebViewLayout" />
