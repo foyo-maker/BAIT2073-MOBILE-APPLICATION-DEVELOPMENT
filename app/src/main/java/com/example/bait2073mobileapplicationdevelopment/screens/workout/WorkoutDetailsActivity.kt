@@ -3,6 +3,7 @@ package com.example.bait2073mobileapplicationdevelopment.screens.workout
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -38,11 +39,13 @@ class WorkoutDetailsActivity : AppCompatActivity() {
         binding.nameTv.text = workout.name
         binding.descriptionTv.text = workout.description
         val link = workout.link
-        val video = "<iframe width=\"100%\" height=\"100%\" src=\"$link\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>"
+        val video = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/$link\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>"
 
         webView.loadData(video, "text/html", "utf-8")
         webView.settings.javaScriptEnabled = true
         webView.webChromeClient = WebChromeClient()
+        webView.settings.javaScriptEnabled = true
+        webView.webViewClient = WebViewClient()
 
         val closeImg: ImageView = findViewById(R.id.close_img)
         closeImg.setOnClickListener {
