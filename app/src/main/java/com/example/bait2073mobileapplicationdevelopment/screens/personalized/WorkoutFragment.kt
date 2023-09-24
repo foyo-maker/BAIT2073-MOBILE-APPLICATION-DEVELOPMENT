@@ -95,12 +95,12 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
 
 
         viewModel.getWorkoutListObserverable()
-            .observe(viewLifecycleOwner, Observer<List<Workout?>> { userListResponse ->
-                if (userListResponse == null) {
+            .observe(viewLifecycleOwner, Observer<List<Workout?>> { personalizedListResponse ->
+                if (personalizedListResponse == null) {
                     Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
                 } else {
 //                recyclerViewAdapter.updateList(it.toList().get(1))
-                    val workoutList = userListResponse.filterNotNull().toMutableList()
+                    val workoutList = personalizedListResponse.filterNotNull().toMutableList()
                     Log.i("workoutlist", "$workoutList")
                     recyclerViewAdapter.updateList(workoutList)
                     recyclerViewAdapter.notifyDataSetChanged()
@@ -180,12 +180,10 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
     }
 
     override fun onItemClicked(workout: Workout) {
-
         // Start the new activity here
         val intent = Intent(requireContext(), WorkoutDetailsActivity::class.java)
         intent.putExtra("workout", workout)
         startActivity(intent)
-
 
     }
 

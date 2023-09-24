@@ -1,7 +1,9 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminList
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -109,9 +111,14 @@ class AdminListFragment : Fragment(), UserAdapter.UserClickListener,
                     Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
                 } else {
 //                recyclerViewAdapter.updateList(it.toList().get(1))
-                    val userList = userListResponse.filterNotNull().toMutableList()
-                    Log.i("haha", "$userList")
-                    recyclerViewAdapter.updateList(userList)
+
+                    val userData = retrieveUserDataFromSharedPreferences(requireContext())
+                    val userId = userData?.first
+                    val filteredUserList = userListResponse.filter { user ->
+                        user?.id != userId
+                    }.filterNotNull().toMutableList()
+                    Log.i("haha", "$filteredUserList")
+                    recyclerViewAdapter.updateList(filteredUserList)
                     recyclerViewAdapter.notifyDataSetChanged()
                 }
             })
@@ -157,6 +164,23 @@ class AdminListFragment : Fragment(), UserAdapter.UserClickListener,
             viewModel.deleteUser(selectedUser)
         }
         return false
+    }
+
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
     }
 
     private fun observeUserDeletion() {

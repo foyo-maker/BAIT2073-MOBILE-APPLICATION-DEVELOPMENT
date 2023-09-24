@@ -133,8 +133,9 @@ class StartPersonalizedFragment : Fragment() {
 
 
         Log.e("dialog","dialogshow")
-        showSuccessDialog()
+
         viewModel.onActivityFinishComplete()
+        showSuccessDialog()
     }
 
     private fun showSuccessDialog(){

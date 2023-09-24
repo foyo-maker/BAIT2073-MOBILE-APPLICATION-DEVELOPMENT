@@ -3,6 +3,7 @@ package com.example.bait2073mobileapplicationdevelopment.screens.fragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -44,8 +45,8 @@ class StaffMainFragment : AppCompatActivity(){
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.reportDashboardFragment, R.id.userListFragment, R.id.symptomListFragment2,R.id.diseaseListFragment,R.id.recipeListFragment2,R.id.hospitalListFragment2,//add action id here
-                 R.id.eventListFragment,R.id.userRatingFragment,R.id.adminListFragment,R.id.logoutFragment
+                R.id.reportDashboardFragment, R.id.userListFragment,R.id.symptomListFragment2,R.id.diseaseListFragment,R.id.recipeListFragment2,R.id.hospitalListFragment2,
+                R.id.eventListFragment,R.id.adminListFragment, R.id.userRatingFragment,R.id.logoutFragment
                ),
             binding.drawerLayout
         )
@@ -152,7 +153,17 @@ class StaffMainFragment : AppCompatActivity(){
                 val navEmail = navHeaderView.findViewById<TextView>(R.id.navEmail)
                 navName.text = it.name
                 navEmail.text = it.email
-                Picasso.get().load(it.image).into(navImage)
+
+                if (!it.image.isNullOrBlank()) {
+
+                    Picasso.get().load(it.image).into(navImage)
+
+
+                } else {
+                    Log.e("noimage", "noimage")
+                    Picasso.get().load(R.drawable.img_person).into(navImage)
+                }
+
             }
         })
         viewModelUser.getUserData(user_id)

@@ -1,9 +1,12 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.auth.Login
 
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bait2073mobileapplicationdevelopment.databinding.ActivityLoginBinding
@@ -12,10 +15,15 @@ import com.google.android.material.textfield.TextInputLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.AdminForm.AdminFormFragmentDirections
 import com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp.SignUpActivity
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.MainFragment
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.StaffMainFragment
@@ -32,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     lateinit var viewModel: LoginViewModel
+    private lateinit var dialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) //This Line will hide the status bar from the screen
 
@@ -47,6 +56,8 @@ class LoginActivity : AppCompatActivity() {
 
         validateOnChangeEmail()
         validateOnChangePassword()
+
+        getInternetConnectionObservable()
         binding.callSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -60,14 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginButton.setOnClickListener {
 
-            //customer intent
-//            val intent = Intent(this, MainFragment::class.java)
-//            startActivity(intent)
 
-
-          //  staff intent
-//            val intent = Intent(this, StaffMainFragment::class.java)
-//            startActivity(intent)
 
 
             if(validateForm()) {
@@ -107,29 +111,35 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun getInternetConnectionObservable() {
+
+        viewModel.networkErrorLiveData.observe(this) { _ ->
+            // Show your network error dialog here
+            showLostInternetDialog()
+        }
+    }
+
     private fun getAuthenticateUserObservable() {
         viewModel.getAuthenticateUserObservable().observe(this, Observer<LoginUser?> {
             if (it == null) {
                 val layoutEmail: TextInputLayout = binding.layoutEmail
                 val layoutPass: TextInputLayout = binding.layoutPassword
-
                 layoutEmail.error = "Invalid Email And/Or Password"
                 layoutPass.error = "Invalid Email And/Or Password"
-                Toast.makeText(this, "Cannot Create User", Toast.LENGTH_SHORT)
             } else {
                 saveUserDataToSharedPreferences(this, it.id ?: 0, it.name)
 
                 var role = it.role
                 Log.e("cutomerintent", "$role")
-//                if (it.role == 0) {
-//                    //customer intent
-//                    Log.e("cutomerintent", "cutomerintent")
-//                    val intent = Intent(this, MainFragment::class.java)
-//                    startActivity(intent)
-//                } else {
+                if (it.role == 0) {
+                    //customer intent
+                    Log.e("cutomerintent", "cutomerintent")
+                    val intent = Intent(this, MainFragment::class.java)
+                    startActivity(intent)
+                } else {
                     val intent = Intent(this, StaffMainFragment::class.java)
                     startActivity(intent)
-//                }
+                }
 
             }
         })
@@ -144,6 +154,36 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+
+    private fun showLostInternetDialog(){
+        dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog_no_internet)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false) // Optional
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
+
+        val okay: Button = dialog.findViewById(R.id.btn_okay)
+        val cancel: Button = dialog.findViewById(R.id.btn_cancel)
+
+        okay.setOnClickListener {
+
+            dialog.dismiss()
+
+
+        }
+
+        cancel.setOnClickListener {
+
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+        dialog.show() // Showing the dialog here
+
+
+    }
     private fun saveUserDataToSharedPreferences(context: Context, userId: Int, userName: String) {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("UserData", Context.MODE_PRIVATE)

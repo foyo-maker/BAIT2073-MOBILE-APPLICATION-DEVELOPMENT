@@ -59,7 +59,6 @@ class UserListViewModel : ViewModel() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserDataService::class.java)
         val call = service.deleteUser(user.id?:0)
         call.enqueue(object : Callback<User?> {
-
             override fun onFailure(call: Call<User?>, t: Throwable) {
                 Log.e("API Error", t.message ?: "Unknown error")
                 deleteUserLiveData.postValue(null)

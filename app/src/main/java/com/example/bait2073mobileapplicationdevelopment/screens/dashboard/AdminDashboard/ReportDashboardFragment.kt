@@ -37,6 +37,7 @@ class ReportDashboardFragment  : Fragment() {
         val userData = retrieveUserDataFromSharedPreferences(requireContext())
         val userName = userData?.second
         val userId = userData?.first
+        binding.nameTV.text = userName
 
         loadUserData(userId)
 
@@ -49,11 +50,16 @@ class ReportDashboardFragment  : Fragment() {
         viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer<User?> {
 
 
-            if (it != null) {
 
-                binding.nameTV.text = it.name
-                Picasso.get().load(it.image).into(binding.profileTV)
+
+            if (!it?.image.isNullOrBlank()) {
+                Picasso.get().load(it?.image).into(binding.profileTV)
+
+            } else {
+                Log.e("noimage", "noimage")
+                Picasso.get().load(R.drawable.img_person).into(binding.profileTV)
             }
+
         })
         viewModel.getUserData(user_id)
     }

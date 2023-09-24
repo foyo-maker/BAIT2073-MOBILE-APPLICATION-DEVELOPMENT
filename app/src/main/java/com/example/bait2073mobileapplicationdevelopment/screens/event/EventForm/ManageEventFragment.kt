@@ -4,10 +4,13 @@ package com.example.bait2073mobileapplicationdevelopment.screens.event.EventForm
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
@@ -22,20 +25,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserFormBinding
-import com.example.bait2073mobileapplicationdevelopment.entities.User
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentArgs
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentDirections
-import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormViewModel
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentManageEventBinding
+import com.example.bait2073mobileapplicationdevelopment.entities.Event
+import com.example.bait2073mobileapplicationdevelopment.screens.eventParticipants.EventParticipantsParticipants.EventParticipantsViewModel
+import com.google.android.material.textfield.TextInputEditText
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 class ManageEventFragment : Fragment() {
 
 
-    private lateinit var viewModel: UserFormViewModel
-    private lateinit var binding: FragmentUserFormBinding
+    private lateinit var viewModel: EventFormViewModel
+    private lateinit var viewModelEventParticipants: EventParticipantsViewModel
+    private lateinit var binding: FragmentManageEventBinding
     private val PICK_IMAGE_REQUEST = 1
     private val CAPTURE_IMAGE_REQUEST = 2
     private var selectedImageBitmap: Bitmap? = null
@@ -46,21 +53,25 @@ class ManageEventFragment : Fragment() {
     ): View? {
 
 
-        //val user_id = intent.getStringExtra("user_id")
-        binding = FragmentUserFormBinding.inflate(inflater, container, false)
+        //val event_id = intent.getStringExtra("event_id")
+        binding = FragmentManageEventBinding.inflate(inflater, container, false)
 
+        setupTimePicker()
+        setupDatePicker()
         initViewModel()
-        createUserObservable()
-        val args = UserFormFragmentArgs.fromBundle(requireArguments())
-        val user_id = args.userId
+        createEventObservable()
+        val args = ManageEventFragmentArgs.fromBundle(requireArguments())
+        val event_id = args.eventId
 
-        if (user_id != 0) {
-            loadUserData(user_id)
+        if (event_id != 0) {
+            loadEventData(event_id)
         }
 
 
-        binding.createButton.setOnClickListener {
-            createUser(user_id,selectedImageBitmap)
+        binding.createEventButton.setOnClickListener {
+            validateForm()
+
+            createEvent(event_id,selectedImageBitmap)
         }
 
 
@@ -69,8 +80,75 @@ class ManageEventFragment : Fragment() {
             showImagePickerDialog()
         }
 
+
+        viewModelEventParticipants = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(EventParticipantsViewModel::class.java)
+
+        viewModelEventParticipants.getEventPartSizeObserverable().observe(viewLifecycleOwner,Observer<Int?>{
+                eventListResponse->
+            if (eventListResponse==null){
+            }else{
+
+                if(args.add){
+                    binding.numGoingAdminText.setText("")
+                }else{
+                    val eventListSize = eventListResponse
+                    binding.numGoingAdminText.setText("Total user joined : "+eventListSize.toString())
+                    Log.i("viewModelPart","initViewModel:\n"+"$eventListSize")
+                }
+
+
+            }
+        })
+
+
+        viewModelEventParticipants.getEventsPartSize(event_id)
+
+
+
+
         return binding.root
     }
+
+
+    private fun setupDatePicker() {
+        val datePicker = binding.datePicker1
+
+        // Get the current date
+        val currentDate = Calendar.getInstance()
+
+        // Set the minimum date for the DatePicker to today's date
+        datePicker.minDate = currentDate.timeInMillis
+
+        // Optionally, you can set the initial date to today
+        datePicker.init(
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DAY_OF_MONTH)
+        ) { _, year, month, dayOfMonth ->
+            // Date selected listener (optional)
+            // You can perform actions when the user selects a date
+        }
+    }
+
+    private fun setupTimePicker() {
+        val timePicker = binding.timePicker1
+
+        val currentTime = Calendar.getInstance()
+
+        // Set the minimum time for the TimePicker to the current time
+        timePicker.hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        timePicker.minute = currentTime.get(Calendar.MINUTE)
+
+        // Optionally, you can set a time selected listener (if needed)
+        timePicker.setOnTimeChangedListener { _, _, _ ->
+            // Time selected listener (optional)
+            // You can perform actions when the user selects a time
+        }
+    }
+
 
     private fun pickImage() {
         val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
@@ -98,24 +176,10 @@ class ManageEventFragment : Fragment() {
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
 
-    // Function to open the camera for image capture
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, CAPTURE_IMAGE_REQUEST)
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (resultCode == Activity.RESULT_OK) {
-//
-//                if(requestCode == 101){
-//                    val url = data?.data
-//                    binding.profileImg.setImageURI(url)
-//                }
-//            }
-//        }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -126,56 +190,85 @@ class ManageEventFragment : Fragment() {
                     val selectedImageUri = data?.data
                     if (selectedImageUri != null) {
 
-
-                        binding.profileImg.setImageURI(selectedImageUri)
+                        binding.eventImgAdmin.setImageURI(selectedImageUri)
                         val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
-                        selectedImageBitmap = imageBitmap // Store the selected image in the variable
+                        selectedImageBitmap = imageBitmap
                     }
                 }
 
                 CAPTURE_IMAGE_REQUEST -> {
                     val imageBitmap = data?.extras?.get("data") as Bitmap?
-                    // Handle the captured image bitmap (e.g., display it, store it, etc.)
                     if (imageBitmap != null) {
-                        selectedImageBitmap = imageBitmap // Store the captured image in the variable
+                        selectedImageBitmap = imageBitmap
                     }
                 }
             }
         }
     }
-    private fun loadUserData(user_id: Int?) {
-        viewModel.getLoadUserObservable().observe(viewLifecycleOwner, Observer<User?> {
-            if (it != null) {
+    private fun loadEventData(event_id: Int?) {
+        viewModel.getLoadEventObservable().observe(viewLifecycleOwner, Observer<Event?> { event ->
+            if (event != null) {
+                binding.eTextTitle.setText(event.title)
+                binding.eTextDetails.setText(event.details)
+                binding.createEventButton.text = "Update"
+                binding.createEventTitletv.text = "Update Event"
+                binding.eTextAddress.setText(event.address.toString())
 
-                binding.eTextUserName.setText(it.name)
-                binding.eTextEmail.setText(it.email)
-                binding.createButton.setText("Update")
-                binding.createTitletv.setText("Update User")
-                binding.eTextWeight.setText(it.weight.toString())
-                binding.eTextHeight.setText(it.height.toString())
-                val custImageView = binding.profileImg
+                if (!event.date.isNullOrEmpty()) {
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    val date = dateFormat.parse(event.date)
 
-                if (!it.image.isNullOrBlank()) {
+                    if (date != null) {
+                        val calendar = Calendar.getInstance()
+                        calendar.time = date
 
-                    Picasso.get().load(it.image).fit().into(custImageView)
-                } else{
-                    // If no image URL is available,  set a placeholder image or handle this case as needed.\
-                    Log.e("noimage", "noimage")
-                    Picasso.get().load(R.drawable.img_person).into(custImageView)
+                        val year = calendar.get(Calendar.YEAR)
+                        val month = calendar.get(Calendar.MONTH)
+                        val day = calendar.get(Calendar.DAY_OF_MONTH)
+                        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                        val minute = calendar.get(Calendar.MINUTE)
+
+                        // Set the date and time to your DatePicker and TimePicker
+                        binding.datePicker1.updateDate(year, month, day)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            binding.timePicker1.hour = hour
+                            binding.timePicker1.minute = minute
+                        } else {
+                            // For older Android versions
+                            binding.timePicker1.currentHour = hour
+                            binding.timePicker1.currentMinute = minute
+                        }
+                    }
                 }
-                if (it.gender == "Male") {
-                    binding.radioMale.isChecked = true
+
+                val eventImageView = binding.eventImgAdmin
+                if (!event.image.isNullOrBlank()) {
+                    Picasso.get()
+                        .load(event.image)
+                        .fit()
+                        .error(R.drawable.event_default)
+                        .into(eventImageView, object : Callback {
+                            override fun onSuccess() {
+                                Log.e("NICE", "image")
+                            }
+                            override fun onError(e: Exception?) {
+                                Log.e("NotNice", "${e}")
+
+                            }
+                        })
                 } else {
-                    // Optionally, you can uncheck it here if "it.gender" is not "Male"
-                    binding.radioFemale.isChecked = true
+                    Log.e("noimage", "noimage")
+                    Picasso.get().load(R.drawable.event_default).into(eventImageView)
                 }
             }
         })
-        viewModel.getUserData(user_id)
+        viewModel.getEventData(event_id)
     }
 
-    private fun createUser(user_id: Int?,selectedImageBitmap: Bitmap?) {
 
+
+
+    private fun createEvent(event_id: Int?, selectedImageBitmap: Bitmap?) {
 
         val imageData: String? = if (selectedImageBitmap != null) {
             encodeBitmapToBase64(selectedImageBitmap)
@@ -183,29 +276,63 @@ class ManageEventFragment : Fragment() {
             null
         }
 
-        val selectedGender = when (binding.radioGroupGender.checkedRadioButtonId) {
-            R.id.radioMale -> "Male"
-            R.id.radioFemale -> "Female"
-            else -> null
+        val datePicker = binding.datePicker1
+        val timePicker = binding.timePicker1
+
+        val year = datePicker.year
+        val month = datePicker.month + 1
+        val day = datePicker.dayOfMonth
+
+        val hourOfDay: Int
+        val minute: Int
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            hourOfDay = timePicker.hour
+            minute = timePicker.minute
+        } else {
+            hourOfDay = timePicker.currentHour
+            minute = timePicker.currentMinute
         }
-        val user = User(
+
+        val formattedDate = String.format("%04d-%02d-%02d %02d:%02d:00", year, month, day, hourOfDay, minute)
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+
+        val userId = userData?.first
+
+        val event = Event(
             null,
-            binding.eTextUserName.text.toString(),
-            binding.eTextEmail.text.toString(),
-            selectedGender,
+            binding.eTextTitle.text.toString(),
+            binding.eTextDetails.text.toString(),
             imageData,
-            "",
-            "",
-            binding.eTextWeight.text.toString().toDoubleOrNull(),
-            binding.eTextHeight.text.toString().toDoubleOrNull(),
-            null
+            formattedDate,
+            binding.eTextAddress.text.toString(),
+            "Active",
+            userId
         )
 
-        if (user_id == 0)
-            viewModel.createUser(user)
-        else
-            viewModel.updateUser(user_id ?: 0, user)
 
+        if (event_id == 0)
+            viewModel.createEvent(event)
+        else
+            viewModel.updateEvent(event_id ?: 0, event)
+    }
+
+    private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt(
+            "UserId",
+            -1
+        ) // -1 is a default value if the key is not found
+        val userName = sharedPreferences.getString(
+            "UserName",
+            null
+        ) // null is a default value if the key is not found
+        if (userId != -1 && userName != null) {
+            return Pair(userId, userName)
+        }
+        return null
     }
 
 
@@ -219,22 +346,17 @@ class ManageEventFragment : Fragment() {
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-        ).get(UserFormViewModel::class.java)
+        ).get(EventFormViewModel::class.java)
+
 
     }
 
-    private fun createUserObservable() {
-        viewModel.getCreateNewUserObservable().observe(viewLifecycleOwner, Observer<User?> {
+    private fun createEventObservable() {
+        viewModel.getCreateNewEventObservable().observe(viewLifecycleOwner, Observer<Event?> {
             if (it == null) {
-                UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+                ManageEventFragmentDirections.actionManageEventFragmentToEventListFragment()
             } else {
-
-
                 showSuccessDialog()
-
-
-
-
             }
         })
     }
@@ -243,20 +365,18 @@ class ManageEventFragment : Fragment() {
         dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.custom_dialog_success)
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.setCancelable(false) // Optional
+        dialog.setCancelable(false)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
 
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation // Setting the animations to dialog
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
 
         val okay: Button = dialog.findViewById(R.id.btn_okay)
         val cancel: Button = dialog.findViewById(R.id.btn_cancel)
 
         okay.setOnClickListener {
-
             dialog.dismiss()
-            val action = UserFormFragmentDirections.actionCreateUserFragementToUserListFragment()
+            val action = ManageEventFragmentDirections.actionManageEventFragmentToEventListFragment()
             findNavController().navigate(action)
-
         }
 
         cancel.setOnClickListener {
@@ -265,8 +385,28 @@ class ManageEventFragment : Fragment() {
         }
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.BLACK))
-        dialog.show() // Showing the dialog here
+        dialog.show()
 
 
     }
+
+
+    private fun validateForm() : Boolean{
+        val editTextTitle: TextInputEditText = binding.eTextTitle
+        val title = editTextTitle.text.toString()
+            .trim { it <= ' ' }
+
+
+        if (title.isEmpty()) {
+            binding.layoutTitle.error = "Title cannot be empty"
+            binding.layoutAddress.error = "Address cannot be empty"
+            binding.layoutDetails.error = "Details cannot be empty"
+
+            return false
+        } else {
+            return true
+        }
+
+    }
+
 }

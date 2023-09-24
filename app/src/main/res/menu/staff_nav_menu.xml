@@ -7,11 +7,15 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/workoutFormFragment"
-            android:icon="@drawable/baseline_accessibility_white_24"
+            android:id="@+id/reportDashboardFragment"
+            android:icon="@drawable/nav_home"
             android:title="Dashboard"/>
 
 
+        <item
+            android:id="@+id/workoutListFragment"
+            android:icon="@drawable/baseline_accessibility_white_24"
+            android:title="All Workouts"/>
         <item
             android:id="@+id/userListFragment"
             android:icon="@drawable/baseline_person_24"
@@ -62,6 +66,9 @@
         <!--            android:icon="@drawable/nav_about"-->
         <!--            android:title="Staff Dashboard"/>-->
     </group>
+
+
+>
     <item
         android:title="">
         <menu>

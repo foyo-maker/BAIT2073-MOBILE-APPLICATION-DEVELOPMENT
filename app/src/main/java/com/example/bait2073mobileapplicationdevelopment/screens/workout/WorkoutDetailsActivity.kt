@@ -22,7 +22,6 @@ class WorkoutDetailsActivity : AppCompatActivity() {
     private lateinit var viewPager2: ViewPager2
     private lateinit var adapter: ViewPagerAdapter
     private lateinit var binding:AcitivityWorkoutDetailsBinding
-
     private lateinit var workout: Workout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +33,7 @@ class WorkoutDetailsActivity : AppCompatActivity() {
         }catch(e :Exception){
             e.printStackTrace()
         }
+
 
         binding.nameTv.text = workout.name
         binding.descriptionTv.text = workout.description

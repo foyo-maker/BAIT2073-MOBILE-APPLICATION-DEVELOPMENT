@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.fragment.StartPlan">
+    >
 
+
+
+    <data>
+        <variable
+            name="UserPlanWorkoutViewModel"
+            type="com.example.bait2073mobileapplicationdevelopment.screens.workout.StartUserWorkoutPlanViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".screens.fragment.StartPlan">
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:orientation="vertical"
+
+            android:layout_marginTop="150dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/gifImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/videoImg"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:adjustViewBounds="true"
 
-                android:background="#80D8FF"
-                android:scaleType="fitCenter"
-                android:src="@drawable/planvideocam"
-                app:shapeAppearanceOverlay="@style/roundimageview" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/helpImg"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:adjustViewBounds="true"
-                android:background="#80D8FF"
-                android:scaleType="fitCenter"
-                android:src="@drawable/plan_question_mark"
-                app:shapeAppearanceOverlay="@style/roundimageview" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/speakerImg"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/activityleftv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="#80D8FF"
-                android:scaleType="fitCenter"
-                android:src="@android:drawable/ic_lock_silent_mode_off"
-                app:shapeAppearanceOverlay="@style/roundimageview" />
+                android:layout_gravity="center_horizontal"
+                android:text='@{"Current Activity: " + UserPlanWorkoutViewModel.activityCount + "/" + UserPlanWorkoutViewModel.totalUserPlanListCount}'
+                android:textAlignment="center"
+                android:textColor="#21154A"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="Current Activity" />
+
+
         </LinearLayout>
+
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifImageView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="299dp"
 
+
             android:layout_marginStart="12dp"
+            android:layout_marginTop="29dp"
             android:layout_marginEnd="13dp"
-            android:src="@drawable/gif_exercise_squat"
+            android:layout_marginBottom="10dp"
+
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
@@ -73,8 +69,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="21dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/flTimer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gifImageView">
 
             <TextView
@@ -83,28 +83,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical"
-                android:text="R TO GO"
+                android:text="READY TO GO"
                 android:textAlignment="center"
                 android:textColor="#21154A"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="RtlCompat" />
+
             <TextView
                 android:id="@+id/exeNametxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Squat"
+                android:text="@{UserPlanWorkoutViewModel.activityName}"
+
                 android:textAlignment="center"
                 android:textColor="#939393"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Squat" />
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/flTimer"
-            android:layout_width="123dp"
-            android:layout_height="93dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="163dp"
+            android:layout_height="145dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="46dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,14 +117,13 @@
 
             <ProgressBar
                 android:id="@+id/pbTimer"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="143dp"
+                android:layout_height="157dp"
                 android:layout_gravity="center"
                 android:background="@drawable/gray_progressbar_background"
                 android:indeterminate="false"
-                android:max="10"
-                android:progress="10"
+                android:progress="@{UserPlanWorkoutViewModel.progressBar}"
                 android:progressDrawable="@drawable/blue_progressbar_background"
                 android:rotation="-90"></ProgressBar>
 
@@ -128,9 +132,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="10"
+                android:text="@{UserPlanWorkoutViewModel.currentTime.toString()}"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="35sp"
                 android:textStyle="bold" />
         </FrameLayout>
 
@@ -138,12 +142,12 @@
             android:id="@+id/btnGoNext"
             android:layout_width="40dp"
             android:layout_height="40dp"
-
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:onClick="@{() -> UserPlanWorkoutViewModel.onSkip()}"
             android:src="@drawable/baseline_navigate_next_24"
             app:layout_constraintBottom_toBottomOf="@+id/flTimer"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</layout>

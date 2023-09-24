@@ -49,7 +49,7 @@
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifImageView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="299dp"
 
 

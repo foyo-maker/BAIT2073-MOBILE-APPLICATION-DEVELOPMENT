@@ -30,9 +30,6 @@
         android:label="Personalized Recommendation WorkOut"
         tools:layout="@layout/fragment_display_workout" >
         <action
-            android:id="@+id/action_workoutFragment_to_startPlan"
-            app:destination="@id/startPlan" />
-        <action
             android:id="@+id/action_workoutFragment_to_startPersonalizedFragment"
             app:destination="@id/startPersonalizedFragment" />
     </fragment>
@@ -42,8 +39,14 @@
         android:label="Start Plan"
         tools:layout="@layout/fragment_start_plan" >
         <action
-            android:id="@+id/action_startPlan_to_play_plan"
-            app:destination="@id/play_plan" />
+            android:id="@+id/action_startPlan_to_myTrainList"
+            app:destination="@id/myTrainList" />
+        <action
+            android:id="@+id/action_startPlan_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <argument
+            android:name="user_plan_id"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -66,15 +69,27 @@
         <action
             android:id="@+id/action_eventFragment_to_eventDetailsFragment"
             app:destination="@id/eventDetailsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.event.EventList.EventListFragment"
         android:label="EventListFragment" />
+
     <fragment
         android:id="@+id/eventDetailsFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.EventDetailsFragment"
-        android:label="EventDetailsFragment" />
+        android:label="EventDetailsFragment" >
+        <argument
+            android:name="event_id"
+            app:argType="integer" />
+        <argument
+            android:name="joined"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.password.ChangePassword.ChangePasswordFragment"
@@ -269,7 +284,7 @@
     <fragment
         android:id="@+id/startPersonalizedFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.personalized.StartPersonalizedFragment"
-        android:label="Start Personalized Plan" >
+        android:label="StartPersonalizedFragment" >
         <action
             android:id="@+id/action_startPersonalizedFragment_to_reportFragment"
             app:destination="@id/reportFragment" />
@@ -281,16 +296,51 @@
         android:id="@+id/myTrainList"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.MyTrainList"
         android:label="fragment_my_train_list"
-        tools:layout="@layout/fragment_my_train_list" />
+        tools:layout="@layout/fragment_my_train_list" >
+        <action
+            android:id="@+id/action_myTrainList_to_addPlanLIst"
+            app:destination="@id/addPlanLIst" />
+        <action
+            android:id="@+id/action_myTrainList_to_userPlanWorkoutShow"
+            app:destination="@id/userPlanWorkoutShow" />
+        <action
+            android:id="@+id/action_myTrainList_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.AboutFragment"
         android:label="About Us" />
     <fragment
-        android:id="@+id/play_plan"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.play_plan"
-        android:label="fragment_play_plan"
-        tools:layout="@layout/fragment_play_plan" />
+        android:id="@+id/addPlanLIst"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.AddPlanList"
+        android:label="fragment_add_plan_l_ist"
+        tools:layout="@layout/fragment_add_plan_l_ist" >
+        <argument
+            android:name="user_plan_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_addPlanLIst_to_myTrainList"
+            app:destination="@id/myTrainList" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPlanWorkoutShow"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.workout.userPlanWorkoutShow"
+        android:label="fragment_user_plan_workout_show"
+        tools:layout="@layout/fragment_user_plan_workout_show" >
+        <argument
+            android:name="user_plan_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_userPlanWorkoutShow_to_startPlan"
+            app:destination="@id/startPlan" />
+        <action
+            android:id="@+id/action_userPlanWorkoutShow_to_addPlanLIst"
+            app:destination="@id/addPlanLIst" />
+        <action
+            android:id="@+id/action_userPlanWorkoutShow_to_myTrainList"
+            app:destination="@id/myTrainList" />
+    </fragment>
 
 
 </navigation>

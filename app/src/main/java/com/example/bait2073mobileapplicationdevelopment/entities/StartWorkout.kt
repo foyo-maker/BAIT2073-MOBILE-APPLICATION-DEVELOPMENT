@@ -16,8 +16,6 @@ data class StartWorkout(
     @SerializedName("id")
     val id: Int?,
 
-
-
     @ColumnInfo(name = "name")
     @Expose
     @SerializedName("name")

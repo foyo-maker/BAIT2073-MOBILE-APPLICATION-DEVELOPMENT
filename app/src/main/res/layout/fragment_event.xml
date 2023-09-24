@@ -2,7 +2,6 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     >
 
     <data>
@@ -42,7 +41,7 @@
                         android:layout_height="?attr/actionBarSize"
                         android:background="@drawable/view_border"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="80dp"
                         android:layout_gravity="center">
 
                         <SearchView
@@ -77,10 +76,18 @@
 
                     <!-- RecyclerView -->
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleView"
+                        android:id="@+id/recycleView_eventPart_list_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="200dp"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                    <!-- RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleView_event_list_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="80dp"
                         />
 
                     <!-- Add any other views or widgets below the RecyclerView as needed -->
