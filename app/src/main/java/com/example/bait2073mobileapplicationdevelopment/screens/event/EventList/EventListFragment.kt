@@ -108,14 +108,14 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
 
 
 
-     fun initViewModel(){
+    fun initViewModel(){
         viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
             .get(EventListViewModel::class.java)
-         viewModelForm= ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
-             .get(EventFormViewModel::class.java)
+        viewModelForm= ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
+            .get(EventFormViewModel::class.java)
 
         viewModel.getEventListObserverable().observe(viewLifecycleOwner,Observer<List<Event?>>{
-            eventListResponse->
+                eventListResponse->
             if (eventListResponse==null){
                 Toast.makeText(requireContext(),"EventListFragment initViewModel() no result found...",Toast.LENGTH_LONG).show()
             }else{
@@ -170,9 +170,9 @@ class EventListFragment: Fragment(), EventListAdapter.EventClickListerner, Popup
 
     private fun observeEventDeletion(){
         viewModel.getDeleteEventObservable().observe(viewLifecycleOwner,Observer<Event?>{
-            deletedUser ->
+                deletedUser ->
             if(deletedUser == null){
-               Toast.makeText(requireContext(), "Cannot Delete Event", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Cannot Delete Event", Toast.LENGTH_SHORT).show()
             }else{
                 showSuccessDialog()
                 viewModel.getEvents()

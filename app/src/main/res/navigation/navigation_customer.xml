@@ -129,7 +129,12 @@
             app:destination="@id/eventFragment"
             app:popUpTo="@id/action_dashboardFragment_to_eventFragment"
             app:popUpToInclusive="true"
-
+            />
+        <action
+            android:id="@+id/action_dashboardFragment_to_diseaseFragment"
+            app:destination="@id/diseasePreventionFragment"
+            app:popUpTo="@id/action_dashboardFragment_to_diseaseFragment"
+            app:popUpToInclusive="true"
             />
         <action
             android:id="@+id/action_dashboardFragment_to_profileFragment"
@@ -166,13 +171,107 @@
             />
     </fragment>
     <fragment
-        android:id="@+id/diseaseCausesFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DiseaseCausesFragment"
-        android:label="Diseases" />
-    <fragment
         android:id="@+id/diseasePreventionFragment"
-        android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.DiseasePreventionFragment"
-        android:label="Diseases" />
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.diseaseMain.DiseaseMainFragment"
+        android:label="Diseases Prevention">
+        <action
+            android:id="@+id/action_diseaseFragment_to_diseaseDetailFragment"
+            app:destination="@id/diseaseDetailFragment"/>
+        <action
+            android:id="@+id/action_diseaseFragment_to_diseaseCheckerFragment"
+            app:destination="@id/diseaseCheckerFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/diseaseCheckerFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.SymptomCheckerFragment"
+        android:label="Diseases Checker">
+        <action
+            android:id="@+id/action_diseaseCheckerFragment_to_diseaseResultFragment"
+            app:destination="@id/diseaseResultFragment"/>
+        <action
+            android:id="@+id/action_diseaseCheckerFragment_to_diseaseFragment"
+            app:destination="@id/diseasePreventionFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/diseaseResultFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseResultFragment"
+        android:label="Diseases Results">
+        <argument
+            android:name="symptom_id"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_diseaseResultFragment_to_diseaseCheckerFragment"
+            app:destination="@id/diseaseCheckerFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/diseaseDetailFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseDetailFragment"
+        android:label="Diseases Detail">
+        <argument
+            android:name="disease_id"
+            app:argType="integer" />
+        <argument
+            android:name="disease_name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_diseaseDetailFragment_to_diseaseCausesFragment"
+            app:destination="@id/diseaseCausesFragment"/>
+        <action
+            android:id="@+id/action_diseaseDetailFragment_to_diseaseRecipeFragment"
+            app:destination="@id/diseaseRecipeFragment"/>
+        <action
+            android:id="@+id/action_diseaseDetailFragment_to_diseaseHospitalFragment"
+            app:destination="@id/diseaseHospitalFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/diseaseCausesFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseCausesFragment"
+        android:label="Diseases Causes">
+        <argument
+            android:name="disease_id"
+            app:argType="integer" />
+        <argument
+            android:name="disease_name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_diseaseCausesFragment_to_diseaseDetailFragment"
+            app:destination="@id/diseaseDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/diseaseRecipeFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseRecipeFragment"
+        android:label="Diseases Recipe">
+        <argument
+            android:name="disease_id"
+            app:argType="integer" />
+        <argument
+            android:name="disease_name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_diseaseRecipeFragment_to_diseaseDetailFragment"
+            app:destination="@id/diseaseDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/diseaseHospitalFragment"
+        android:name="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseHospitalFragment"
+        android:label="Diseases Hospital">
+        <argument
+            android:name="disease_id"
+            app:argType="integer" />
+        <argument
+            android:name="disease_name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_diseaseHospitalFragment_to_diseaseDetailFragment"
+            app:destination="@id/diseaseDetailFragment"/>
+    </fragment>
+
     <fragment
         android:id="@+id/logoutFragment"
         android:name="com.example.bait2073mobileapplicationdevelopment.screens.fragment.LogoutFragment"

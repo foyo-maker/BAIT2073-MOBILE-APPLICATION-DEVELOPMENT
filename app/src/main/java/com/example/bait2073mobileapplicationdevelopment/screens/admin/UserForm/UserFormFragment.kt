@@ -36,7 +36,6 @@ import java.io.ByteArrayOutputStream
 
 class UserFormFragment : Fragment() {
 
-
     private lateinit var viewModel: UserFormViewModel
     private lateinit var binding: FragmentUserFormBinding
     private val PICK_IMAGE_REQUEST = 1
@@ -171,7 +170,7 @@ class UserFormFragment : Fragment() {
         } else {
             null
         }
-
+        Log.e("imageData","$imageData")
         val selectedGender = when (binding.radioGroupGender.checkedRadioButtonId) {
             R.id.radioMale -> "Male"
             R.id.radioFemale -> "Female"
