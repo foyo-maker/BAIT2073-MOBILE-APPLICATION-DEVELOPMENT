@@ -398,7 +398,6 @@ class ManageEventFragment : Fragment() {
 
 
         if (title.isEmpty()) {
-            // Input is empty, show an error or handle the case as needed
             binding.layoutTitle.error = "Title cannot be empty"
             binding.layoutAddress.error = "Address cannot be empty"
             binding.layoutDetails.error = "Details cannot be empty"
