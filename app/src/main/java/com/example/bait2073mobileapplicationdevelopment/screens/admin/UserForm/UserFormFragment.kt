@@ -116,7 +116,7 @@ class UserFormFragment : Fragment() {
                     if (selectedImageUri != null) {
 
 
-                    binding.profileImg.setImageURI(selectedImageUri)
+                        binding.profileImg.setImageURI(selectedImageUri)
                         val imageBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImageUri)
                         selectedImageBitmap = imageBitmap // Store the selected image in the variable
                     }
