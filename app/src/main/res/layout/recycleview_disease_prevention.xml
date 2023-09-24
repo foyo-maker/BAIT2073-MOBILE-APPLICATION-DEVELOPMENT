@@ -52,18 +52,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/disease_prevention_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="lorem ipsummm"
-                    android:textColor="@color/ligth_text"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/disease_prevention_name" />
-
                 <Button
                     android:id="@+id/disease_prevention_view"
                     android:layout_width="130dp"

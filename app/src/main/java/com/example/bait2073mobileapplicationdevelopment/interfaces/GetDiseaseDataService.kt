@@ -19,7 +19,7 @@ interface GetDiseaseDataService {
 
     @GET("diseases/{disease_id}")
     @Headers("Accept:application/json","Content-Type:application/json")
-    fun getDisease(@Path("disease_id") disease_id: Int): Call<Disease>
+    fun getDisease(@Path("disease_id") disease_id: Int?): Call<Disease>
 
     @POST("diseases")
     @Headers("Accept:application/json", "Content-Type:application/json")

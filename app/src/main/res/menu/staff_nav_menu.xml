@@ -12,8 +12,6 @@
             android:title="Dashboard"/>
 
 
-
-
         <item
             android:id="@+id/userListFragment"
             android:icon="@drawable/baseline_person_24"
@@ -21,22 +19,22 @@
 
         <item
             android:id="@+id/symptomListFragment2"
-            android:icon="@drawable/baseline_person_24"
+            android:icon="@drawable/baseline_symptoms_24"
             android:title="All Symptoms"/>
 
         <item
             android:id="@+id/diseaseListFragment"
-            android:icon="@drawable/baseline_person_24"
+            android:icon="@drawable/baseline_health_24"
             android:title="All Diseases"/>
 
         <item
             android:id="@+id/recipeListFragment2"
-            android:icon="@drawable/baseline_person_24"
+            android:icon="@drawable/baseline_recipe_24"
             android:title="All Recipes"/>
 
         <item
             android:id="@+id/hospitalListFragment2"
-            android:icon="@drawable/baseline_person_24"
+            android:icon="@drawable/baseline_local_hospital_24"
             android:title="All Hospitals"/>
 
         <item

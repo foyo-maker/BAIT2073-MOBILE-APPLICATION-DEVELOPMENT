@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.recipeList.RecipeListFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.recipe.recipeList.RecipeListFragment">
 
     <data>
         <variable
@@ -11,7 +11,7 @@
             type="androidx.lifecycle.LifecycleOwner" />
         <variable
             name="recipeListViewModel"
-            type="com.example.bait2073mobileapplicationdevelopment.screens.admin.recipeList.RecipeListViewModel" />
+            type="com.example.bait2073mobileapplicationdevelopment.screens.recipe.recipeList.RecipeListViewModel" />
     </data>
 
     <ScrollView

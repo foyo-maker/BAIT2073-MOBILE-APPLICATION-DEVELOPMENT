@@ -17,7 +17,7 @@ interface GetSymptomDataService {
 
         @GET("symptoms/{symptom_id}")
         @Headers("Accept:application/json","Content-Type:application/json")
-        fun getSymptom(@Path("symptom_id") symptom_id: Int): Call<Symptom>
+        fun getSymptom(@Path("symptom_id") symptom_id: Int?): Call<Symptom>
 
         @POST("symptoms")
         @Headers("Accept:application/json", "Content-Type:application/json")

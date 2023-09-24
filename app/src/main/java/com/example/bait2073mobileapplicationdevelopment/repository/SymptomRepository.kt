@@ -12,8 +12,16 @@ class SymptomRepository (private val symptomDao: SymptomDao) {
         symptomDao.insertSymptom(symptom)
     }
 
+   fun retrieve(): LiveData<List<Symptom>> {
+        return symptomDao.getAllSymptom()
+    }
+
     suspend fun getSymptomById(symptomId: Int): LiveData<Symptom> {
         return symptomDao.getSymptomById(symptomId)
+    }
+
+    suspend fun deleteAll(){
+        symptomDao.deleteSymptom()
     }
 
 }

@@ -24,7 +24,6 @@ class RatingDialog(context: Context, private val viewModel: RatingDialogViewMode
 
     private var userRate = 0f
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.custom_dialog_rating)

@@ -12,7 +12,7 @@ data class Disease(
     @ColumnInfo(name = "id")
     @Expose
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
 
     @ColumnInfo(name = "disease_name")
     @Expose

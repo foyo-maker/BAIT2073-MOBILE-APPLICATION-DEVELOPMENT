@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#EAE5E5"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseDetailFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,13 +17,13 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/diseaseDetailTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="80dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="What you would like to know about Denggi Fever?"
+                android:text="What would you like to know about Denggi Fever ?"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.2"
@@ -33,7 +33,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/textView10">
+                app:layout_constraintTop_toBottomOf="@id/diseaseDetailTitle">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                                             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
                                         <Button
-                                            android:id="@+id/button"
+                                            android:id="@+id/symptomButton"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Check"
@@ -146,7 +146,7 @@
                                             app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
                                         <Button
-                                            android:id="@+id/button3"
+                                            android:id="@+id/recipeButton"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Check"
@@ -208,7 +208,7 @@
                                         app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
                                     <Button
-                                        android:id="@+id/button4"
+                                        android:id="@+id/hospitalButton"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Check"

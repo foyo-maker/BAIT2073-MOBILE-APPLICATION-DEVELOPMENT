@@ -14,9 +14,9 @@ interface GetDiseaseHospitalDataService {
         @GET("diseaseHospital")
         fun getDiseaseHospitalList(): Call<List<Disease_Hospital>>
 
-        @GET("diseaseHospital/{diseaseHospital_id}")
+        @GET("matchedDiseaseHospital/{disease_id}")
         @Headers("Accept:application/json","Content-Type:application/json")
-        fun getDiseaseHospital(@Path("diseaseHospital_id") diseaseHospital_id: Int): Call<Disease_Hospital>
+        fun getDiseaseHospital(@Path("disease_id") disease_id: Int): Call<List<Disease_Hospital>>
 
         @POST("diseaseHospital")
         @Headers("Accept:application/json", "Content-Type:application/json")

@@ -32,7 +32,7 @@ class SymptomListAdapter(private val context : Context, val listener: SymptomCli
         val symptomListCard = itemView.findViewById<CardView>(R.id.symptom_layout)
         val symptomId = itemView.findViewById<TextView>(R.id.tv_symptomID)
         val symptomName = itemView.findViewById<TextView>(R.id.tv_symptomName)
-        // Add other views as needed
+
     }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomListViewHolder {
             ctx=parent.context

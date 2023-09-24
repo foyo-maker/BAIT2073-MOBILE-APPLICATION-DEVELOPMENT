@@ -55,7 +55,6 @@ class UserAdapter (private val context : Context, val listener:UserClickListener
         holder.userEmail.text = currentUser.email
         holder.userName.text = currentUser.name
 
-
         val custImageView = holder.itemView.findViewById<ImageView>(R.id.customer_image)
         if (!currentUser.image.isNullOrBlank()) {
 

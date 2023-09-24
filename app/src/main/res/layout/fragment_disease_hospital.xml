@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.disease.DiseaseHospitalFragment">
 
     <ScrollView
         android:id="@+id/hospitalScroll"
@@ -67,6 +68,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:listitem="@layout/recycleview_disease_hospital"/>

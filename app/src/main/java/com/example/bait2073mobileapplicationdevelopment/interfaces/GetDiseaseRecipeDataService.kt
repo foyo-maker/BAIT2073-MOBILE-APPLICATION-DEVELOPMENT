@@ -1,5 +1,6 @@
 package com.example.bait2073mobileapplicationdevelopment.interfaces
 
+import com.example.bait2073mobileapplicationdevelopment.entities.Disease_Hospital
 import com.example.bait2073mobileapplicationdevelopment.entities.Disease_Recipe
 import retrofit2.Call
 import retrofit2.http.Body
@@ -14,9 +15,9 @@ interface GetDiseaseRecipeDataService {
     @GET("diseaseRecipe")
     fun getDiseaseRecipeList(): Call<List<Disease_Recipe>>
 
-    @GET("diseaseRecipe/{diseaseRecipe_id}")
+    @GET("matchedDiseaseRecipe/{disease_id}")
     @Headers("Accept:application/json","Content-Type:application/json")
-    fun getDiseaseRecipe(@Path("diseaseRecipe_id") diseaseRecipe_id: Int): Call<Disease_Recipe>
+    fun getDiseaseRecipe(@Path("disease_id") disease_id: Int): Call<List<Disease_Recipe>>
 
     @POST("diseaseRecipe")
     @Headers("Accept:application/json", "Content-Type:application/json")

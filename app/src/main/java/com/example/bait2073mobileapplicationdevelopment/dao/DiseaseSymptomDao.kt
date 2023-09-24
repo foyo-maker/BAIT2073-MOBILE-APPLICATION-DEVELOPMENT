@@ -17,11 +17,14 @@ interface DiseaseSymptomDao {
 //    @Update
 //    fun updateDiseaseSymptom(diseaseSymptom: Disease_Symptom)
 
-    @Query("SELECT * from disease_symptom WHERE disease_id = :diseaseID")
-    fun getDiseaseSymptomById(diseaseID: Int): LiveData<Disease_Symptom>
+    @Query("SELECT * from disease_symptom WHERE id = :diseaseSymptomId")
+    fun getDiseaseSymptomById(diseaseSymptomId: Int): LiveData<Disease_Symptom>
 
-    @Query("SELECT * from disease_symptom WHERE symptom_id = :symptomID")
-    fun getSymptomDiseaseById(symptomID: Int): LiveData<Disease_Symptom>
+//    @Query("SELECT * from disease_symptom WHERE disease_id = :diseaseID")
+//    fun getDiseaseSymptomById(diseaseID: Int): LiveData<Disease_Symptom>
+
+//    @Query("SELECT * from disease_symptom WHERE symptom_id = :symptomID")
+//    fun getSymptomDiseaseById(symptomID: Int): LiveData<Disease_Symptom>
 
     @Query("SELECT * FROM disease_symptom")
     fun getAllDiseasesSymptom(): LiveData<List<Disease_Symptom>>
@@ -29,9 +32,9 @@ interface DiseaseSymptomDao {
     @Query("DELETE FROM disease_symptom")
     fun deleteDiseaseSymptom()
 
-    @Query("DELETE FROM disease_symptom WHERE disease_id =:diseaseID")
-    fun deleteOneDiseaseSymptom(diseaseID: Int)
+    @Query("DELETE FROM disease_symptom WHERE disease_id =:diseaseId")
+    fun deleteOneDiseaseSymptom(diseaseId: Int)
 
-    @Query("DELETE FROM disease_symptom WHERE symptom_id=:symptomID")
-    fun deleteOneSymptomDisease(symptomID: Int) //if want return type(know the number row delete) put :Int
+    @Query("DELETE FROM disease_symptom WHERE symptom_id=:symptomId")
+    fun deleteOneSymptomDisease(symptomId: Int) //if want return type(know the number row delete) put :Int
 }

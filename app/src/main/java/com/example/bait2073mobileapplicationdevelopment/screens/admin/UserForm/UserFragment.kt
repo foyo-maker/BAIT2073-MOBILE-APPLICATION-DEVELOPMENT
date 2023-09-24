@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.bait2073mobileapplicationdevelopment.adapter.UserAdapter
-import com.example.bait2073mobileapplicationdevelopment.database.HealthyLifeDatabase
+import com.example.bait2073mobileapplicationdevelopment.interfaces.database.HealthyLifeDatabase
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentUserListBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.UserViewModel
@@ -24,7 +24,7 @@ class UserFragment : Fragment(), UserAdapter.UserClickListener, PopupMenu.OnMenu
 
     private lateinit var dialog: Dialog
     private lateinit var binding:FragmentUserListBinding
-    private lateinit var database:HealthyLifeDatabase
+    private lateinit var database: HealthyLifeDatabase
     lateinit var viewModel: UserViewModel
     lateinit var adapter: UserAdapter
     lateinit var selectedCustomer: User

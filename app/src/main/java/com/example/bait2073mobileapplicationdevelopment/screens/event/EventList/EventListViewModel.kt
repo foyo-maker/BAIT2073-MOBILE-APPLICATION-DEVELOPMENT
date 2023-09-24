@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.viewModelScope
 import com.example.bait2073mobileapplicationdevelopment.BaseActivity
-import com.example.bait2073mobileapplicationdevelopment.database.EventDatabase
+import com.example.bait2073mobileapplicationdevelopment.interfaces.database.EventDatabase
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.interfaces.GetEventDataService

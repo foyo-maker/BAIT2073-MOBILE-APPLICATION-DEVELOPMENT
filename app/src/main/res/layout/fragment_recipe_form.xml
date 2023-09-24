@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.recipeList.RecipeListFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.recipe.recipeList.RecipeListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -110,7 +110,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/eTextSymptomDescription"
+                    android:id="@+id/eTextRecipeDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
@@ -136,7 +136,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/eTextSymptomServings"
+                    android:id="@+id/eTextRecipeServings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"

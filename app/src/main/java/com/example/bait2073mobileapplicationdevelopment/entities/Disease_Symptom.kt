@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "Disease_Symptom", foreignKeys = [
     ForeignKey(entity = Disease::class, parentColumns = ["id"], childColumns = ["disease_id"], onDelete = CASCADE),
-    ForeignKey(entity = Symptom::class, parentColumns = ["id"], childColumns = ["symptom_id"], onDelete = CASCADE)
+    ForeignKey(entity = Symptom::class, parentColumns = ["id"], childColumns = ["symptom_id"], onDelete = CASCADE),
 ])
 
 data class Disease_Symptom (

@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.admin.hospitalList.HospitalListFragment">
+    tools:context="com.example.bait2073mobileapplicationdevelopment.screens.hospital.hospitalList.HospitalListFragment">
 
     <data>
         <variable
@@ -11,7 +11,7 @@
             type="androidx.lifecycle.LifecycleOwner" />
         <variable
             name="hospitalListViewModel"
-            type="com.example.bait2073mobileapplicationdevelopment.screens.admin.hospitalList.HospitalListViewModel" />
+            type="com.example.bait2073mobileapplicationdevelopment.screens.hospital.hospitalList.HospitalListViewModel" />
     </data>
 
     <ScrollView

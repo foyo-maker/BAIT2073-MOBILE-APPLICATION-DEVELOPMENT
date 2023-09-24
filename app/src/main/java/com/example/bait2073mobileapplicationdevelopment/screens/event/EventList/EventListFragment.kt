@@ -31,7 +31,7 @@ import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.adapter.EventAdapter
 import com.example.bait2073mobileapplicationdevelopment.adapter.EventListAdapter
 import com.example.bait2073mobileapplicationdevelopment.dao.EventDao
-import com.example.bait2073mobileapplicationdevelopment.database.EventDatabase
+import com.example.bait2073mobileapplicationdevelopment.interfaces.database.EventDatabase
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentEventListBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.Event
 import com.example.bait2073mobileapplicationdevelopment.entities.User

@@ -17,7 +17,7 @@ data class Symptom(
     @ColumnInfo(name = "symptom_name")
     @Expose
     @SerializedName("symptom_name")
-    val symptom_name: String?,
+    val symptom_name: String,
 
     @ColumnInfo(name = "symptom_image")
     @Expose

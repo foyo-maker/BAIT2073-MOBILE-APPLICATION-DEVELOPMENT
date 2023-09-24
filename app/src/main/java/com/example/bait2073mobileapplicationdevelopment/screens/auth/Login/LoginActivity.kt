@@ -19,6 +19,7 @@ import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
 import com.example.bait2073mobileapplicationdevelopment.screens.auth.SignUp.SignUpActivity
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.MainFragment
 import com.example.bait2073mobileapplicationdevelopment.screens.fragment.StaffMainFragment
+import com.example.bait2073mobileapplicationdevelopment.screens.password.RequestEmail.RequestEmailActivity
 
 class LoginActivity : AppCompatActivity() {
 //    var callSignUp: Button? = null
@@ -62,9 +63,9 @@ class LoginActivity : AppCompatActivity() {
             //customer intent
 //            val intent = Intent(this, MainFragment::class.java)
 //            startActivity(intent)
-//
 
-//            staff intent
+
+          //  staff intent
 //            val intent = Intent(this, StaffMainFragment::class.java)
 //            startActivity(intent)
 
@@ -120,15 +121,15 @@ class LoginActivity : AppCompatActivity() {
 
                 var role = it.role
                 Log.e("cutomerintent", "$role")
-                if (it.role == 0) {
-                    //customer intent
-                    Log.e("cutomerintent", "cutomerintent")
-                    val intent = Intent(this, MainFragment::class.java)
-                    startActivity(intent)
-                } else {
+//                if (it.role == 0) {
+//                    //customer intent
+//                    Log.e("cutomerintent", "cutomerintent")
+//                    val intent = Intent(this, MainFragment::class.java)
+//                    startActivity(intent)
+//                } else {
                     val intent = Intent(this, StaffMainFragment::class.java)
                     startActivity(intent)
-                }
+//                }
 
             }
         })
