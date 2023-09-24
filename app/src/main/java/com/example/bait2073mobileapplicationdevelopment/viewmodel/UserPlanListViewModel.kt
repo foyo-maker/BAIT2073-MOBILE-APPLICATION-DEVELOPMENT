@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bait2073mobileapplicationdevelopment.database.HealthyLifeDatabase
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
+import com.example.bait2073mobileapplicationdevelopment.repository.PersonalizedWorkoutRepository
 import com.example.bait2073mobileapplicationdevelopment.repository.UserPlanListRepository
 import com.example.bait2073mobileapplicationdevelopment.repository.UserPlanRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 class UserPlanListModel(application: Application) : AndroidViewModel(application) {
     private val allUserPlanRepository: UserPlanListRepository
     private val userPlanRepository: UserPlanRepository
+
     private val allUserPlanList: LiveData<List<UserPlanList>>
     private val allUserPlans: LiveData<List<UserPlan>>
 
@@ -33,7 +35,7 @@ class UserPlanListModel(application: Application) : AndroidViewModel(application
         userPlanRepository.insertUserPlan(userPlan)
     }
     // Function to get user plan workout by ID
-    suspend fun getUserPlanListById(userPlanId: Int): LiveData<List<UserPlanList>> {
+    fun getUserPlanListById(userPlanId: Int): LiveData<List<UserPlanList>> {
         return allUserPlanRepository.getAllWorkoutsByUserPlanId(userPlanId)
     }
     // Function to get user plan by User ID
@@ -53,5 +55,11 @@ class UserPlanListModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) {
             allUserPlanRepository.deleteWorkoutsByUserPlan(userPlanList)
         }
+        fun clearWorkout() = viewModelScope.launch(Dispatchers.IO) {
+            allUserPlanRepository.clearWorkout()
+        }
+    }
+    fun clearWorkout() = viewModelScope.launch(Dispatchers.IO) {
+        allUserPlanRepository.clearWorkout()
     }
 }

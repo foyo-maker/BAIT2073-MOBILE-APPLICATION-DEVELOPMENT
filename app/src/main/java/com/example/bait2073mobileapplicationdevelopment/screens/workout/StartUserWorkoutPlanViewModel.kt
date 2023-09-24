@@ -1,25 +1,26 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.personalized
+package com.example.bait2073mobileapplicationdevelopment.screens.workout
 
 import android.os.CountDownTimer
-import android.os.Process
 import android.util.Log
-import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentStartPersonalizedPlanBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
 
-class StartPersonalizedViewModel : ViewModel() {
+class StartUserWorkoutPlanViewModel : ViewModel() {
     // The current word
     // The current word
 
 
-    private val workoutList = ArrayList<PersonalizedWorkout>()
+    private val workoutList = ArrayList<UserPlanList>()
 
 
     private val _activityName = MutableLiveData<String>()
+
+    private val _totalUserPlanListCount = MutableLiveData<Int>()
+    val totalUserPlanListCount: LiveData<Int>
+        get() = _totalUserPlanListCount
 
     val activityName: LiveData<String>
         get() = _activityName
@@ -117,10 +118,11 @@ class StartPersonalizedViewModel : ViewModel() {
         timer?.start()
     }
 
-    fun updateList(newList: List<PersonalizedWorkout>) {
+    fun updateList(newList: List<UserPlanList>) {
         workoutList.clear()
         workoutList.addAll(newList)
         Log.e("update", "$workoutList")
+        _totalUserPlanListCount.value = workoutList.size
         resetList()
         nextActivity()
     }
@@ -186,5 +188,7 @@ class StartPersonalizedViewModel : ViewModel() {
 
     fun onActivityFinishComplete() {
         _eventActivityFinish.value = false
+        return
     }
+
 }

@@ -7,25 +7,31 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bait2073mobileapplicationdevelopment.R
-import com.example.bait2073mobileapplicationdevelopment.adapter.UserAdapter
-import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
-import com.example.bait2073mobileapplicationdevelopment.screens.fragment.MyTrainListFragment
+import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserPLanListService
+import com.example.bait2073mobileapplicationdevelopment.retrofitclient.RetrofitClientInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UserPlanListAdapter(private val context: Context, private val listener: UserPlanClickListener) :
     RecyclerView.Adapter<UserPlanListAdapter.UserPlanListViewHolder>() {
 
     private var ctx: Context? = null
-    var UserPlanList = mutableListOf<UserPlanList>()
-    var userPlanWorkoutfullList = mutableListOf<UserPlanList>()
     var UserPlan = mutableListOf<UserPlan>()
     var UserPlanfullList = mutableListOf<UserPlan>()
-
+    var UserPlanList = mutableListOf<UserPlanList>()
+    var userPlanWorkoutfullList = mutableListOf<UserPlanList>()
 
     fun setData(newData:  List<UserPlan>) {
         UserPlan.clear()
         UserPlan.addAll(newData)
+        notifyDataSetChanged()
+    }
+    fun setUserPlanData(newData:  List<UserPlanList>) {
+        UserPlanList.clear()
+        UserPlanList.addAll(newData)
         notifyDataSetChanged()
     }
     inner class UserPlanListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,29 +53,43 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
 
     override fun getItemCount(): Int {
 
-        return UserPlanList.size
+        return UserPlan.size
     }
 
     override fun onBindViewHolder(holder: UserPlanListViewHolder, position: Int) {
-
-        val currentUserPlanList = UserPlanList[position]
         val currentUserPlan = UserPlan[position]
-        Log.e("userplan","$currentUserPlan")
-        holder.planName.text = currentUserPlan.name
-        holder.totalExcise.text = currentUserPlan.id.toString()
+        val currentUserPlanList = UserPlanList
+
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserPLanListService::class.java)
+        val call = service.getUserPlanListByUserPlanId(currentUserPlan.id)
+        call.enqueue(object : Callback<List<UserPlanList>> {
+            override fun onResponse(call: Call<List<UserPlanList>>, response: Response<List<UserPlanList>>) {
+                if (response.isSuccessful) {
+                    val userPlanList = response.body()
+                    val totalExcise = userPlanList?.size ?: 0 // Get the size of the fetched list
+
+                    holder.planName.text = currentUserPlan.plan_name
+                    holder.totalExcise.text = totalExcise.toString()
+
+                    holder.userPlan_layout.setOnClickListener {
+                        listener.onItemClicked(UserPlan[holder.adapterPosition])
+                    }
+
+                    holder.userPlan_layout.setOnLongClickListener {
+                        listener.OnLongItemClicked(UserPlan[holder.adapterPosition], holder.userPlan_layout)
+                        true
+                    }
+                } else {
+                    // Handle the case where the API request was not successful
+                }
+            }
+
+            override fun onFailure(call: Call<List<UserPlanList>>, t: Throwable) {
+                // Handle the failure of the API request
+            }
+        })
 
 
-        holder.userPlan_layout.setOnClickListener{
-
-            listener.onItemClicked(UserPlan[holder.adapterPosition],UserPlanList[holder.adapterPosition])
-
-        }
-        holder.userPlan_layout.setOnLongClickListener{
-
-            listener.OnLongItemClicked(UserPlan[holder.adapterPosition],UserPlanList[holder.adapterPosition], holder.userPlan_layout)
-
-            true
-        }
 
 
     }
@@ -83,18 +103,12 @@ class UserPlanListAdapter(private val context: Context, private val listener: Us
         Log.e("gg","$UserPlan")
         notifyDataSetChanged()
     }
-    fun updateUserPlanWorkoutList(newList : List<UserPlanList>){
-        userPlanWorkoutfullList.clear()
-        userPlanWorkoutfullList.addAll(newList)
-        UserPlanList.clear()
-        UserPlanList.addAll(userPlanWorkoutfullList)
-        notifyDataSetChanged()
-    }
+
 
 
     interface UserPlanClickListener {
-        fun onItemClicked(userPlan: UserPlan,userPlanList: UserPlanList)
-        fun OnLongItemClicked(userPlan: UserPlan,userPlanList: UserPlanList,cardView: CardView)
+        fun onItemClicked(userPlan: UserPlan)
+        fun OnLongItemClicked(userPlan: UserPlan,cardView: CardView)
     }
 }
 

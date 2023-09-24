@@ -44,7 +44,6 @@ abstract class HealthyLifeDatabase: RoomDatabase()  {
 
     abstract fun userDao():UserDao
     abstract fun personalizedWorkoutDao(): PersonalizedWorkoutDao
-
     abstract fun startWorkoutDao(): StartWorkoutDao
 
     abstract fun userPlanDao(): UserPlanDao

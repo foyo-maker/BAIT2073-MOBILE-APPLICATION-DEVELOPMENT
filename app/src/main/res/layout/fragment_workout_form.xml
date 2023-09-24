@@ -165,7 +165,7 @@
                 app:boxBackgroundMode="outline"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/lavender"
-                app:placeholderText="ex: 172cm"
+                app:placeholderText="ex: https://www.youtube.com/"
                 app:startIconTint="@color/lavender">
 
                 <com.google.android.material.textfield.TextInputEditText

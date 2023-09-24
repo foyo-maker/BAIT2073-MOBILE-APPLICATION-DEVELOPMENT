@@ -4,7 +4,6 @@ import GetUserPlanService
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
 import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
 import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserPLanListService
@@ -142,7 +141,6 @@ class UserPlanViewModel: ViewModel() {
                             Log.e("API Error", t.message ?: "Unknown error")
                             deleteUserPlan.postValue(null)
                         }
-
                         override fun onResponse(call: Call<UserPlan?>, response: Response<UserPlan?>) {
                             if(response.isSuccessful) {
                                 Log.e("API Response", "Response body is empty")
@@ -163,9 +161,9 @@ class UserPlanViewModel: ViewModel() {
 
     }
 
-    fun deleteUserWorkOut(userPlanId: Int,workOutId: Int) {
+    fun deleteUserWorkOut(userPlanListId: Int) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(GetUserPLanListService::class.java)
-        val call = service.deleteUserPlanListByWorkoutIdAndUserPlanId(userPlanId,workOutId)
+        val call = service.deleteUserPlanListById(userPlanListId)
         call.enqueue(object : Callback<UserPlanList?> {
 
             override fun onFailure(call: Call<UserPlanList?>, t: Throwable) {

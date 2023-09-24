@@ -92,6 +92,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".screens.workout.userPlanWorkoutShow"
+            android:label="User Plan Workout Show">
+            <!-- Add any necessary intent filters or configurations here -->
+        </activity>
 
 
     </application>

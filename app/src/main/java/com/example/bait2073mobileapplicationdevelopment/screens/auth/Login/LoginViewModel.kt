@@ -1,8 +1,14 @@
 package com.example.bait2073mobileapplicationdevelopment.screens.auth.Login
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.bait2073mobileapplicationdevelopment.R
 import com.example.bait2073mobileapplicationdevelopment.entities.LoginUser
 import com.example.bait2073mobileapplicationdevelopment.entities.User
 import com.example.bait2073mobileapplicationdevelopment.interfaces.GetUserDataService
@@ -13,8 +19,10 @@ import retrofit2.Response
 
 class LoginViewModel  : ViewModel()  {
 
-    lateinit var authenticateUserData: MutableLiveData<LoginUser?>
 
+    private lateinit var dialog: Dialog
+    lateinit var authenticateUserData: MutableLiveData<LoginUser?>
+    val networkErrorLiveData = MutableLiveData<Unit>()
 
 
     init {
@@ -33,8 +41,8 @@ class LoginViewModel  : ViewModel()  {
         call.enqueue(object : Callback<LoginUser?> {
 
             override fun onFailure(call: Call<LoginUser?>, t: Throwable) {
-                Log.e("haha", "wandan")
-                authenticateUserData.postValue(null)
+
+                networkErrorLiveData.postValue(Unit)
             }
 
             override fun onResponse(call: Call<LoginUser?>, response: Response<LoginUser?>) {
@@ -55,4 +63,6 @@ class LoginViewModel  : ViewModel()  {
 
         })
     }
+
+
 }

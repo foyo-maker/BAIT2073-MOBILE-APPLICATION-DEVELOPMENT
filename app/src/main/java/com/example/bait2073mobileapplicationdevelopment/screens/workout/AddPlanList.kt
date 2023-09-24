@@ -1,4 +1,4 @@
-package com.example.bait2073mobileapplicationdevelopment.screens.personalized
+package com.example.bait2073mobileapplicationdevelopment.screens.workout
 
 import android.content.Context
 import android.content.Intent
@@ -17,18 +17,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.bait2073mobileapplicationdevelopment.adapter.PersonalizedWorkOutAdapter
+import com.example.bait2073mobileapplicationdevelopment.adapter.WorkOutAdapter
+import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentAddPlanLIstBinding
 import com.example.bait2073mobileapplicationdevelopment.databinding.FragmentDisplayPersonalizedWorkoutBinding
 import com.example.bait2073mobileapplicationdevelopment.entities.PersonalizedWorkout
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlan
+import com.example.bait2073mobileapplicationdevelopment.entities.UserPlanList
 import com.example.bait2073mobileapplicationdevelopment.entities.Workout
-import com.example.bait2073mobileapplicationdevelopment.screens.workout.WorkoutDetailsActivity
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserForm.UserFormFragmentArgs
+import com.example.bait2073mobileapplicationdevelopment.screens.admin.UserList.UserListFragmentDirections
+import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentDirections
+import com.example.bait2073mobileapplicationdevelopment.screens.personalized.WorkoutFragmentViewModel
 import com.example.bait2073mobileapplicationdevelopment.viewmodel.PersonalizedWorkoutViewModel
 
-class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListener {
+class AddPlanList : Fragment(), WorkOutAdapter.WorkoutClickListener {
 
-    lateinit var recyclerViewAdapter: PersonalizedWorkOutAdapter
-    lateinit var viewModel: WorkoutFragmentViewModel
-    lateinit var viewModelRoom: PersonalizedWorkoutViewModel
-    private lateinit var binding: FragmentDisplayPersonalizedWorkoutBinding
+    lateinit var recyclerViewAdapter: WorkOutAdapter
+    lateinit var viewModel: AddPlanListViewModel
+//    lateinit var viewModelRoom: PersonalizedWorkoutViewModel
+    private lateinit var binding: FragmentAddPlanLIstBinding
 
 
     override fun onCreateView(
@@ -36,24 +43,20 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentDisplayPersonalizedWorkoutBinding.inflate(inflater, container, false)
+        Log.e("addplan","addplan")
+        binding = FragmentAddPlanLIstBinding.inflate(inflater, container, false)
 
-        viewModelRoom = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-        ).get(PersonalizedWorkoutViewModel::class.java)
+//        viewModelRoom = ViewModelProvider(
+//            this,
+//            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+//        ).get(PersonalizedWorkoutViewModel::class.java)
         initViewModel()
-
-
-
-
         initRecyclerView()
         searchWorkout()
-
-        binding.startButton.setOnClickListener {
-            val action = WorkoutFragmentDirections.actionWorkoutFragmentToStartPersonalizedFragment()
-            findNavController().navigate(action)
-
+        binding.savePlanBtn.setOnClickListener{
+            val action =
+                AddPlanListDirections.actionAddPlanLIstToMyTrainList()
+            this.findNavController().navigate(action)
         }
 
         return binding.root
@@ -80,7 +83,7 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
     private fun initRecyclerView() {
         binding.recycleView.setHasFixedSize(true)
         binding.recycleView.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
-        recyclerViewAdapter = PersonalizedWorkOutAdapter(requireContext(), this)
+        recyclerViewAdapter = WorkOutAdapter(requireContext(), this)
         binding.recycleView.adapter = recyclerViewAdapter
 
     }
@@ -90,67 +93,28 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         ).get(
-            WorkoutFragmentViewModel::class.java
+            AddPlanListViewModel::class.java
         )
 
 
-        viewModel.getWorkoutListObserverable()
-            .observe(viewLifecycleOwner, Observer<List<Workout?>> { personalizedListResponse ->
-                if (personalizedListResponse == null) {
+        viewModel.getWorkoutObserverable()
+            .observe(viewLifecycleOwner, Observer<List<Workout?>> { WorkoutListResponse ->
+                if (WorkoutListResponse == null) {
                     Toast.makeText(requireContext(), "no result found...", Toast.LENGTH_LONG).show()
                 } else {
 //                recyclerViewAdapter.updateList(it.toList().get(1))
-                    val workoutList = personalizedListResponse.filterNotNull().toMutableList()
+                    val workoutList = WorkoutListResponse.filterNotNull().toMutableList()
                     Log.i("workoutlist", "$workoutList")
                     recyclerViewAdapter.updateList(workoutList)
                     recyclerViewAdapter.notifyDataSetChanged()
 
-                    clearPersonalizedDb()
-                    insertDataIntoRoomDb(workoutList)
+
                 }
             })
-
-        val userData = retrieveUserDataFromSharedPreferences(requireContext())
-        val userId = userData?.first
-        viewModel.getPersonalizedWorkoutList(userId)
+        viewModel.getWorkouts()
     }
 
 
-    fun insertDataIntoRoomDb(workouts: List<Workout>) {
-
-
-        try {
-            for (workout in workouts) {
-                Log.d("InsertDataIntoRoomDb", "Inserting workout with ID: ${workout}")
-                viewModelRoom.insertWorkout(
-                    PersonalizedWorkout(
-                        id = workout.id,
-                        name = workout.name,
-                        description = workout.description,
-                        link = workout.link,
-                        gifimage = workout.gifimage,
-                        calorie = workout.calorie,
-                        bmi_status = workout.bmi_status
-                    )
-                )
-            }
-        } catch (e: Exception) {
-            Log.e(
-                "InsertDataIntoRoomDb",
-                "Error inserting data into Room Database: ${e.message}",
-
-            )
-        }
-
-
-    }
-
-    fun clearPersonalizedDb() {
-
-
-        viewModelRoom.clearWorkout()
-
-    }
 
     private fun retrieveUserDataFromSharedPreferences(context: Context): Pair<Int, String>? {
         val sharedPreferences: SharedPreferences =
@@ -174,16 +138,38 @@ class WorkoutFragment : Fragment(), PersonalizedWorkOutAdapter.WorkoutClickListe
         val userData = retrieveUserDataFromSharedPreferences(requireContext())
         val userId = userData?.first
         if (requestCode == 1000) {
-            viewModel.getPersonalizedWorkoutList(userId)
+            viewModel.getWorkouts()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onItemClicked(workout: Workout) {
+        val args = AddPlanListArgs.fromBundle(requireArguments())
+        val user_plan_id = args.userPlanId
         // Start the new activity here
         val intent = Intent(requireContext(), WorkoutDetailsActivity::class.java)
-        intent.putExtra("workout", workout)
-        startActivity(intent)
+
+        val userData = retrieveUserDataFromSharedPreferences(requireContext())
+
+        val userId = userData?.first
+
+        Log.e("userplanid","$userId")
+
+        val userPlanList= UserPlanList(
+            null,
+            user_plan_id!!,
+            workout.id!!,
+            workout.name!!,
+            userId!!,
+            workout.description!!,
+            workout.gifimage!!,
+            workout.calorie!!,
+            workout.link!!,
+            workout.bmi_status
+        )
+        viewModel.createPlanWorkout(userPlanList)
+        Toast.makeText(requireContext(),"Workout Created to your plan",Toast.LENGTH_SHORT).show()
+
 
     }
 
